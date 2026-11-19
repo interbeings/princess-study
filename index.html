@@ -272,7 +272,8 @@ if(typeof data.wave!=='boolean')data.wave=true;
 if(typeof data.clearStreak!=='number')data.clearStreak=0;
 if(typeof data.lastClearDay!=='string')data.lastClearDay='';
 if(!data.voicePick||typeof data.voicePick!=='object')data.voicePick={};
-function fixData(){if(!data.mtest||typeof data.mtest!=='object')data.mtest={};if(!data.msel||typeof data.msel!=='object')data.msel={g:2,s:2};
+function fixData(){if(!data.mlv||typeof data.mlv!=='object')data.mlv={};
+ if(!data.mtest||typeof data.mtest!=='object')data.mtest={};if(!data.msel||typeof data.msel!=='object')data.msel={g:2,s:2};
  if(typeof data.points!=='number'||data.points<0)data.points=0;
  if(typeof data.earned!=='number')data.earned=data.points;
  if(typeof data.ptsSeen!=='number')data.ptsSeen=data.points;
@@ -735,20 +736,135 @@ const MATH_CUR={
 ]
 };
 const MATH_AVAIL={1:[1,2],2:[1,2],3:[1,2]};
-function mkMathUnit(key,i,m){
+const HARD={
+'1-1':[
+ [()=>{const s=shuffle([1,2,3,4,5,6,7,8,9]).slice(0,3);return Q(`${s[0]}, ${s[1]}, ${s[2]} 중 가장 큰 수와 가장 작은 수의 차는?`,Math.max(...s)-Math.min(...s))},
+  ()=>{const n=rand(1,7);return Q(`${n}보다 2 큰 수보다 1 작은 수는?`,n+1)},
+  ()=>{const a=rand(1,6),b=rand(a+2,9);return Q(`${a}와(과) ${b} 사이에 있는 수는 모두 몇 개일까요?`,b-a-1)}],
+ [()=>{const a=rand(1,4),b=rand(1,4),c=rand(1,4);return Q(`공 모양 ${a}개, 상자 모양 ${b}개, 둥근기둥 모양 ${c}개예요. 상자 모양이 아닌 것은 모두 몇 개일까요?`,a+c)},
+  ()=>{const a=rand(4,9),b=rand(1,a-1);return Q(`상자 모양 ${a}개 중 ${b}개를 사용했어요. 남은 상자 모양은 몇 개일까요?`,a-b)}],
+ [()=>{const a=rand(3,5),b=rand(1,9-a),c=rand(1,a+b-1);return Q(`${a} + ${b} − ${c} = ?`,a+b-c)},
+  ()=>{const a=rand(5,9),b=rand(1,a-1),c=rand(1,9-(a-b));return Q(`${a} − ${b} + ${c} = ?`,a-b+c)},
+  ()=>{const a=rand(1,4),b=rand(1,5);return Q(`□ − ${b} = ${a}  (□는?)`,a+b)}],
+ [()=>{const n=rand(2,8);return Q(`키가 큰 순서로 줄을 섰더니 지온이가 ${n}번째예요. 지온이 앞에는 몇 명이 있을까요?`,n-1)},
+  ()=>{const a=rand(1,4),b=rand(1,4),c=rand(1,4),d=rand(1,4);return Q(`${a}+${b}와(과) ${c}+${d} 중 더 큰 값은?`,Math.max(a+b,c+d))}],
+ [()=>{const n=rand(11,40);return Q(`${n}보다 10 큰 수는?`,n+10)},
+  ()=>{const t=rand(1,3),o=rand(0,4),p=rand(1,5);return Q(`10개씩 묶음 ${t}개와 낱개 ${o}개에 낱개 ${p}개를 더 놓으면 모두 몇 개일까요?`,t*10+o+p)},
+  ()=>{const a=rand(1,20);return Q(`${a}, ${a+2}, ${a+4}, □  (2씩 뛰어 세기)`,a+6)}]],
+'1-2':[
+ [()=>{const n=rand(20,99);return Q(`${n}보다 10 작은 수는?`,n-10)},
+  ()=>{const n=rand(20,90);return Q(`${n}보다 크고 ${n+4}보다 작은 수는 모두 몇 개일까요?`,3)},
+  ()=>{const a=rand(1,10)*5;return Q(`${a}, ${a+5}, ${a+10}, □  (5씩 뛰어 세기)`,a+15)}],
+ [()=>{const a=rand(1,4),b=rand(1,4);return Q(`세모 ${a}개와 네모 ${b}개의 뾰족한 부분은 모두 몇 개일까요?`,3*a+4*b)},
+  ()=>{const a=rand(2,4),b=rand(1,3),c=rand(1,3);return Q(`세모 ${a}개, 네모 ${b}개, 동그라미 ${c}개 중 뾰족한 부분이 없는 것은 몇 개일까요?`,c)}],
+ [()=>{const a=rand(5,9),b=rand(5,9),c=rand(1,9);return Q(`${a} + ${b} − ${c} = ?`,a+b-c)},
+  ()=>{const a=rand(11,18),b=rand(a-9,9);return Q(`□ − ${b} = ${a-b}  (□는?)`,a)},
+  ()=>{const a=rand(5,9),b=rand(5,9),c=rand(2,9);return Q(`${a} + ${b} + ${c} = ?`,a+b+c)}],
+ [()=>{const h=rand(1,9);return Q(`${h}시 30분에서 1시간 30분이 지나면 몇 시일까요?`,h+2)},
+  ()=>{const h=rand(1,9);return Q(`${h}시 30분에서 1시간이 지나면 긴바늘은 어떤 숫자를 가리킬까요?`,6)},
+  ()=>{const h=rand(1,8);return Q(`${h}시부터 3시간 뒤에는 몇 시일까요?`,(h+3)%12===0?12:(h+3)%12)}],
+ [()=>{const a=rand(21,59),b=rand(11,29),c=rand(2,9);return Q(`${a} + ${b} − ${c} = ?`,a+b-c)},
+  ()=>{const a=rand(21,60),b=rand(10,30);return Q(`□ + ${b} = ${a+b}  (□는?)`,a)},
+  ()=>{const a=rand(50,90),b=rand(11,30),c=rand(5,15);return Q(`${a} − ${b} + ${c} = ?`,a-b+c)}],
+ [()=>{return Q('1, 2, 4, 7, 11, □  (규칙을 찾아 □에 알맞은 수는?)',16)},
+  ()=>{const a=rand(1,3),b=rand(4,6),c=rand(7,9);return Q(`${a}, ${b}, ${c}, ${a}, ${b}, ${c}, ${a}, □  (□는?)`,b)},
+  ()=>{const s=rand(1,5),k=rand(2,4);return Q(`${s}부터 ${k}씩 커지는 규칙이에요. 6번째 수는?`,s+5*k)}]],
+'2-1':[
+ [()=>{const n=rand(2,9)*100;return Q(`${n}보다 1 작은 수는?`,n-1)},
+  ()=>{const h=rand(1,9),t=rand(1,9),o=rand(1,9);return Q(`백 ${h}개, 십 ${t}개, 일 ${o}개인 수에서 백의 자리 숫자와 십의 자리 숫자의 합은?`,h+t)},
+  ()=>{const s=shuffle([1,2,3,4,5,6,7,8,9]).slice(0,3).sort((a,b)=>b-a);return Q(`숫자 ${shuffle(s).join(', ')}(으)로 만들 수 있는 가장 큰 세 자리 수는?`,s[0]*100+s[1]*10+s[2])}],
+ [()=>{const a=rand(1,3),b=rand(1,3),c=rand(1,2);return Q(`삼각형 ${a}개, 사각형 ${b}개, 오각형 ${c}개의 꼭짓점은 모두 몇 개일까요?`,3*a+4*b+5*c)},
+  ()=>{const m=rand(2,6);return Q(`사각형 몇 개의 변을 모두 세었더니 ${4*m}개였어요. 사각형은 몇 개일까요?`,m)}],
+ [()=>{const a=rand(20,50),b=rand(15,35),c=rand(10,25);return Q(`${a} + ${b} + ${c} = ?`,a+b+c)},
+  ()=>{const a=rand(60,99),b=rand(12,30),c=rand(10,25);return Q(`${a} − ${b} − ${c} = ?`,a-b-c)},
+  ()=>{const a=rand(20,60),b=rand(15,35);return Q(`□ − ${b} = ${a}  (□는?)`,a+b)}],
+ [()=>{const a=rand(1,3),b=rand(1,3);return Q(`${a}m 40cm + ${b}m 30cm 는 모두 몇 cm일까요?`,(a+b)*100+70)},
+  ()=>{const a=rand(3,5);return Q(`${a}m 20cm − 1m 50cm 는 몇 cm일까요?`,(a-1)*100-30)},
+  ()=>{const n=rand(2,5);return Q(`50cm 막대 ${n}개를 이으면 모두 몇 cm일까요?`,50*n)}],
+ [()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9);return Q(`빨강 ${a}개, 파랑 ${b}개, 노랑 ${c}개예요. 빨강이 아닌 것은 모두 몇 개일까요?`,b+c)},
+  ()=>{const a=rand(3,9),b=rand(3,9),c=rand(3,9);return Q(`구슬이 모두 ${a+b+c}개예요. 빨강 ${a}개, 파랑 ${b}개이면 노랑은 몇 개일까요?`,c)}],
+ [()=>{const a=rand(2,5),b=rand(2,5),c=rand(1,9);return Q(`${a} × ${b} + ${c} = ?`,a*b+c)},
+  ()=>{const a=rand(2,5),b=rand(2,5),c=rand(2,5),d=rand(2,5);return Q(`${a}씩 ${b}묶음과 ${c}씩 ${d}묶음을 합하면 모두 몇 개일까요?`,a*b+c*d)},
+  ()=>{const a=rand(2,5),b=rand(2,5);return Q(`${a}의 ${b}배보다 3 큰 수는?`,a*b+3)}]],
+'2-2':[
+ [()=>{const n=rand(10,89)*100;return Q(`${n}보다 100 큰 수는?`,n+100)},
+  ()=>{const n=rand(2,9)*1000;return Q(`${n}보다 1 작은 수는?`,n-1)},
+  ()=>{const s=shuffle([1,2,3,4,5,6,7,8,9]).slice(0,4).sort((a,b)=>b-a);return Q(`숫자 ${shuffle(s).join(', ')}(으)로 만들 수 있는 가장 큰 네 자리 수는?`,s[0]*1000+s[1]*100+s[2]*10+s[3])}],
+ [()=>{const a=rand(6,9),b=rand(3,9),c=rand(1,9);return Q(`${a} × ${b} − ${c} = ?`,a*b-c)},
+  ()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9),d=rand(2,9);return Q(`${a} × ${b} + ${c} × ${d} = ?`,a*b+c*d)},
+  ()=>{const a=rand(3,9),b=rand(3,9);return Q(`${a}단에서 ${a} × ${b}보다 ${a} 큰 수는?`,a*b+a)}],
+ [()=>{const a=rand(2,4),b=rand(1,3);return Q(`${a}m 60cm + ${b}m 70cm 는 모두 몇 cm일까요?`,(a+b)*100+130)},
+  ()=>{const a=rand(3,6);return Q(`${a}m 20cm − 1m 80cm 는 몇 cm일까요?`,(a-2)*100+40)}],
+ [()=>{const h=rand(1,3),m=rand(1,5)*10;return Q(`${h}시간 ${m}분 + 50분은 모두 몇 분일까요?`,h*60+m+50)},
+  ()=>{const n=rand(1,4),h=rand(1,12);return Q(`${n}일 ${h}시간은 모두 몇 시간일까요?`,24*n+h)},
+  ()=>{const w=rand(2,4),d=rand(1,6);return Q(`${w}주일 ${d}일은 모두 며칠일까요?`,7*w+d)}],
+ [()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9),d=rand(2,9);return Q(`사과 ${a}개, 배 ${b}개, 귤 ${c}개, 감 ${d}개예요. 모두 몇 개일까요?`,a+b+c+d)},
+  ()=>{const a=rand(3,9),b=rand(3,9),c=rand(3,9);return Q(`전체 ${a+b+c}명이에요. 줄넘기 ${a}명, 달리기 ${b}명이면 나머지 놀이는 몇 명일까요?`,c)}],
+ [()=>{const a=rand(1,10);return Q(`${a}, ${a+1}, ${a+3}, ${a+6}, □  (규칙을 찾아 □에 알맞은 수는?)`,a+10)},
+  ()=>{const a=rand(1,3),k=rand(2,4);return Q(`쌓기나무를 첫째 ${a}개, 둘째 ${a+k}개, 셋째 ${a+2*k}개 쌓았어요. 여섯째는 몇 개일까요?`,a+5*k)},
+  ()=>{const d=rand(1,7);return Q(`어떤 날이 ${d}일 월요일이에요. 3주 뒤 월요일은 며칠일까요?`,d+21)}]],
+'3-1':[
+ [()=>{const a=rand(200,500),b=rand(100,300),c=rand(50,150);return Q(`${a} + ${b} − ${c} = ?`,a+b-c)},
+  ()=>{const a=rand(300,700),b=rand(100,250);return Q(`□ − ${b} = ${a}  (□는?)`,a+b)},
+  ()=>{const a=rand(500,900),b=rand(500,900);return Q(`${a} + ${b} = ?`,a+b)}],
+ [()=>{const a=rand(2,9);return Q(`한 변이 ${a}cm인 정사각형 2개를 이어 붙여 직사각형을 만들었어요. 직사각형의 네 변의 길이의 합은 몇 cm일까요?`,6*a)},
+  ()=>{const a=rand(3,9),b=rand(2,a-1);return Q(`네 변의 길이의 합이 ${2*(a+b)}cm인 직사각형의 가로가 ${a}cm예요. 세로는 몇 cm일까요?`,b)}],
+ [()=>{const b=rand(3,9),c=rand(11,25),r=rand(1,b-1);return Q(`${b*c+r} ÷ ${b} 의 몫은?`,c)},
+  ()=>{const b=rand(3,9),c=rand(10,30);return Q(`□ ÷ ${b} = ${c}  (□는?)`,b*c)},
+  ()=>{const b=rand(2,9),c=rand(5,12),d=rand(1,9);return Q(`${b*c} ÷ ${b} + ${d} = ?`,c+d)}],
+ [()=>{const a=rand(2,4),b=rand(2,4),c=rand(2,4);return Q(`${a} × ${b} × ${c} = ?`,a*b*c)},
+  ()=>{const a=rand(11,25),b=rand(11,15);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(12,40),b=rand(2,9),c=rand(1,9);return Q(`${a} × ${b} − ${c} = ?`,a*b-c)}],
+ [()=>{const h=rand(1,3),m=rand(10,50);return Q(`${h}시간 ${m}분은 모두 몇 분일까요?`,h*60+m)},
+  ()=>{const a=rand(1,3),b=rand(2,4);return Q(`${a}km 500m + ${b}km 700m 는 모두 몇 m일까요?`,(a+b)*1000+1200)},
+  ()=>{const m=rand(1,3),s=rand(20,50);return Q(`${m}분 ${s}초 + 40초는 모두 몇 초일까요?`,m*60+s+40)}],
+ [()=>{const k=rand(3,6),a=rand(2,k-1),m=rand(2,5);return Q(`${k*m}의 ${a}/${k}는 얼마일까요?`,a*m)},
+  ()=>{const a=rand(1,4),b=rand(1,4);return Q(`0.1이 ${a}개, 0.1이 ${b}개이면 합은 0.□ 이에요. (□는?)`,a+b)},
+  ()=>{const k=rand(5,9),a=rand(1,3),b=rand(1,3);return Q(`${a}/${k} + ${b}/${k} = □/${k}  (□는?)`,a+b)}]],
+'3-2':[
+ [()=>{const a=rand(11,30),b=rand(11,20),c=rand(1,9);return Q(`${a} × ${b} + ${c} = ?`,a*b+c)},
+  ()=>{const a=rand(21,40),b=rand(21,30);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(11,25),b=rand(11,20),c=rand(11,20);return Q(`${a} × ${b} − ${c} = ?`,a*b-c)}],
+ [()=>{const b=rand(4,9),c=rand(11,20),r=rand(1,b-1);return Q(`${b*c+r} ÷ ${b} 의 몫과 나머지를 더하면?`,c+r)},
+  ()=>{const b=rand(3,9),c=rand(10,20),r=rand(1,b-1);return Q(`□ ÷ ${b} = ${c} … ${r}  (□는?)`,b*c+r)},
+  ()=>{const b=rand(3,9),c=rand(10,20),r=rand(1,b-1);return Q(`${wt()} ${b*c+r}개를 ${b}개씩 상자에 담으면 몇 상자를 가득 채울 수 있을까요?`,c)}],
+ [()=>{const d=rand(2,9);return Q(`지름이 ${d}cm인 원 3개를 나란히 붙이면 전체 길이는 몇 cm일까요?`,3*d)},
+  ()=>{const r=rand(2,9);return Q(`반지름이 ${r}cm인 원에서 지름과 반지름의 합은 몇 cm일까요?`,3*r)},
+  ()=>{const r=rand(2,6);return Q(`반지름이 ${r}cm인 원 3개를 나란히 붙이면 전체 길이는 몇 cm일까요?`,6*r)}],
+ [()=>{const k=rand(3,7),a=rand(1,5),b=rand(1,k-1);return Q(`${a} ${b}/${k}을(를) 가분수로 나타내면 분자는 얼마일까요?`,a*k+b)},
+  ()=>{const k=rand(3,6),m=rand(2,5);return Q(`${k*m}의 1/${k}과(와) ${k*m}의 ${k-1}/${k}의 합은 얼마일까요?`,m*k)},
+  ()=>{const k=rand(5,9),a=rand(1,3),b=rand(1,3);return Q(`${a}/${k} + ${b}/${k} = □/${k}  (□는?)`,a+b)}],
+ [()=>{const a=rand(1,3),b=rand(2,4);return Q(`${a}L 500mL + ${b}L 700mL 는 모두 몇 mL일까요?`,(a+b)*1000+1200)},
+  ()=>{const a=rand(3,5);return Q(`${a}kg 200g − 1kg 500g 은 몇 g일까요?`,(a-1)*1000-300)},
+  ()=>{const a=rand(1,3),b=rand(2,5);return Q(`${a}t ${b*100}kg 은 모두 몇 kg일까요?`,a*1000+b*100)}],
+ [()=>{const a=rand(1,3),b=rand(1,9),c=rand(1,3),d=rand(1,9);return Q(`큰 그림(10개) ${a}개와 작은 그림(1개) ${b}개, 큰 그림 ${c}개와 작은 그림 ${d}개를 합하면 모두 몇 개일까요?`,a*10+b+c*10+d)},
+  ()=>{const a=rand(3,5),b=rand(1,9),c=rand(1,2),d=rand(0,9);return Q(`큰 그림(10개) ${a}개와 작은 그림 ${b}개는 큰 그림 ${c}개와 작은 그림 ${d}개보다 몇 개 더 많을까요?`,(a*10+b)-(c*10+d))},
+  ()=>{const a=rand(10,30),b=rand(10,30),c=rand(10,30),d=rand(10,30);return Q(`네 반이 ${a}명, ${b}명, ${c}명, ${d}명이에요. 모두 몇 명일까요?`,a+b+c+d)}]]
+};
+const STORY_IN=['오늘은 지온이네 반이 소풍을 가는 날이에요. 아침부터 친구들과 함께 도시락을 싸고 가방을 챙기느라 모두 바빴어요.',
+ '토끼 공주님은 왕국의 시장에서 친구들과 함께 장을 보고 있어요. 시장에는 맛있는 과일과 예쁜 물건이 아주 많아요.',
+ '비가 오는 토요일 오후, 지온이는 엄마와 함께 집에서 수학 놀이를 하기로 했어요. 거실에 놀이 도구를 하나씩 펼쳐 놓았어요.',
+ '별이 반짝이는 저녁에 지온이는 책상에 앉아 오늘 배운 내용을 복습하고 있어요. 문제를 천천히 읽어 보고 있어요.',
+ '공주 왕국에서 작은 축제가 열렸어요. 친구들이 모두 모여 즐겁게 놀면서 수학 퀴즈 놀이를 하고 있어요.',
+ '지온이는 방학 동안 할머니 댁에 놀러 갔어요. 할머니와 함께 마당에서 놀다가 재미있는 수학 문제를 만났어요.'];
+const STORY_OUT=['식이나 그림으로 풀이 과정을 생각해 본 다음, 답을 숫자로 써 보세요.','차근차근 계산하고, 마지막에 답을 숫자로 써 보세요.','문제를 끝까지 읽고, 구해야 하는 것이 무엇인지 확인한 뒤 답을 써 보세요.'];
+const STORY=q=>({text:pick(STORY_IN)+' <b>'+q.text+'</b> '+pick(STORY_OUT),ans:q.ans});
+function mkMathUnit(key,i,m,lv){
  const [g,s]=key.split('-'),us=MATH_CUR[key],grade=`${g}학년 ${s}학기`;
  if(i<0)return{key,idx:-1,mode:'test',id:key+'-final',grade,unit:'학기 종합',name:`${grade} 종합평가`,
   make(){const u=us[mathQIndex%us.length];return (mathQIndex%2?pick(u.word):pick(u.kinds))()}};
  const u=us[i];
  if(m==='test')return{key,idx:i,mode:'test',id:key+'-t'+(i+1),grade,unit:`${i+1}단원 종합`,name:`${i+1}단원 종합문제 (${u.name})`,
   make(){return mathQIndex<6?u.kinds[mathQIndex%u.kinds.length]():pick(u.word)()}};
- return{key,idx:i,mode:'learn',id:key+'-'+(i+1),grade,unit:`${i+1}단원`,name:u.name,desc:u.desc,make(){return pick(u.kinds)()}}}
+ if(lv===2&&HARD[key]&&HARD[key][i])return{key,idx:i,mode:'learn',lv:2,n:20,id:key+'-'+(i+1),grade,unit:`${i+1}단원 💪도전`,name:u.name+' (도전)',desc:u.desc,make(){const q=pick(HARD[key][i])();return mathQIndex>=15?STORY(q):q}};
+ return{key,idx:i,mode:'learn',lv:1,n:20,id:key+'-'+(i+1),grade,unit:`${i+1}단원`,name:u.name,desc:u.desc,make(){return mathQIndex>=15?STORY(pick(u.word)()):pick(u.kinds)()}}}
 function mathQuiz(){
  if(!mathUnit){unitPicker();return}
- if(mathQIndex>=10){mathSetSummary();return}
+ const N=mathUnit.n||10;if(mathQIndex>=N){mathSetSummary();return}
+ const subj=mathUnit.mode==='learn'&&mathQIndex>=N-5;
  const q=mathUnit.make();current=q;
  setContent(timerBox()+`<div class="topline" style="margin-top:10px"><button class="muted" onclick="unitPicker()">← 단원 목록</button><b>${mathUnit.grade} · ${mathUnit.unit}</b></div>`+
- `<div class="lesson"><h3>📘 ${mathUnit.name}</h3><div class="small">${mathUnit.mode==='test'?'단원평가':'단원 집중 학습'} · ${mathQIndex+1} / 10문제</div><div class="progress" style="margin:10px 0"><span style="width:${mathQIndex*10}%"></span></div><div class="big">${q.text}</div>${padHTML()}<div class="answers">${makeOptions(q.ans).map(x=>`<button data-v="${x}" onclick="answerMath(${x},this)">${x}</button>`).join('')}</div><div id="feedback" class="feedback"></div><button id="nextMath" class="primary" disabled onclick="nextMathQuestion()">다음 문제 ➜</button></div>`);
+ `<div class="lesson"><h3>📘 ${mathUnit.name}</h3><div class="small">${mathUnit.mode==='test'?'단원평가':'단원 집중 학습'} · ${mathQIndex+1} / ${N}문제${subj?' · ✍️ 주관식(직접 써요)':''}</div><div class="progress" style="margin:10px 0"><span style="width:${mathQIndex*100/N}%"></span></div><div class="big" style="${q.text.length>70?'font-size:19px;line-height:1.6;text-align:left':''}">${q.text}</div>${padHTML()}${subj?`<div class="row" style="margin:10px 0"><input id="subjIn" class="input" type="number" inputmode="numeric" placeholder="정답을 써 보세요" onkeydown="if(event.key==='Enter')answerSubj()"><button id="subjBtn" class="primary" onclick="answerSubj()">확인 ✔</button></div>`:`<div class="answers">${makeOptions(q.ans).map(x=>`<button data-v="${x}" onclick="answerMath(${x},this)">${x}</button>`).join('')}</div>`}<div id="feedback" class="feedback"></div><button id="nextMath" class="primary" disabled onclick="nextMathQuestion()">다음 문제 ➜</button></div>`);
  updatePadTools();initPad()}
 function setMathSel(g,s){data.msel={g,s};if(!MATH_CUR[g+'-'+s]){const ok=MATH_AVAIL[g];data.msel.s=ok.includes(s)?s:ok[0]}save();unitPicker()}
 function unitPicker(){
@@ -760,19 +876,25 @@ function unitPicker(){
  const best=id=>tm[id]?` · 최고 ${tm[id].best*10}점`:'';
  setContent(timerBox()+shell('🗂️ 교과과정 단원별 학습','학년 → 학기 → 단원을 골라요. 단원은 교과서 순서대로 나열했어요.')+
  `<div class="row" style="margin:8px 0"><b>학년</b> ${gch}</div><div class="row" style="margin:8px 0"><b>학기</b> ${sch}</div>`+
- `<div class="grid2">${us.map((u,i)=>`<div class="tile" style="border:2px solid #eee2f2"><div class="small">${g}학년 ${s}학기 · ${i+1}단원</div><b>${i+1}. ${u.name}</b><div class="small" style="margin-top:5px">${u.desc}</div><div class="row" style="margin-top:8px"><button class="primary" onclick="beginMathUnit('${key}',${i},'learn')">🔟 학습</button><button class="blue" onclick="beginMathUnit('${key}',${i},'test')">📝 ${i+1}단원 종합문제</button></div><div class="small" style="margin-top:4px">${best(key+'-t'+(i+1))}</div></div>`).join('')}</div>`+
+ `<div class="grid2">${us.map((u,i)=>`<div class="tile" style="border:2px solid #eee2f2"><div class="small">${g}학년 ${s}학기 · ${i+1}단원</div><b>${i+1}. ${u.name}</b><div class="small" style="margin-top:5px">${u.desc}</div><div class="row" style="margin-top:8px"><button class="primary" onclick="beginMathUnit('${key}',${i},'learn')">📘 학습 (20문제)</button>${(data.mlv||{})[key+'-'+(i+1)]>=2?`<button class="mint" onclick="beginMathUnit('${key}',${i},'learn',2)">💪 도전${data.mlv[key+'-'+(i+1)]===3?' 🏆':''}</button>`:''}<button class="blue" onclick="beginMathUnit('${key}',${i},'test')">📝 ${i+1}단원 종합문제</button></div><div class="small" style="margin-top:4px">${best(key+'-t'+(i+1))}</div></div>`).join('')}</div>`+
  `<div class="tile" style="margin-top:10px;border:2px solid #ffd3e6"><b>🏅 ${g}학년 ${s}학기 종합평가</b><div class="small">모든 단원에서 골고루 10문제${best(key+'-final')}</div><button class="primary" style="margin-top:8px" onclick="beginMathUnit('${key}',-1,'test')">📝 학기 종합평가 시작</button></div>`)}
-function beginMathUnit(key,i,m){mode='quiz';hiTab('quiz');mathUnit=mkMathUnit(key,i,m);mathQIndex=0;mathSetCorrect=0;mathQuiz()}
+function beginMathUnit(key,i,m,lv){mode='quiz';hiTab('quiz');mathUnit=mkMathUnit(key,i,m,lv||1);mathQIndex=0;mathSetCorrect=0;mathQuiz()}
 function nextMathQuestion(){mathQIndex++;
- if(mathQIndex===10){const mu=mathUnit;
+ const N=mathUnit.n||10;
+ if(mathQIndex===N){const mu=mathUnit;
   if(mu.mode==='test'){data.mtest=data.mtest||{};const r=data.mtest[mu.id]||(data.mtest[mu.id]={best:0,paid:''});r.best=Math.max(r.best,mathSetCorrect);
-   if(mathSetCorrect>=8&&r.paid!==today()){r.paid=today();addPoints(mu.idx<0?40:30);data.badges=[...new Set([...data.badges,'📘 단원 마스터'])];checkBadges();mu.paid=true;sfxWin()}save()}
-  else if(mathSetCorrect>=8){addPoints(20);data.badges=[...new Set([...data.badges,'📘 단원 마스터'])];checkBadges();save();sfxWin()}}
+   if(mathSetCorrect>=N*.8&&r.paid!==today()){r.paid=today();addPoints(mu.idx<0?40:30);data.badges=[...new Set([...data.badges,'📘 단원 마스터'])];checkBadges();mu.paid=true;sfxWin()}save()}
+  else{data.mlv=data.mlv||{};
+   if(mathSetCorrect>=N*.9&&mu.lv!==2&&HARD[mu.key]&&HARD[mu.key][mu.idx]){mu.unlocked=true;if(!data.mlv[mu.id]){data.mlv[mu.id]=2;mu.firstUp=true;addPoints(10)}}
+   if(mathSetCorrect>=N*.9&&mu.lv===2&&data.mlv[mu.id]!==3){data.mlv[mu.id]=3;mu.master=true;addPoints(20);data.badges=[...new Set([...data.badges,'💪 도전 마스터'])];checkBadges()}
+   if(mathSetCorrect>=N*.8){addPoints(20);data.badges=[...new Set([...data.badges,'📘 단원 마스터'])];checkBadges();sfxWin()}save()}}
  mathQuiz()}
 function mathSetSummary(){
- const mu=mathUnit,us=MATH_CUR[mu.key],nx=mu.idx>=0&&mu.idx+1<us.length?mu.idx+1:-1,isT=mu.mode==='test';
- const msg=isT?(mathSetCorrect>=8?(mu.paid?`훌륭해요! 단원평가 보너스 💎 +${mu.idx<0?40:30}포인트를 받았어요.`:'훌륭해요! (보너스는 하루에 한 번만 받을 수 있어요.)'):'아쉬워요! 오답노트를 보고 다시 도전해 봐요. 8개 이상 맞히면 보너스를 받아요.'):(mathSetCorrect>=8?'정말 훌륭해요! 단원 보너스 💎 +20포인트를 받았어요.':'잘했어요! 오답노트를 확인하고 다시 도전해 봐요.');
- setContent(timerBox()+shell(isT?'📝 단원평가 결과':'🎉 단원 학습 완료!',`<div class="big">${mathSetCorrect} / 10 정답${isT?` · ${mathSetCorrect*10}점`:''}</div><p>${mu.name}</p><p>${msg}</p><div class="row"><button class="primary" onclick="unitPicker()">다른 단원 선택하기</button><button class="blue" onclick="beginMathUnit('${mu.key}',${mu.idx},'${mu.mode}')">다시 풀기</button>${nx>=0&&!isT?`<button class="mint" onclick="beginMathUnit('${mu.key}',${nx},'learn')">다음 단원 ➜</button>`:''}${isT&&mu.idx>=0?`<button class="mint" onclick="beginMathUnit('${mu.key}',${mu.idx},'learn')">이 단원 학습하기</button>`:''}</div>`))}
+ const mu=mathUnit,N=mu.n||10,us=MATH_CUR[mu.key],nx=mu.idx>=0&&mu.idx+1<us.length?mu.idx+1:-1,isT=mu.mode==='test';
+ const msg=isT?(mathSetCorrect>=N*.8?(mu.paid?`훌륭해요! 단원평가 보너스 💎 +${mu.idx<0?40:30}포인트를 받았어요.`:'훌륭해요! (보너스는 하루에 한 번만 받을 수 있어요.)'):'아쉬워요! 오답노트를 보고 다시 도전해 봐요. ${Math.ceil(N*.8)}개 이상 맞히면 보너스를 받아요.'):(mathSetCorrect>=N*.8?'정말 훌륭해요! 단원 보너스 💎 +20포인트를 받았어요.':'잘했어요! 오답노트를 확인하고 다시 도전해 봐요.');
+ const up=!isT&&mu.unlocked?`<div class="lesson" style="margin:10px 0;border:3px solid #ffd3e6;text-align:center"><div style="font-size:42px">🌟</div><h3>90점 이상! 정말 잘했어요${mu.firstUp?' (💎 +10)':''}</h3><p><b>좀 더 어려운 문제 풀어볼까요?</b></p><div class="row" style="justify-content:center"><button class="primary" onclick="beginMathUnit('${mu.key}',${mu.idx},'learn',2)">💪 좋아요, 도전할래요!</button><button class="muted" onclick="unitPicker()">😊 다음에 할래요</button></div></div>`:'';
+ const mst=!isT&&mu.master?`<div class="lesson" style="margin:10px 0;border:3px solid #ffe28a;text-align:center"><div style="font-size:42px">🏆</div><h3>도전 단계 완성! 이 단원 마스터예요 (💎 +20)</h3></div>`:'';
+ setContent(timerBox()+shell(isT?'📝 단원평가 결과':'🎉 단원 학습 완료!',`<div class="big">${mathSetCorrect} / ${N} 정답 · ${Math.round(mathSetCorrect*100/N)}점</div><p>${mu.name}</p><p>${msg}</p>${up}${mst}<div class="row"><button class="primary" onclick="unitPicker()">다른 단원 선택하기</button><button class="blue" onclick="beginMathUnit('${mu.key}',${mu.idx},'${mu.mode}',${mu.lv||1})">다시 풀기</button>${nx>=0&&!isT?`<button class="mint" onclick="beginMathUnit('${mu.key}',${nx},'learn')">다음 단원 ➜</button>`:''}${isT&&mu.idx>=0?`<button class="mint" onclick="beginMathUnit('${mu.key}',${mu.idx},'learn')">이 단원 학습하기</button>`:''}</div>`))}
 function answerMath(x,el){
  const box=el.parentNode;if(box.dataset.done)return;box.dataset.done='1';
  box.querySelectorAll('button').forEach(b=>{b.disabled=true;if(Number(b.dataset.v)===current.ans)b.classList.add('correct');else b.classList.add('faded')});
@@ -783,7 +905,13 @@ function answerMath(x,el){
   data.wrong.unshift(`${current.text} → 정답 ${current.ans} (내 답: ${x})`);data.wrong=[...new Set(data.wrong)].slice(0,50);
   data.done++;markActive();save();
   if(f()){f().textContent=`아쉬워요! 정답은 ${current.ans}이에요. 괜찮아요, 다음엔 맞힐 수 있어요 💗`;f().className='feedback bad'}cheer(pick(CHEER_BAD));sfxBad()}
- const n=$('nextMath');n.disabled=false;n.textContent=mathQIndex===9?'결과 보기 ➜':'다음 문제 ➜'}
+ const n=$('nextMath');n.disabled=false;n.textContent=mathQIndex===(mathUnit.n||10)-1?'결과 보기 ➜':'다음 문제 ➜'}
+function answerSubj(){const inp=$('subjIn');if(!inp||inp.dataset.done)return;const v=inp.value.trim();const x=Number(v);if(v===''||!Number.isFinite(x)){const f0=$('feedback');if(f0){f0.textContent='숫자로 답을 써 주세요 ✏️';f0.className='feedback bad'}return}
+ inp.dataset.done='1';inp.disabled=true;$('subjBtn').disabled=true;data.attempts++;const f=$('feedback');
+ if(x===current.ans){data.correct++;mathSetCorrect++;award(15,pick(CHEER_OK));if(f)f.className='feedback ok';cheerVoice()}
+ else{const plain=current.text.replace(/<[^>]*>/g,'');data.wrong.unshift(`[주관식] ${plain} → 정답 ${current.ans} (내 답: ${x})`);data.wrong=[...new Set(data.wrong)].slice(0,50);data.done++;markActive();save();
+  if(f){f.textContent=`아쉬워요! 정답은 ${current.ans}이에요. 괜찮아요, 다음엔 맞힐 수 있어요 💗`;f.className='feedback bad'}cheer(pick(CHEER_BAD));sfxBad()}
+ const n=$('nextMath');n.disabled=false;n.textContent=mathQIndex===(mathUnit.n||10)-1?'결과 보기 ➜':'다음 문제 ➜'}
 function review(){setContent(timerBox()+shell('📝 오답 다시 보기',(data.wrong.length?data.wrong.slice(0,25).map(x=>'• '+escHtml(x)).join('<br>')+'<br><button class="muted" style="margin-top:10px" onclick="clearWrong()">오답노트 비우기</button>':'아직 오답이 없어요. 문제를 풀면 여기에 모아 둘게요!')))}
 function clearWrong(){data.wrong=[];save();review()}
 function topics(){unitPicker()}
