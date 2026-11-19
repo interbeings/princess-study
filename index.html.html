@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ff82b2"><title>공주 공부 탐험대</title>
+<style>
+:root{--pink:#ff82b2;--purple:#9c8cff;--blue:#83d7f4;--yellow:#ffe28a;--mint:#9be5c1;--ink:#40364d}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#fff2f8,#f2f4ff 55%,#efffff);color:var(--ink);font-family:"Trebuchet MS","Malgun Gothic",sans-serif}button,input{font:inherit}button{cursor:pointer;border:0;border-radius:15px;padding:10px 14px;font-weight:800;color:#493d58;background:#f2eaff;box-shadow:0 3px 0 #dfd2f5}button:hover{filter:brightness(.98);transform:translateY(-1px)}button:active{transform:translateY(2px);box-shadow:none}button:disabled{opacity:.6;cursor:default}button:disabled:hover{transform:none;filter:none}.primary{background:var(--pink);color:white;box-shadow:0 4px 0 #e6679a}.blue{background:var(--blue)}.yellow{background:var(--yellow)}.mint{background:var(--mint)}.muted{background:#f3eff7}.wrap{max-width:1120px;margin:auto;padding:17px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}.brand{display:flex;align-items:center;gap:11px}.crown{width:60px;height:60px;background:white;border-radius:20px;padding:9px;box-shadow:0 4px 15px #e8d9f4}.brand h1{font-size:clamp(22px,4vw,33px);margin:0;color:#e65c9b}.brand p{margin:3px 0 0;color:#82748f;font-size:13px}.stats{display:flex;gap:7px;flex-wrap:wrap}.pill{background:white;border-radius:30px;padding:8px 12px;font-weight:800;box-shadow:0 3px 12px #e9dff0}
+.art svg{display:block;width:100%;height:100%}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 12% 28%,#fff9 0 5px,#fff0 6px),radial-gradient(circle at 70% 70%,#fff8 0 7px,#fff0 8px),radial-gradient(circle at 88% 22%,#fff9 0 4px,#fff0 5px),linear-gradient(110deg,#ffdcea,#f1e3f8 55%,#e3efff);border:3px solid white;border-radius:25px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 8px 24px #d9cde7;margin-bottom:15px}.hero h2{font-size:clamp(20px,3vw,27px);margin:0 0 7px}.hero p{margin:0;color:#71637f;line-height:1.5}.princess{width:172px;height:178px;flex:none;animation:bob 3s ease-in-out infinite;filter:drop-shadow(0 6px 8px #d9b8d8aa)}
+.sp{position:absolute;width:22px;height:22px;animation:twinkle 2.4s ease-in-out infinite;pointer-events:none}.sp1{left:46%;top:14px;fill:#ffd34d}.sp2{left:38%;bottom:16px;fill:#ff9ec4;animation-delay:.8s}.sp3{right:170px;top:20px;fill:#83d7f4;animation-delay:1.5s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.6) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(20deg)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes pop{0%{transform:scale(.85);opacity:.4}60%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 #ff6f8e88}50%{box-shadow:0 0 0 9px #ff6f8e00}}
+.subject{position:relative}.hello{position:absolute;right:14px;top:12px;background:#fff;border:2px solid #cdbcff;border-radius:16px;padding:5px 11px;font-weight:900;font-size:14px;color:#6b55c9;box-shadow:0 3px 8px #d9ceee;animation:bob 2.6s ease-in-out infinite}.hello:before{content:"";position:absolute;left:-8px;bottom:6px;border:6px solid transparent;border-right-color:#cdbcff;border-left:0}
+.subjects{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.subject{border:3px solid white;border-radius:23px;padding:16px;min-height:150px;box-shadow:0 7px 18px #e6ddeb;cursor:pointer;text-align:left;color:var(--ink)}.subject .art{width:78px;height:78px}.subject h3{margin:7px 0 4px;font-size:20px}.subject p{margin:0;color:#746a7d;font-size:13px}.math{background:#fff0c8}.english{background:#dff5ff}.chinese{background:#ffe3ef}.panel{background:white;border:2px solid #f0e5f1;border-radius:23px;padding:18px;margin-top:15px;box-shadow:0 7px 20px #e9e0ee}.hidden{display:none!important}.topline{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}.topline h2{margin:0}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.tabs button.active{background:#55436e;color:white;box-shadow:0 3px 0 #382d4b}
+.cheerrow{display:flex;align-items:center;gap:10px;margin-top:10px}.art.mini{width:64px;height:64px;flex:none}.speech{position:relative;background:#fff4fa;border:2px solid #ffd3e6;border-radius:16px;padding:9px 13px;font-weight:800;color:#c24b83;font-size:14px}.speech:before{content:"";position:absolute;left:-9px;top:50%;margin-top:-7px;border:7px solid transparent;border-right-color:#ffd3e6;border-left:0}.speech.pop{animation:pop .35s}
+.lesson{background:#fff9fd;border:2px dashed #ead8ee;border-radius:19px;padding:17px;margin:11px 0;text-align:center}.big{font-size:clamp(25px,5vw,40px);font-weight:900;margin:11px}.translation{color:#82748f}
+.row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin:13px 0}.answers button{background:#f0edff;font-size:20px;padding:15px;border:3px solid transparent;transition:background .15s}
+.answers button.correct{background:#b8f0cc;border-color:#2fbf71;color:#17633b;opacity:1}.answers button.correct::before{content:"✔ "}
+.answers button.wrongpick{background:#ffd0d8;border-color:#ff6f8e;color:#8a2140;opacity:1;animation:shake .35s}.answers button.wrongpick::before{content:"✖ "}
+.answers button.faded:disabled{opacity:.45}
+.feedback{min-height:26px;font-weight:800;margin:11px 0}.feedback.ok{color:#1f9e5f}.feedback.bad{color:#d6456b}
+.input{border:2px solid #e5d9ed;border-radius:13px;padding:11px;min-width:125px;max-width:100%;font-size:18px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tile{background:#fbf8ff;border-radius:16px;padding:12px}.small{font-size:12px;color:#8a7d93}.progress{height:12px;background:#f0eaf5;border-radius:30px;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,#ff91bd,#a88fff);width:0;transition:width .3s}.timer{font-size:34px;font-weight:900;color:#e65c9b}.chatlog{height:220px;overflow:auto;background:#fff9fd;border-radius:16px;padding:12px;text-align:left;margin:10px 0}.bubble{padding:9px 12px;border-radius:14px;margin:7px 0;max-width:90%;line-height:1.45}.teacher{background:#e9e5ff;margin-right:auto}.student{background:#dff6ff;margin-left:auto}.chatrow{display:flex;gap:7px}.chatrow input{flex:1;min-width:0}.footer{text-align:center;color:#9a8da2;font-size:12px;padding:19px}.badgegrid{display:flex;gap:7px;flex-wrap:wrap}.badgeitem{background:#fff2c9;border-radius:20px;padding:8px 11px;font-size:13px;font-weight:800}.mission{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f7f2ff;padding:11px;border-radius:15px;margin:7px 0}
+button.rec{background:#ff6f8e!important;color:#fff;animation:pulse 1.1s infinite}
+.pad{background:#fff;border:2px dashed #ead8ee;border-radius:19px;padding:12px;margin:12px 0}.padtools{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:9px 0;justify-content:center}.padtools button{padding:7px 11px;font-size:13px}.padtools button.active{background:#55436e;color:#fff;box-shadow:0 3px 0 #382d4b}.swatch{width:30px;height:30px;padding:0!important;border-radius:50%!important;border:3px solid #fff!important;box-shadow:0 0 0 2px #e5d9ed!important}.swatch.active{box-shadow:0 0 0 3px #55436e!important}
+.padcanvas{width:100%;height:220px;border-radius:14px;touch-action:none;display:block;cursor:crosshair;background-color:#fffdf7;background-image:linear-gradient(#f3e8f4 1px,transparent 1px),linear-gradient(90deg,#f3e8f4 1px,transparent 1px);background-size:24px 24px}
+.wavebox{background:#fff;border:2px solid #ffd3e6;border-radius:16px;padding:6px;margin:8px 0}.wavebox canvas{width:100%;height:56px;display:block}
+.pron{text-align:left;font-size:14px}.pronhead{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:5px}.pronbar{height:10px;background:#f0eaf5;border-radius:20px;overflow:hidden;margin:4px 0 8px}.pronbar span{display:block;height:100%;background:linear-gradient(90deg,#ff91bd,#7ddc9e)}.pronline{font-size:20px;font-weight:800;line-height:1.8;margin:4px 0}
+.w-ok{color:#1f9e5f}.w-close{color:#d9822b;text-decoration:underline wavy #f0a43c;text-underline-offset:5px}.w-miss{color:#d6456b;text-decoration:underline wavy #ff6f8e;text-underline-offset:5px}
+.chatlog{height:300px}.bubble.evalbubble{background:#fff;border:2px solid #ffd3e6;max-width:100%;width:100%}
+.gradebox{display:flex;align-items:center;gap:14px;margin-top:10px}.gradeemoji{font-size:44px;background:#fff2c9;border-radius:22px;width:76px;height:76px;display:flex;align-items:center;justify-content:center;flex:none}.gradename{font-size:20px;font-weight:900;color:#e65c9b}
+.stamps{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.stamp{background:#f7f2ff;border-radius:14px;padding:8px 2px 7px;text-align:center}.stamp.all{background:#fff2c9}.stamp.some{background:#e9f7ff}.stamp.today{outline:3px solid #ff82b2}.stamp .sm{font-size:11px;color:#8a7d93;font-weight:800}.stamp .sc{font-size:22px;height:30px;line-height:30px}.dots{display:flex;gap:3px;justify-content:center}.dots i{width:7px;height:7px;border-radius:50%;background:#e3dbe9}.dots i.on{background:#ff82b2}
+.gradeup{position:fixed;inset:0;background:#40364dcc;display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}.gucard{position:relative;overflow:hidden;background:#fff;border-radius:28px;padding:22px 26px;text-align:center;max-width:360px;width:100%;box-shadow:0 12px 40px #0004;animation:pop .4s}.gu-emoji{font-size:52px}.conf{position:absolute;top:-24px;font-size:20px;animation:fall 2.6s linear infinite;pointer-events:none}
+@keyframes fall{to{transform:translateY(420px) rotate(240deg);opacity:.2}}
+@media(max-width:700px){.wrap{padding:11px}.subjects{grid-template-columns:1fr}.subject{min-height:100px;display:grid;grid-template-columns:84px 1fr;align-items:center;column-gap:8px}.subject .art{grid-row:span 3;width:76px;height:76px}.hero{padding:14px}.princess{width:110px;height:114px}.sp3{right:110px}.grid2{grid-template-columns:1fr}.answers{grid-template-columns:1fr 1fr}.chatrow{flex-wrap:wrap}.chatrow input{flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.dans{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.dan{padding:12px 4px;font-size:18px;background:#f0edff;border:3px solid transparent}.dan.on{background:#ffe0ee;border-color:#ff82b2}
+.ggtable{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.ggrow{display:flex;justify-content:space-between;align-items:center;gap:6px;background:#fff;border:2px solid #eee2f2;padding:10px;font-size:17px}.ggrow b{color:#e65c9b;font-size:20px}
+.ggans{display:inline-block;min-width:2.2em;border-bottom:4px solid #ff82b2;color:#e65c9b}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:300px;margin:12px auto}.keypad button{font-size:24px;padding:14px;background:#f0edff}.keypad button.ok{background:#9be5c1}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}.choice{background:#fff;border:3px solid #eadff3;border-radius:18px;padding:12px;text-align:center}.choice.picked{border-color:#ff82b2;background:#fff0f7}.choice .cs{font-size:20px;font-weight:900}.choice .cp{color:#9b7bb0;font-size:14px}.choice .ck{color:#82748f;font-size:14px;margin:4px 0 8px}.choice .row button{padding:8px 10px;font-size:14px}
+.lvline{display:inline-block;background:#fff2c9;border-radius:20px;padding:4px 12px;font-size:13px;font-weight:800;margin:4px 0 8px}
+.scene{position:relative;aspect-ratio:16/10;width:100%;container-type:inline-size;border-radius:18px;overflow:hidden;border:3px solid #fff;box-shadow:0 5px 14px #e2d8ea;margin:10px 0;background:#e9f6ff}
+.scene svg.bg{position:absolute;inset:0;width:100%;height:100%}
+.scene .it{position:absolute;transform:translate(-50%,-50%);line-height:1;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 2px 2px #0003);padding:2px}
+.scene .it.sel{outline:3px dashed #ff4f95;outline-offset:2px;border-radius:12px}
+.scene.mini{margin:0 0 6px;pointer-events:none;box-shadow:none}
+.tray{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:44px}.trayit{background:#fff;border:2px solid #eadff3;padding:6px 12px;font-size:15px}.trayit span{font-size:24px}
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:9px}.shopitem{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid #eee2f2;border-radius:16px;padding:9px 11px}.shopitem .se{font-size:30px}.shopitem button{padding:8px 14px;font-size:14px}
+.homegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.homedeco{display:flex;flex-direction:column;gap:2px;text-align:left;background:#fff;border:2px solid #f0e5f1;padding:8px;border-radius:18px;color:var(--ink)}
+@media(max-width:700px){.homegrid{grid-template-columns:1fr}.ggtable{grid-template-columns:repeat(2,1fr)}}
+
+.grps{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}.grp{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;align-content:center;width:96px;min-height:60px;background:#fff;border:3px dashed #ffb6d3;border-radius:18px;padding:6px;font-size:21px;line-height:1.15}
+.skipc{font-size:18px;font-weight:800;color:#8a7d93;margin:6px 0 10px}.skipc .on{color:#e65c9b;font-size:22px}
+.chip{padding:8px 13px;background:#f0edff}.chip.on{background:#ff82b2;color:#fff}
+.arena{position:relative;height:220px;background:linear-gradient(#d8f3ff,#f4fcff);border-radius:18px;overflow:hidden;margin:8px 0;border:3px solid #fff}
+.balloon{position:absolute;width:68px;height:82px;border-radius:50% 50% 46% 46%;border:0;color:#fff;font-size:24px;font-weight:900;box-shadow:inset -6px -8px 0 #0002;animation:bob 2.2s ease-in-out infinite;padding:0}
+.balloon::after{content:"";position:absolute;left:50%;bottom:-18px;width:2px;height:20px;background:#9aa;transform:translateX(-50%)}
+.balloon.pop{animation:none;transform:scale(1.5);opacity:0;transition:.3s}.balloon.wrongb{opacity:.35;animation:none}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.mcards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.mcard{height:80px;font-size:20px;font-weight:900;background:#e8e0ff;padding:4px}.mcard.up{background:#fff;border:3px solid #ff82b2}.mcard.done{background:#b8f0cc;color:#17633b}
+
+.skinbox{position:relative;width:100%;height:100%;container-type:inline-size}.skin{width:100%;height:100%}.skin.rainbow{animation:rbw 6s linear infinite}@keyframes rbw{to{filter:hue-rotate(360deg)}}
+.skinbox .acc{position:absolute;line-height:1;pointer-events:none}.skinbox .top{top:-6%;left:50%;transform:translateX(-50%);font-size:36cqw}.skinbox .ear{top:6%;right:8%;font-size:28cqw}.skinbox .side{right:-4%;bottom:16%;font-size:30cqw}
+.skinbox .sk1{top:2%;left:6%;font-size:24cqw;animation:twk 1.6s infinite}.skinbox .sk2{top:30%;right:0;font-size:20cqw;animation:twk 1.6s .5s infinite}.skinbox .sk3{bottom:8%;left:2%;font-size:20cqw;animation:twk 1.6s 1s infinite}@keyframes twk{50%{transform:scale(1.4);opacity:.5}}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="dskM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd6ec"/><stop offset=".6" stop-color="#e4defc"/><stop offset="1" stop-color="#d8f3ff"/></linearGradient><linearGradient id="dskE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe7ff"/><stop offset="1" stop-color="#f2fbff"/></linearGradient><linearGradient id="dskC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0c4"/><stop offset="1" stop-color="#e4f6e2"/></linearGradient>
+<linearGradient id="gHair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9955f"/><stop offset="1" stop-color="#b06b40"/></linearGradient>
+<linearGradient id="gDress" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb8d4"/><stop offset="1" stop-color="#ff7fb4"/></linearGradient>
+<linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0a8"/><stop offset="1" stop-color="#ffc83d"/></linearGradient>
+<linearGradient id="gFur" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f6ebf2"/></linearGradient>
+<linearGradient id="gPink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd6e6"/><stop offset="1" stop-color="#f5a3c4"/></linearGradient>
+<linearGradient id="gScarf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc4da"/><stop offset="1" stop-color="#f58db5"/></linearGradient>
+<radialGradient id="gBlush"><stop offset="0" stop-color="#ff8fb4" stop-opacity=".85"/><stop offset="1" stop-color="#ff8fb4" stop-opacity="0"/></radialGradient>
+<linearGradient id="gCream" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffaf0"/><stop offset="1" stop-color="#ffe9d0"/></linearGradient>
+<linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9ecff"/><stop offset="1" stop-color="#94c5f6"/></linearGradient>
+<linearGradient id="gScarfB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8dcff"/><stop offset="1" stop-color="#63a9f0"/></linearGradient>
+<linearGradient id="gYel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1bb"/><stop offset="1" stop-color="#ffd270"/></linearGradient>
+<linearGradient id="gScarfY" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe392"/><stop offset="1" stop-color="#ffc247"/></linearGradient>
+<linearGradient id="gLav" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7ddff"/><stop offset="1" stop-color="#a68cea"/></linearGradient>
+<linearGradient id="gScarfL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cbb9ff"/><stop offset="1" stop-color="#5b49c4"/></linearGradient>
+<path id="spark" d="M0-8L2-2 8 0 2 2 0 8-2 2-8 0-2-2Z"/>
+</defs></svg>
+<div class="wrap">
+<header><div class="brand"><div class="crown art" data-art="crown"></div><div><h1>공주 공부 탐험대</h1><p>매일 10분씩, 반짝반짝 성장해요!</p></div></div><div class="stats"><div class="pill">💎 포인트 <b id="points">0</b></div><div class="pill">⭐ 별 <b id="stars">0</b></div><div class="pill">🔥 연속 <b id="streak">0</b>일</div><button id="voiceBtn" class="pill" onclick="toggleVoice()">🔊 효과음</button></div></header>
+<section class="hero"><svg class="sp sp1"><use href="#spark" transform="translate(11 11) scale(1.3)"/></svg><svg class="sp sp2"><use href="#spark" transform="translate(11 11) scale(1.3)"/></svg><svg class="sp sp3"><use href="#spark" transform="translate(11 11) scale(1.3)"/></svg><div><h2>안녕, 꼬마 탐험가! 🌈</h2><p>수학·영어·중국어에서 매일 10분 미션을 완료하고<br>포인트를 모아 공주 왕국을 꾸며 봐요!</p></div><div class="princess art" data-art="bunny"></div></section>
+<section id="home">
+<div class="subjects">
+<button class="subject math" onclick="openSubject('math')"><div class="art" data-art="bunny"></div><h3>수학 왕국</h3><p>계산·시계·도형·문장제</p><small id="mathDaily">오늘 0/10분</small></button>
+<button class="subject english" onclick="openSubject('english')"><span class="hello">Hello!</span><div class="art" data-art="cat"></div><h3>영어 나라</h3><p>단어·듣기·AI 회화·발음</p><small id="englishDaily">오늘 0/10분</small></button>
+<button class="subject chinese" onclick="openSubject('chinese')"><div class="art" data-art="panda"></div><h3>중국어 정원</h3><p>병음·성조·AI 회화·발음</p><small id="chineseDaily">오늘 0/10분</small></button>
+</div>
+<div class="panel"><div class="topline"><h2>🎯 오늘의 10분 미션</h2><b id="dailyTotal">0 / 30분</b></div><div class="progress" style="margin:10px 0"><span id="dailyBar"></span></div><div id="missions"></div><p class="small">각 과목에서 10분 학습을 달성하면 보너스 20포인트, 세 과목을 모두 하면 올클리어 보너스 30포인트를 더 받아요. (화면을 1분 넘게 안 만지면 시간이 잠깐 멈춰요)</p></div>
+<div class="panel"><div class="topline"><h2>🎀 나만의 왕국·나라·정원 꾸미기</h2><b>💎 <span id="shopPts">0</span></b></div><div id="homeDeco" class="homegrid"></div><p class="small">공부해서 모은 포인트로 아이템을 사서 꾸며 봐요! 등급은 쓰고 나서도 내려가지 않아요 (등급은 지금까지 모은 총 포인트로 정해져요).</p></div>
+<div class="panel"><div class="topline"><h2>🏆 나의 등급</h2><span class="badgeitem">👑 올클리어 연속 <b id="clearStreak">0</b>일</span></div>
+<div class="gradebox"><div id="gradeEmoji" class="gradeemoji">🌱</div><div style="flex:1;min-width:0"><div id="gradeName" class="gradename">새싹 공주 · Lv.1</div><div class="progress" style="margin:8px 0"><span id="gradeBar"></span></div><div id="gradeNext" class="small"></div></div></div>
+<div id="gradeList" class="badgegrid" style="margin-top:10px"></div>
+<h3 style="margin:16px 0 8px">🗓️ 최근 7일 도장</h3><div id="weekStamps" class="stamps"></div>
+<p class="small">하루에 수학·영어·중국어를 각각 10분씩 공부하면 👑 올클리어! 💎 30포인트와 도장을 받아요. 3·7·14·30일 연속이면 보너스가 더 있어요. 아래 작은 점은 오늘 끝낸 과목(수학·영어·중국어 순서)이에요.</p></div>
+<div class="panel"><div class="topline"><h2>🏰 나의 탐험 기록</h2><span id="level" class="badgeitem">새싹 공주 Lv.1</span></div><div class="grid2" style="margin-top:10px"><div class="tile">문제·대화 참여 <b id="done">0</b>회</div><div class="tile">정답률 <b id="accuracy">-</b></div><div class="tile">오늘 획득 포인트 <b id="todayPoints">0</b></div><div class="tile">누적 학습 시간 <b id="totalMinutes">0</b>분</div></div><h3>🎖️ 모은 배지</h3><div id="badges" class="badgegrid"></div></div>
+</section>
+<section id="study" class="panel hidden"><div class="topline"><button onclick="goHome()">← 홈으로</button><h2 id="subjectTitle">공부하기</h2></div><div class="cheerrow"><div id="subjectEmoji" class="art mini"></div><div id="cheerBubble" class="speech">오늘도 같이 해볼까요? 💖</div></div><div class="tabs" id="tabs"></div><div id="content"></div></section>
+<div class="footer">공주 공부 탐험대 · 학습 기록은 이 브라우저에 저장됩니다. AI 대화는 현재 예시 대화 엔진이며, 외부 AI 연결은 별도 서버 설정이 필요합니다.<br><button class="muted" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="toggleVoicePanel()">⚙️ 목소리·이름 설정</button> <button class="muted" style="margin-top:8px;font-size:11px;padding:5px 10px" onclick="resetAll()">기록 초기화</button><div id="voicePanel" class="hidden"></div></div></div>
+<div id="gradeUp" class="gradeup hidden"><div id="gradeUpBody" class="gucard"></div></div>
+<script>
+const $=id=>document.getElementById(id);
+const dayStr=(off=0)=>{const t=new Date();t.setDate(t.getDate()+off);return t.toLocaleDateString('sv-SE')};
+const today=()=>dayStr(0);
+const SUBJ={math:'수학',english:'영어',chinese:'중국어'},KEYS=['math','english','chinese'];
+const MASCOT={math:'bunny',english:'cat',chinese:'panda'};
+const rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[rand(0,a.length-1)];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const escHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc=s=>s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+
+/* ===== 캐릭터 그림 (직접 그린 오리지널 SVG) ===== */
+const ART={
+crown:`<svg viewBox="0 0 64 56"><path d="M8 44L12 14 26 28 32 8 38 28 52 14 56 44Z" fill="url(#gGold)" stroke="#e8a800" stroke-width="3" stroke-linejoin="round"/><rect x="8" y="42" width="48" height="10" rx="5" fill="url(#gGold)" stroke="#e8a800" stroke-width="3"/><circle cx="32" cy="26" r="4.5" fill="#ff5fa2"/><circle cx="15" cy="20" r="3" fill="#6fd3ff"/><circle cx="49" cy="20" r="3" fill="#6fd3ff"/></svg>`,
+princess:`<svg viewBox="0 0 200 240">
+<use href="#spark" transform="translate(24 44) scale(1.2)" fill="#ffd34d"/><use href="#spark" transform="translate(178 60)" fill="#ff9ec4"/><use href="#spark" transform="translate(172 150) scale(.8)" fill="#83d7f4"/>
+<path d="M38 96C20 140 26 196 56 216L144 216C174 196 180 140 162 96Z" fill="url(#gHair)"/>
+<path d="M64 160C52 188 38 212 30 238L170 238C162 212 148 188 136 160Z" fill="url(#gDress)"/>
+<g fill="#fff"><circle cx="38" cy="233" r="9"/><circle cx="58" cy="233" r="9"/><circle cx="78" cy="233" r="9"/><circle cx="98" cy="233" r="9"/><circle cx="118" cy="233" r="9"/><circle cx="138" cy="233" r="9"/><circle cx="158" cy="233" r="9"/></g>
+<g fill="#fff" opacity=".75"><circle cx="80" cy="205" r="3.5"/><circle cx="122" cy="210" r="3.5"/><circle cx="100" cy="192" r="3.5"/><circle cx="62" cy="222" r="3"/><circle cx="140" cy="224" r="3"/></g>
+<path d="M72 136L128 136 138 172 62 172Z" fill="#ff9ec4"/>
+<circle cx="64" cy="154" r="14" fill="#ffc9df"/><circle cx="136" cy="154" r="14" fill="#ffc9df"/>
+<circle cx="56" cy="174" r="7.5" fill="#ffe3d0"/><circle cx="144" cy="174" r="7.5" fill="#ffe3d0"/>
+<path d="M100 172L78 160 78 184Z" fill="#fff4b8"/><path d="M100 172L122 160 122 184Z" fill="#fff4b8"/><circle cx="100" cy="172" r="6" fill="#ffd34d"/>
+<ellipse cx="100" cy="94" rx="54" ry="50" fill="#ffe6d5"/>
+<path d="M46 92C42 52 70 38 100 38 130 38 158 52 154 92 146 76 134 68 120 64 114 78 96 82 84 72 76 76 62 80 46 92Z" fill="url(#gHair)"/>
+<path d="M68 54C82 45 100 43 118 48" stroke="#f3c196" stroke-width="5" stroke-linecap="round" fill="none" opacity=".75"/>
+<ellipse cx="78" cy="104" rx="9.5" ry="12.5" fill="#3b2a5a"/><ellipse cx="122" cy="104" rx="9.5" ry="12.5" fill="#3b2a5a"/>
+<ellipse cx="78" cy="108" rx="6.5" ry="7" fill="#8f7bff"/><ellipse cx="122" cy="108" rx="6.5" ry="7" fill="#8f7bff"/>
+<circle cx="74.5" cy="98" r="4" fill="#fff"/><circle cx="118.5" cy="98" r="4" fill="#fff"/><circle cx="82" cy="109" r="2" fill="#fff"/><circle cx="126" cy="109" r="2" fill="#fff"/>
+<path d="M67 94Q72 89 78 91M133 94Q128 89 122 91" stroke="#3b2a5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<ellipse cx="62" cy="120" rx="10" ry="6" fill="#ff9fb8" opacity=".65"/><ellipse cx="138" cy="120" rx="10" ry="6" fill="#ff9fb8" opacity=".65"/>
+<path d="M92 124Q100 133 108 124" stroke="#d6577a" stroke-width="3" fill="none" stroke-linecap="round"/>
+<g transform="translate(50 66)"><ellipse cx="-9" cy="0" rx="10" ry="6.5" transform="rotate(-20 -9 0)" fill="#ff7fb4"/><ellipse cx="9" cy="0" rx="10" ry="6.5" transform="rotate(20 9 0)" fill="#ff7fb4"/><circle r="4.5" fill="#ffd34d"/></g>
+<g transform="translate(150 66)"><ellipse cx="-9" cy="0" rx="10" ry="6.5" transform="rotate(-20 -9 0)" fill="#ff7fb4"/><ellipse cx="9" cy="0" rx="10" ry="6.5" transform="rotate(20 9 0)" fill="#ff7fb4"/><circle r="4.5" fill="#ffd34d"/></g>
+<path d="M72 52L75 26 89 40 100 20 111 40 125 26 128 52Z" fill="url(#gGold)" stroke="#e8a800" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="72" y="48" width="56" height="10" rx="5" fill="url(#gGold)" stroke="#e8a800" stroke-width="2.5"/>
+<circle cx="100" cy="35" r="4.5" fill="#ff5fa2"/><circle cx="76" cy="29" r="3.2" fill="#6fd3ff"/><circle cx="124" cy="29" r="3.2" fill="#6fd3ff"/><g fill="#fff"><circle cx="86" cy="53" r="2.4"/><circle cx="100" cy="53" r="2.4"/><circle cx="114" cy="53" r="2.4"/></g>
+</svg>`,
+bunny:`<svg viewBox="-14 0 258 266">
+<ellipse cx="122" cy="259" rx="92" ry="8" fill="#e8c6dc" opacity=".55"/>
+<g transform="rotate(14 44 68)"><ellipse cx="44" cy="68" rx="50" ry="20" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/><ellipse cx="46" cy="69" rx="36" ry="11" fill="#ffd2e3" opacity=".9"/></g>
+<g transform="rotate(18 180 36)"><ellipse cx="180" cy="36" rx="17" ry="34" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/><ellipse cx="180" cy="40" rx="9" ry="22" fill="#ffd2e3" opacity=".9"/></g>
+<circle cx="120" cy="98" r="78" fill="url(#gPink)" stroke="#f3a9c7" stroke-width="2"/>
+<g fill="#ffe6f0" opacity=".9"><ellipse cx="98" cy="36" rx="6" ry="11"/><ellipse cx="114" cy="34" rx="6" ry="11"/><ellipse cx="130" cy="34" rx="6" ry="11"/><ellipse cx="146" cy="36" rx="6" ry="11"/>
+<ellipse cx="72" cy="58" rx="6" ry="11"/><ellipse cx="88" cy="55" rx="6" ry="11"/><ellipse cx="104" cy="54" rx="6" ry="11"/><ellipse cx="120" cy="53" rx="6" ry="11"/><ellipse cx="136" cy="54" rx="6" ry="11"/><ellipse cx="152" cy="55" rx="6" ry="11"/><ellipse cx="168" cy="58" rx="6" ry="11"/>
+<ellipse cx="54" cy="84" rx="6" ry="11"/><ellipse cx="70" cy="78" rx="6" ry="11"/><ellipse cx="172" cy="78" rx="6" ry="11"/><ellipse cx="188" cy="84" rx="6" ry="11"/></g>
+<path d="M52 72C60 38 90 22 120 22" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/>
+<ellipse cx="96" cy="254" rx="22" ry="10" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/><ellipse cx="150" cy="254" rx="22" ry="10" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/>
+<ellipse cx="122" cy="210" rx="56" ry="46" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/>
+<path d="M124 214L144 214 146 252 126 252Z" fill="#fff3e8" opacity=".95"/>
+<g transform="translate(135 230)"><circle r="8" fill="#eab78c" stroke="#cf9468" stroke-width="1.5"/><g fill="#9c6a48"><circle cx="-2.2" cy="-1.8" r="1"/><circle cx="2.2" cy="-1.8" r="1"/><circle cx="-2.2" cy="1.8" r="1"/><circle cx="2.2" cy="1.8" r="1"/></g></g>
+<g transform="translate(135 247)"><circle r="8" fill="#eab78c" stroke="#cf9468" stroke-width="1.5"/><g fill="#9c6a48"><circle cx="-2.2" cy="-1.8" r="1"/><circle cx="2.2" cy="-1.8" r="1"/><circle cx="-2.2" cy="1.8" r="1"/><circle cx="2.2" cy="1.8" r="1"/></g></g>
+<path d="M74 204C58 218 46 234 42 248L80 256C86 238 98 222 108 212Z" fill="url(#gScarf)" stroke="#f08db4" stroke-width="2"/>
+<g stroke="#ff7fae" stroke-width="3" stroke-linecap="round"><path d="M44 250L36 262M52 252L45 264M60 254L55 265M68 255L64 265M76 256L74 265"/></g>
+<path d="M52 168C62 150 182 150 192 168 200 186 186 204 164 212 138 220 106 220 80 212 58 204 44 186 52 168Z" fill="url(#gScarf)" stroke="#f08db4" stroke-width="2"/>
+<path d="M62 186C90 202 152 204 180 186" stroke="#ffd9e8" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
+<g fill="#fff" opacity=".55"><circle cx="70" cy="194" r="3"/><circle cx="100" cy="207" r="3"/><circle cx="134" cy="210" r="3"/><circle cx="164" cy="202" r="3"/><circle cx="186" cy="186" r="3"/><circle cx="56" cy="178" r="2.5"/></g>
+<circle cx="92" cy="216" r="22" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/><ellipse cx="88" cy="226" rx="10" ry="6" fill="#f3e4ee" opacity=".7"/>
+<circle cx="174" cy="206" r="16" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/>
+<ellipse cx="122" cy="124" rx="57" ry="52" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/>
+<ellipse cx="122" cy="124" rx="60" ry="55" fill="none" stroke="#ffe0ec" stroke-width="10"/>
+<ellipse cx="122" cy="124" rx="60" ry="55" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="1 3.5" stroke-linecap="round"/>
+<g transform="translate(96 126)"><ellipse rx="15" ry="17" fill="#1b1c2c"/><ellipse cy="5" rx="11" ry="9" fill="#2a6a80" opacity=".75"/><circle cx="-5" cy="-6" r="5.5" fill="#fff"/><circle cx="5" cy="6" r="2.6" fill="#fff" opacity=".9"/></g>
+<g transform="translate(148 126)"><ellipse rx="15" ry="17" fill="#1b1c2c"/><ellipse cy="5" rx="11" ry="9" fill="#2a6a80" opacity=".75"/><circle cx="-5" cy="-6" r="5.5" fill="#fff"/><circle cx="5" cy="6" r="2.6" fill="#fff" opacity=".9"/></g>
+<ellipse cx="76" cy="148" rx="17" ry="11" fill="url(#gBlush)"/><ellipse cx="168" cy="148" rx="17" ry="11" fill="url(#gBlush)"/>
+<path d="M117 138L127 138 122 145Z" fill="#ff7fa8" stroke="#ff7fa8" stroke-width="2" stroke-linejoin="round"/>
+<path d="M122 146V148M122 148Q117 155 110 150M122 148Q127 155 134 150" stroke="#e07aa0" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<use href="#spark" transform="translate(214 72) scale(1.7)" fill="#fff"/><use href="#spark" transform="translate(10 150) scale(1)" fill="#ffd34d"/><use href="#spark" transform="translate(206 150) scale(.9)" fill="#ff9ec4"/>
+<g fill="#fff" opacity=".85"><circle cx="18" cy="24" r="3"/><circle cx="214" cy="118" r="2.4"/><circle cx="6" cy="206" r="2.6"/><circle cx="224" cy="228" r="3"/></g>
+</svg>`,
+cat:`<svg viewBox="-14 0 258 266">
+<ellipse cx="122" cy="259" rx="92" ry="8" fill="#e8c6dc" opacity=".55"/>
+<path d="M46 72Q46 30 60 10Q92 20 108 50Z" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2" stroke-linejoin="round"/><path d="M58 54Q58 34 65 24Q82 30 92 48Z" fill="#ffc9d6"/>
+<path d="M194 72Q194 30 180 10Q148 20 132 50Z" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2" stroke-linejoin="round"/><path d="M182 54Q182 34 175 24Q158 30 148 48Z" fill="#ffc9d6"/>
+<circle cx="120" cy="98" r="78" fill="url(#gLav)" stroke="#5b4bb5" stroke-width="2"/>
+<g fill="#efe8ff" opacity=".9"><ellipse cx="98" cy="36" rx="6" ry="11"/><ellipse cx="114" cy="34" rx="6" ry="11"/><ellipse cx="130" cy="34" rx="6" ry="11"/><ellipse cx="146" cy="36" rx="6" ry="11"/>
+<ellipse cx="72" cy="58" rx="6" ry="11"/><ellipse cx="88" cy="55" rx="6" ry="11"/><ellipse cx="104" cy="54" rx="6" ry="11"/><ellipse cx="120" cy="53" rx="6" ry="11"/><ellipse cx="136" cy="54" rx="6" ry="11"/><ellipse cx="152" cy="55" rx="6" ry="11"/><ellipse cx="168" cy="58" rx="6" ry="11"/>
+<ellipse cx="54" cy="84" rx="6" ry="11"/><ellipse cx="70" cy="78" rx="6" ry="11"/><ellipse cx="172" cy="78" rx="6" ry="11"/><ellipse cx="188" cy="84" rx="6" ry="11"/></g>
+<path d="M52 72C60 38 90 22 120 22" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M170 238C208 240 226 208 214 184C208 172 196 178 202 190C208 204 198 222 170 224Z" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/><path d="M200 194L210 196M204 206L213 206M196 216L205 214" stroke="#f0b27a" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="96" cy="254" rx="22" ry="10" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/><ellipse cx="150" cy="254" rx="22" ry="10" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/>
+<ellipse cx="122" cy="210" rx="56" ry="46" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/>
+<path d="M124 214L144 214 146 252 126 252Z" fill="#fffaf2" opacity=".95"/>
+<g transform="translate(135 230)"><circle r="8" fill="#eab78c" stroke="#cf9468" stroke-width="1.5"/><g fill="#9c6a48"><circle cx="-2.2" cy="-1.8" r="1"/><circle cx="2.2" cy="-1.8" r="1"/><circle cx="-2.2" cy="1.8" r="1"/><circle cx="2.2" cy="1.8" r="1"/></g></g>
+<g transform="translate(135 247)"><circle r="8" fill="#eab78c" stroke="#cf9468" stroke-width="1.5"/><g fill="#9c6a48"><circle cx="-2.2" cy="-1.8" r="1"/><circle cx="2.2" cy="-1.8" r="1"/><circle cx="-2.2" cy="1.8" r="1"/><circle cx="2.2" cy="1.8" r="1"/></g></g>
+<path d="M74 204C58 218 46 234 42 248L80 256C86 238 98 222 108 212Z" fill="url(#gScarfL)" stroke="#4a3aa8" stroke-width="2"/>
+<g stroke="#2e2a6e" stroke-width="3" stroke-linecap="round"><path d="M44 250L36 262M52 252L45 264M60 254L55 265M68 255L64 265M76 256L74 265"/></g>
+<path d="M52 168C62 150 182 150 192 168 200 186 186 204 164 212 138 220 106 220 80 212 58 204 44 186 52 168Z" fill="url(#gScarfL)" stroke="#4a3aa8" stroke-width="2"/>
+<path d="M62 186C90 202 152 204 180 186" stroke="#e6dcff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
+<g fill="#fff" opacity=".55"><circle cx="70" cy="194" r="3"/><circle cx="100" cy="207" r="3"/><circle cx="134" cy="210" r="3"/><circle cx="164" cy="202" r="3"/><circle cx="186" cy="186" r="3"/><circle cx="56" cy="178" r="2.5"/></g>
+<circle cx="92" cy="216" r="22" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/><ellipse cx="88" cy="226" rx="10" ry="6" fill="#f3e4ee" opacity=".7"/>
+<circle cx="174" cy="206" r="16" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/>
+<ellipse cx="122" cy="124" rx="57" ry="52" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/>
+<ellipse cx="122" cy="124" rx="60" ry="55" fill="none" stroke="#efe9ff" stroke-width="10"/>
+<ellipse cx="122" cy="124" rx="60" ry="55" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="1 3.5" stroke-linecap="round"/>
+<g transform="translate(96 126)"><ellipse rx="15" ry="17" fill="#1b1c2c"/><ellipse cy="5" rx="11" ry="9" fill="#2a6a80" opacity=".75"/><circle cx="-5" cy="-6" r="5.5" fill="#fff"/><circle cx="5" cy="6" r="2.6" fill="#fff" opacity=".9"/></g>
+<g transform="translate(148 126)"><ellipse rx="15" ry="17" fill="#1b1c2c"/><ellipse cy="5" rx="11" ry="9" fill="#2a6a80" opacity=".75"/><circle cx="-5" cy="-6" r="5.5" fill="#fff"/><circle cx="5" cy="6" r="2.6" fill="#fff" opacity=".9"/></g>
+<ellipse cx="76" cy="148" rx="17" ry="11" fill="url(#gBlush)"/><ellipse cx="168" cy="148" rx="17" ry="11" fill="url(#gBlush)"/>
+<g transform="translate(158 52) rotate(-18)"><path d="M3-12A12 12 0 1 0 12 6 9.5 9.5 0 1 1 3-12Z" fill="#ffe27a" stroke="#e0a800" stroke-width="1.6" stroke-linejoin="round"/></g><use href="#spark" transform="translate(180 64) scale(1.35)" fill="#ffe27a" stroke="#e0a800" stroke-width=".8"/>
+<path d="M122 80V92M110 82L112 92M134 82L132 92" stroke="#f0b27a" stroke-width="3" stroke-linecap="round" fill="none"/>
+<g stroke="#d9b9a2" stroke-width="1.6" stroke-linecap="round" fill="none"><path d="M64 140L40 136M64 148L40 151M66 155L45 163M180 140L204 136M180 148L204 151M178 155L199 163"/></g>
+<path d="M117 138L127 138 122 145Z" fill="#ff7fa8" stroke="#ff7fa8" stroke-width="2" stroke-linejoin="round"/>
+<path d="M122 146V148M122 148Q117 155 110 150M122 148Q127 155 134 150" stroke="#e07aa0" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<use href="#spark" transform="translate(214 72) scale(1.7)" fill="#fff"/><use href="#spark" transform="translate(10 150) scale(1)" fill="#ffd34d"/><use href="#spark" transform="translate(206 150) scale(.9)" fill="#ff9ec4"/>
+<g fill="#fff" opacity=".85"><circle cx="18" cy="24" r="3"/><circle cx="214" cy="118" r="2.4"/><circle cx="6" cy="206" r="2.6"/><circle cx="224" cy="228" r="3"/></g>
+</svg>`,
+panda:`<svg viewBox="0 0 240 250">
+<ellipse cx="120" cy="243" rx="88" ry="8" fill="#d9cde0" opacity=".6"/>
+<circle cx="64" cy="50" r="24" fill="#2b2630"/><circle cx="64" cy="52" r="11" fill="#4d4455"/>
+<circle cx="176" cy="50" r="24" fill="#2b2630"/><circle cx="176" cy="52" r="11" fill="#4d4455"/>
+<ellipse cx="120" cy="165" rx="70" ry="42" fill="#2b2630"/>
+<ellipse cx="120" cy="204" rx="58" ry="40" fill="url(#gFur)" stroke="#e9e3ea" stroke-width="2"/>
+<g transform="rotate(-14 62 214)"><ellipse cx="62" cy="214" rx="36" ry="30" fill="#2b2630"/></g>
+<g transform="rotate(14 178 214)"><ellipse cx="178" cy="214" rx="36" ry="30" fill="#2b2630"/></g>
+<g fill="#ffadc2"><ellipse cx="62" cy="223" rx="14" ry="10.5"/><circle cx="46" cy="207" r="5.5"/><circle cx="60" cy="200" r="5.5"/><circle cx="74" cy="203" r="5.5"/>
+<ellipse cx="178" cy="223" rx="14" ry="10.5"/><circle cx="194" cy="207" r="5.5"/><circle cx="180" cy="200" r="5.5"/><circle cx="166" cy="203" r="5.5"/></g>
+<path d="M98 214L188 148" stroke="#5aa035" stroke-width="19" stroke-linecap="round"/>
+<path d="M98 214L188 148" stroke="#8fd45a" stroke-width="13" stroke-linecap="round"/>
+<path d="M103 207L184 147" stroke="#c9f299" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+<path d="M124 184L135 198M156 161L166 175" stroke="#4f9230" stroke-width="3.5" stroke-linecap="round"/>
+<g transform="translate(18 18)"><g fill="#7ccf4a" stroke="#4f9e2e" stroke-width="1.5" stroke-linejoin="round"><path d="M170 130Q166 100 190 86Q198 112 170 130Z"/><path d="M170 130Q192 110 218 118Q206 142 170 130Z"/><path d="M168 130Q148 106 158 84Q176 98 168 130Z"/><path d="M174 132Q198 130 214 148Q190 158 174 132Z"/></g>
+<g stroke="#b9ee86" stroke-width="1.5" stroke-linecap="round" fill="none"><path d="M172 126Q180 108 188 94M174 126Q196 118 210 120M166 126Q160 108 160 92"/></g></g>
+<path d="M60 160Q64 196 120 192" stroke="#2b2630" stroke-width="32" stroke-linecap="round" fill="none"/>
+<path d="M184 158Q188 178 160 168" stroke="#2b2630" stroke-width="30" stroke-linecap="round" fill="none"/>
+<circle cx="122" cy="192" r="17" fill="#3a3340"/><circle cx="160" cy="168" r="16" fill="#3a3340"/>
+<g stroke="#5a5063" stroke-width="2" stroke-linecap="round"><path d="M114 184L116 194M122 182L123 193M130 184L129 194M152 160L154 170M160 158L160 169M168 160L166 170"/></g>
+<ellipse cx="120" cy="100" rx="68" ry="58" fill="url(#gFur)" stroke="#e9e3ea" stroke-width="2"/>
+<ellipse cx="92" cy="104" rx="16" ry="21" transform="rotate(24 92 104)" fill="#2b2630"/>
+<ellipse cx="148" cy="104" rx="16" ry="21" transform="rotate(-24 148 104)" fill="#2b2630"/>
+<g transform="translate(94 102)"><circle r="11" fill="#7a4a24"/><ellipse cy="4" rx="8" ry="6" fill="#e0a34e" opacity=".85"/><circle r="6" fill="#1b1218"/><circle cx="-3.5" cy="-4" r="3.6" fill="#fff"/><circle cx="3.5" cy="4" r="1.8" fill="#fff"/></g>
+<g transform="translate(146 102)"><circle r="11" fill="#7a4a24"/><ellipse cy="4" rx="8" ry="6" fill="#e0a34e" opacity=".85"/><circle r="6" fill="#1b1218"/><circle cx="-3.5" cy="-4" r="3.6" fill="#fff"/><circle cx="3.5" cy="4" r="1.8" fill="#fff"/></g>
+<path d="M80 80Q88 75 98 78M142 78Q152 75 160 80" stroke="#cfc6cd" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<ellipse cx="70" cy="128" rx="14" ry="9" fill="url(#gBlush)"/><ellipse cx="170" cy="128" rx="14" ry="9" fill="url(#gBlush)"/>
+<path d="M110 118Q120 112 130 118Q128 127 120 128Q112 127 110 118Z" fill="#2b2630"/><ellipse cx="117" cy="117" rx="3" ry="1.6" fill="#fff" opacity=".6"/>
+<path d="M120 128V131" stroke="#2b2630" stroke-width="2" stroke-linecap="round"/>
+<path d="M104 131Q120 152 136 131Q120 138 104 131Z" fill="#ff7f9f" stroke="#2b2630" stroke-width="2" stroke-linejoin="round"/>
+<path d="M114 141Q120 146 126 141" stroke="#ffb3c6" stroke-width="3" fill="none" stroke-linecap="round"/>
+<use href="#spark" transform="translate(210 40) scale(1.2)" fill="#ffd34d"/><use href="#spark" transform="translate(24 122) scale(.9)" fill="#ff9ec4"/>
+</svg>`};
+function paintArt(){document.querySelectorAll('[data-art]').forEach(e=>{e.innerHTML=skinART(e.dataset.art)})}
+
+/* ===== 데이터 ===== */
+const fresh=()=>({points:0,stars:0,done:0,attempts:0,correct:0,wrong:[],minutes:{math:0,english:0,chinese:0},daily:{},lastDay:'',streak:0,totalMinutes:0,badges:[],todayPoints:0,pointDay:today(),voice:true,wave:true,voicePick:{},clearStreak:0,lastClearDay:''});
+function load(){try{return JSON.parse(localStorage.getItem('princessQuest')||'{}')||{}}catch(e){return {}}}
+let data=Object.assign(fresh(),load());
+if(!Array.isArray(data.wrong))data.wrong=[];
+if(!Array.isArray(data.badges))data.badges=[];
+if(!data.daily||typeof data.daily!=='object')data.daily={};
+if(typeof data.voice!=='boolean')data.voice=true;
+if(typeof data.wave!=='boolean')data.wave=true;
+if(typeof data.clearStreak!=='number')data.clearStreak=0;
+if(typeof data.lastClearDay!=='string')data.lastClearDay='';
+if(!data.voicePick||typeof data.voicePick!=='object')data.voicePick={};
+function fixData(){if(typeof data.points!=='number'||data.points<0)data.points=0;
+ if(typeof data.earned!=='number')data.earned=data.points;
+ if(typeof data.ptsSeen!=='number')data.ptsSeen=data.points;
+ if(!data.owned||typeof data.owned!=='object')data.owned={};
+ if(!data.deco||typeof data.deco!=='object')data.deco={};
+ KEYS.forEach(k=>{if(!Array.isArray(data.deco[k]))data.deco[k]=[]});
+ if(!data.lv||typeof data.lv!=='object')data.lv={};
+ if(!data.studyDays||typeof data.studyDays!=='object')data.studyDays={};
+ ['english','chinese'].forEach(k=>{if(!(data.lv[k]>=1))data.lv[k]=1;if(!(data.studyDays[k]>=0))data.studyDays[k]=0});
+ if(!data.look||typeof data.look!=='object')data.look={};
+ ['bunny','cat','panda'].forEach(k=>{if(!data.look[k]||typeof data.look[k]!=='object')data.look[k]={c:'plain',a:'none'}});
+ if(!data.skinsOwned||typeof data.skinsOwned!=='object')data.skinsOwned={};
+ if(!data.gg||typeof data.gg!=='object')data.gg={};
+ if(!data.gg.mastery||typeof data.gg.mastery!=='object')data.gg.mastery={};
+ if(typeof data.gg.best!=='number')data.gg.best=0}
+fixData();
+function syncPoints(){if(data.points<0)data.points=0;if(data.points>data.ptsSeen)data.earned+=data.points-data.ptsSeen;data.ptsSeen=data.points}
+function ensureDay(){const d=today();if(data.pointDay!==d){data.todayPoints=0;data.pointDay=d}
+ if(!data.daily[d]){data.daily[d]={math:0,english:0,chinese:0,bonus:{}};const ks=Object.keys(data.daily).sort();while(ks.length>60)delete data.daily[ks.shift()]}
+ if(!data.daily[d].bonus)data.daily[d].bonus={}}
+ensureDay();
+let subject='math',mode='quiz',current=null,chatStep=0,chatToken=0,chatLock=false;
+let mathUnit=null,mathQIndex=0,mathSetCorrect=0;
+let deckOrder=[],deckPos=0,deckSubject='',lastLine=null;
+function save(){syncPoints();checkGrade();try{localStorage.setItem('princessQuest',JSON.stringify(data))}catch(e){}render()}
+function markActive(){const d=today();if(data.lastDay===d)return;data.streak=(data.lastDay===dayStr(-1))?data.streak+1:1;data.lastDay=d}
+function render(){ensureDay();const d=data.daily[today()];
+ const streak=(data.lastDay===today()||data.lastDay===dayStr(-1))?data.streak:0;
+ $('points').textContent=data.points;$('voiceBtn').textContent=data.voice?'🔊 효과음':'🔇 효과음';$('stars').textContent=data.stars;$('streak').textContent=streak;$('done').textContent=data.done;
+ $('accuracy').textContent=data.attempts?Math.round(data.correct/data.attempts*100)+'%':'-';
+ $('todayPoints').textContent=data.todayPoints;$('totalMinutes').textContent=Math.floor(data.totalMinutes);
+ renderGrade();
+ const total=KEYS.reduce((s,k)=>s+Math.min(600,d[k]||0),0);
+ $('dailyTotal').textContent=Math.floor(total/60)+' / 30분';$('dailyBar').style.width=(total/18)+'%';
+ KEYS.forEach(k=>{$(k+'Daily').textContent=`오늘 ${Math.min(10,Math.floor((d[k]||0)/60))}/10분`+(k==='math'?'':` · Lv.${lvOf(k)}`)});
+ if($('shopPts'))$('shopPts').textContent=data.points;
+ $('missions').innerHTML=[['math','🧮'],['english','🐱'],['chinese','🐼']].map(([k,e])=>{const sec=d[k]||0,left=Math.ceil((600-sec)/60);return `<div class="mission"><span>${e} ${SUBJ[k]} · ${Math.min(10,Math.floor(sec/60))}/10분</span><b>${sec>=600?'✅ 완료':'💎 '+left+'분 남음'}</b></div>`}).join('');
+ $('badges').innerHTML=data.badges.length?data.badges.map(x=>`<span class="badgeitem">${escHtml(x)}</span>`).join(''):'<span class="small">미션을 완료하면 배지를 받을 수 있어요!</span>'}
+function checkBadges(){const d=data.daily[today()],b=[];
+ if(data.done>=1)b.push('🌟 첫 도전');if(data.earned>=50)b.push('💎 포인트 수집가');
+ const streak=(data.lastDay===today()||data.lastDay===dayStr(-1))?data.streak:0;if(streak>=3)b.push('🔥 3일 연속');
+ if(KEYS.every(k=>(d[k]||0)>=600))b.push('👑 오늘의 올클리어');
+ data.badges=[...new Set([...data.badges,...b])]}
+function addPoints(n){markActive();data.points+=n;data.todayPoints+=n;data.stars+=Math.max(1,Math.floor(n/5))}
+function award(n,why,quiet){addPoints(n);data.done++;checkBadges();save();
+ if(!quiet){const f=$('feedback');if(f)f.textContent=`${why||'참 잘했어요!'} 💎 +${n}포인트!`;cheer(why||'참 잘했어요!')}}
+const CHEER_OK=['정답이에요! 멋져요 ✨','우와, 대단해요! 👏','반짝반짝 천재 공주님! 💖','척척박사네요! 🌟'];
+const CHEER_BAD=['괜찮아요, 틀려도 멋져요! 💗','다음엔 꼭 맞힐 수 있어요! 💪','실수는 반짝이는 연습이에요 ✨'];
+/* ===== 목소리 고르기: 상냥한 여자 목소리를 우선 선택 ===== */
+const FEMALE_RE=/(female|woman|yuna|sora|sunhi|sun-hi|heami|seoyeon|jimin|samantha|karen|victoria|allison|ava|susan|zira|aria|jenny|michelle|emma|libby|sonia|joanna|ting-?ting|mei-?jia|sin-?ji|xiaoxiao|xiaoyi|xiaochen|xiaohan|huihui|yaoyao|hanhan|google 한국어|google us english|google 普通话|google 國語)/i;
+const MALE_RE=/(male|\bman\b|injoon|in-joon|guy|david|mark|daniel|alex|fred|rishi|kangkang|yunxi|yunyang|yunjian|yunhao|george|james|ryan|eric|brandon|bongjin|gookmin|hyunsu)/i;
+let voiceCache=[];
+function refreshVoices(){try{voiceCache=speechSynthesis.getVoices()||[]}catch(e){voiceCache=[]}}
+if('speechSynthesis' in window){refreshVoices();try{speechSynthesis.onvoiceschanged=refreshVoices}catch(e){}}
+const vLang=v=>String(v.lang||'').replace('_','-').toLowerCase();
+function voiceScore(v){const n=v.name||'';let s=0;if(/sunhi|sun-hi|yuna|sora|xiaoxiao|xiaoyi|jenny|aria|samantha|google 한국어/i.test(n))s+=2;
+ if(/female/i.test(n)||FEMALE_RE.test(n))s+=5;else if(MALE_RE.test(n))s-=8;
+ if(/natural|neural|online/i.test(n))s+=3;if(/google|microsoft|apple|siri|premium|enhanced/i.test(n))s+=1;return s}
+function pickVoice(lang){const key=lang.slice(0,2).toLowerCase();const list=voiceCache.filter(v=>vLang(v).slice(0,2)===key);
+ const want=(data.voicePick||{})[key];if(want){const m=list.find(v=>v.name===want);if(m)return m}
+ if(!list.length)return null;const exact=list.filter(v=>vLang(v)===lang.toLowerCase());const pool=exact.length?exact:list;
+ return pool.slice().sort((a,b)=>voiceScore(b)-voiceScore(a))[0]}
+const VSTYLE={soft:{n:'🌸 나긋나긋 (기본)',p:1.12,r:.84},cute:{n:'🎀 애교 있는 말투',p:1.35,r:.9},calm:{n:'🍃 차분하고 부드럽게',p:1.0,r:.8},plain:{n:'기본 속도',p:1,r:1}};
+function utter(text,lang,pitch,rate){const st=VSTYLE[data.voiceStyle]||VSTYLE.soft;const u=new SpeechSynthesisUtterance(sayName(text,lang));u.lang=lang;u.rate=Math.max(.5,Math.min(1.2,rate*st.r));u.pitch=Math.max(.5,Math.min(2,pitch*st.p));const v=pickVoice(lang);if(v)u.voice=v;return u}
+const VOICE_LANGS=[['ko','한국어','ko-KR','안녕하세요! 오늘도 같이 공부해요!'],['en','영어','en-US','Hello! Let’s study together!'],['zh','중국어','zh-CN','你好！我们一起学习吧！']];
+function voicePanelHTML(){return '<div style="background:#fff;border:2px solid #f0e5f1;border-radius:16px;padding:12px;margin:10px auto;max-width:540px;text-align:left;font-size:13px"><b>🎙️ 선생님 목소리</b><div class="small" style="margin:4px 0 8px">자동으로 부드러운 여자 목소리를 먼저 골라요. 아래 “말투”로 더 나긋나긋하거나 애교 있게 바꿀 수 있어요. 마음에 안 들면 직접 골라 보세요. 목소리 종류는 기기마다 달라요.</div>'+`<div style="margin:7px 0"><b>말투</b> <select class="input" style="font-size:13px;padding:5px;min-width:0" onchange="setVoiceStyle(this.value)">${Object.keys(VSTYLE).map(k=>`<option value="${k}"${(data.voiceStyle||'soft')===k?' selected':''}>${VSTYLE[k].n}</option>`).join('')}</select></div>`+`<div style="margin:7px 0 12px;padding-bottom:10px;border-bottom:1px dashed #eadff3"><b>👑 공주님 이름</b><div class="small" style="margin:3px 0 6px">AI 선생님이 이름을 물어볼 때 쓰는 대답이에요.</div>${(()=>{const n=pname();return `<input id="nmEn" class="input" style="font-size:14px;padding:6px;min-width:0;width:110px" value="${escHtml(n.en)}" placeholder="영어 이름"> <input id="nmZh" class="input" style="font-size:14px;padding:6px;min-width:0;width:100px" value="${escHtml(n.zh)}" placeholder="한자"> <input id="nmPy" class="input" style="font-size:14px;padding:6px;min-width:0;width:110px" value="${escHtml(n.py)}" placeholder="병음"> <input id="nmSay" class="input" style="font-size:14px;padding:6px;min-width:0;width:110px" value="${escHtml(n.say)}" placeholder="영어로 읽는 소리"> <button style="padding:6px 10px;font-size:13px" onclick="saveName()">저장</button>`})()}<div class="small" style="margin-top:4px">중국어는 한자로 적어야 선생님이 또렷하게 읽어요. (기본값은 智昷 · zhì wēn 이에요.) 영어 이름 Zion은 “Zee on” (지-온)으로 읽도록 해 두었어요.</div></div>`+VOICE_LANGS.map(([k,n])=>{const list=voiceCache.filter(v=>vLang(v).slice(0,2)===k);const cur=(data.voicePick||{})[k]||'';
+ return `<div style="margin:7px 0"><b>${n}</b> <select class="input" style="font-size:13px;padding:5px;min-width:0;max-width:100%" onchange="setVoicePick('${k}',this.value)"><option value="">자동 (여자 목소리 우선)</option>${list.map(v=>`<option value="${escHtml(v.name)}"${v.name===cur?' selected':''}>${escHtml(v.name)}</option>`).join('')}</select> <button style="padding:5px 9px;font-size:12px" onclick="previewVoice('${k}')">▶ 들어보기</button>${list.length?'':`<div class="small">이 기기에는 ${n} 음성이 없어요.</div>`}</div>`}).join('')+`<label style="display:block;margin-top:8px"><input type="checkbox" ${data.wave?'checked':''} onchange="data.wave=this.checked;save()"> 말할 때 목소리 물결 보기 <span class="small">(마이크가 잘 안 될 때는 꺼 주세요. 파일로 열었을 땐 허용창을 줄이려고 자동으로 꺼져요)</span></label><div style="margin-top:12px;padding-top:10px;border-top:1px dashed #eadff3"><b>💾 기록 옮기기</b><div class="small" style="margin:3px 0 6px">주소나 기기를 바꿀 때 포인트와 꾸미기 기록을 옮겨요. 이전 곳에서 “내보내기” → 복사된 글을 새 곳 칸에 붙여넣고 “불러오기”.</div><textarea id="dataBox" class="input" style="width:100%;height:60px;font-size:11px"></textarea><div style="margin-top:6px"><button style="padding:6px 10px;font-size:13px" onclick="exportData()">📤 내보내기</button> <button style="padding:6px 10px;font-size:13px" onclick="importData()">📥 불러오기</button></div></div></div>`}
+function toggleVoicePanel(){const p=$('voicePanel');if(!p)return;refreshVoices();if(p.classList.contains('hidden')){p.innerHTML=voicePanelHTML();p.classList.remove('hidden')}else p.classList.add('hidden')}
+function setVoiceStyle(k){data.voiceStyle=k;save();previewVoice('ko')}
+function setVoicePick(k,name){data.voicePick[k]=name;save()}
+function previewVoice(k){const x=VOICE_LANGS.find(a=>a[0]===k);if(!x||!('speechSynthesis' in window))return;speechSynthesis.cancel();speechSynthesis.speak(utter(x[3],x[2],1.1,.88))}
+const CHEER_VOICE={math:{lang:'ko-KR',list:['정답이에요! 정말 잘했어요!','우와, 맞았어요! 대단해요!','짝짝짝! 척척박사예요!','최고예요! 공주님!']},english:{lang:'en-US',list:['Great job!','Well done!','Awesome! You did it!','Perfect!']},chinese:{lang:'zh-CN',list:['太棒了！','真厉害！','做得好！','你真棒！']}};
+function speakCheer(text,lang){if(!data.voice||!('speechSynthesis' in window))return;
+ try{speechSynthesis.cancel();speechSynthesis.speak(utter(text,lang,1.18,.93))}catch(e){}}
+/* ===== 효과음: 정답은 경쾌한 소리, 오답은 “아~~~” ===== */
+let actx=null;
+function aCtx(){try{if(!actx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)actx=new AC()}if(actx&&actx.state==='suspended')actx.resume()}catch(e){}return actx}
+function tone(f,t0,dur,type,vol){const c=aCtx();if(!c)return;try{const o=c.createOscillator(),g=c.createGain(),n=c.currentTime+t0;o.type=type||'sine';o.frequency.setValueAtTime(f,n);
+ g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(vol||.2,n+.02);g.gain.exponentialRampToValueAtTime(.0001,n+dur);o.connect(g);g.connect(c.destination);o.start(n);o.stop(n+dur+.05)}catch(e){}}
+function sfxOk(){if(!data.voice)return;[[784,0],[988,.08],[1319,.16],[1568,.25]].forEach(([f,s])=>tone(f,s,.2,'triangle',.2));tone(2093,.25,.35,'sine',.08)}
+function sfxWin(){if(!data.voice)return;[[523,0],[659,.1],[784,.2],[1047,.3],[784,.45],[1047,.55],[1319,.65]].forEach(([f,s])=>tone(f,s,.22,'triangle',.2))}
+function sfxBad(){if(!data.voice)return;const c=aCtx();if(!c)return;try{const n=c.currentTime,o=c.createOscillator(),g=c.createGain(),lp=c.createBiquadFilter(),lfo=c.createOscillator(),lg=c.createGain();
+ o.type='sawtooth';o.frequency.setValueAtTime(440,n);o.frequency.linearRampToValueAtTime(300,n+.35);o.frequency.exponentialRampToValueAtTime(190,n+1.1);
+ lp.type='lowpass';lp.frequency.value=1000;lp.Q.value=4;lfo.frequency.value=6;lg.gain.value=9;lfo.connect(lg);lg.connect(o.frequency);
+ g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(.18,n+.05);g.gain.setValueAtTime(.18,n+.6);g.gain.exponentialRampToValueAtTime(.0001,n+1.2);
+ o.connect(lp);lp.connect(g);g.connect(c.destination);o.start(n);lfo.start(n);o.stop(n+1.25);lfo.stop(n+1.25)}catch(e){}}
+function cheerVoice(){sfxOk()}
+function toggleVoice(){data.voice=!data.voice;if(!data.voice)cancelSpeech();save()}
+function cheer(msg){const b=$('cheerBubble');if(!b)return;b.textContent=msg;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}
+
+/* ===== 등급 · 올클리어 · 연속 보너스 ===== */
+const GRADES=[{name:'새싹 공주',emoji:'🌱',min:0},{name:'반짝 공주',emoji:'✨',min:100},{name:'용감한 공주',emoji:'🛡️',min:300},{name:'지혜로운 공주',emoji:'📚',min:600},{name:'마법의 공주',emoji:'🪄',min:1000},{name:'달빛 공주',emoji:'🌙',min:1500},{name:'별빛 여왕',emoji:'🌟',min:2200},{name:'왕국의 대여왕',emoji:'👑',min:3000}];
+function gradeIndex(p){let i=0;GRADES.forEach((g,k)=>{if(p>=g.min)i=k});return i}
+const STREAK_REWARDS={3:{pts:20,badge:'🔥 3일 연속 올클리어'},7:{pts:50,badge:'🌈 7일 연속 올클리어'},14:{pts:100,badge:'🏅 14일 연속 올클리어'},30:{pts:200,badge:'🏆 30일 연속 올클리어'},50:{pts:300,badge:'💎 50일 연속 올클리어'},100:{pts:500,badge:'👑 100일 연속 올클리어'}};
+const ALLCLEAR_POINTS=30;
+function checkAllClear(){const d=data.daily[today()];
+ if(!d||d.bonus.all||!KEYS.every(k=>(d[k]||0)>=600))return null;
+ d.bonus.all=true;data.clearStreak=(data.lastClearDay===dayStr(-1))?(data.clearStreak||0)+1:1;data.lastClearDay=today();
+ let pts=ALLCLEAR_POINTS,extra='';const r=STREAK_REWARDS[data.clearStreak];
+ if(r){pts+=r.pts;data.badges=[...new Set([...data.badges,r.badge])];extra=`<br>🔥 ${data.clearStreak}일 연속 보너스 💎 +${r.pts}!`}
+ data.points+=pts;data.todayPoints+=pts;data.stars+=3;
+ return {msg:`👑 세 과목 올클리어! 💎 +${pts}포인트`,html:`세 과목을 모두 끝냈어요!<br>💎 +${pts}포인트${extra}<br><span class="small">올클리어 연속 ${data.clearStreak}일째예요</span>`}}
+function checkGrade(){const gi=gradeIndex(data.earned);if(typeof data.grade!=='number'){data.grade=gi;return}
+ if(gi>data.grade){data.grade=gi;const g=GRADES[gi];celebrate({emoji:g.emoji,title:'등급 UP!',msg:`축하해요! <b>${g.name}</b> 등급이 되었어요!`,voice:`축하해요! ${g.name} 등급이 되었어요!`})}}
+let celQ=[];
+function celebrate(it){celQ.push(it);const o=$('gradeUp');if(o&&o.classList.contains('hidden'))nextCelebrate()}
+function nextCelebrate(){const o=$('gradeUp');if(!o)return;const it=celQ.shift();if(!it){o.classList.add('hidden');return}
+ const conf=Array.from({length:16},(_,i)=>`<span class="conf" style="left:${i*6+2}%;animation-delay:${(i%8)*.25}s">${['🎉','✨','💖','⭐'][i%4]}</span>`).join('');
+ $('gradeUpBody').innerHTML=`${conf}<div class="art" style="width:120px;height:124px;margin:0 auto">${skinART('bunny')}</div><div class="gu-emoji">${it.emoji}</div><h2 style="margin:6px 0">${it.title}</h2><p style="line-height:1.6">${it.msg}</p><button class="primary" onclick="nextCelebrate()">${celQ.length?'다음 ➜':'계속하기'}</button>`;
+ o.classList.remove('hidden');if(it.voice)speakCheer(it.voice,'ko-KR')}
+function renderGrade(){const gi=gradeIndex(data.earned),g=GRADES[gi],nx=GRADES[gi+1];
+ $('gradeEmoji').textContent=g.emoji;$('gradeName').textContent=`${g.name} · Lv.${gi+1}`;
+ $('gradeBar').style.width=(nx?Math.min(100,(data.earned-g.min)/(nx.min-g.min)*100):100)+'%';
+ $('gradeNext').textContent=nx?`다음 등급 「${nx.emoji} ${nx.name}」까지 💎 ${nx.min-data.earned}점 (누적 ${data.earned}점)`:'최고 등급이에요! 👑';
+ $('level').textContent=`${g.emoji} ${g.name} Lv.${gi+1}`;
+ const cs=(data.lastClearDay===today()||data.lastClearDay===dayStr(-1))?data.clearStreak:0;$('clearStreak').textContent=cs;
+ $('gradeList').innerHTML=GRADES.map((x,i)=>`<span class="badgeitem" style="${i<=gi?'':'opacity:.45'}">${x.emoji} ${x.name} · ${x.min}점</span>`).join('');
+ const days='일월화수목금토';let h='';
+ for(let i=6;i>=0;i--){const ds=dayStr(-i),dd=data.daily[ds],all=dd&&KEYS.every(k=>(dd[k]||0)>=600),some=dd&&KEYS.some(k=>(dd[k]||0)>0);
+  h+=`<div class="stamp ${all?'all':some?'some':''} ${i===0?'today':''}"><div class="sm">${days[new Date(ds+'T00:00:00').getDay()]}${i===0?' (오늘)':''}</div><div class="sc">${all?'👑':some?'⭐':'·'}</div><div class="dots">${KEYS.map(k=>`<i class="${dd&&(dd[k]||0)>=600?'on':''}"></i>`).join('')}</div></div>`}
+ $('weekStamps').innerHTML=h}
+/* ===== 타이머 (화면 켜 놓고 자리를 비우면 멈춰요) ===== */
+let timerInt=null,paused=false,lastActivity=Date.now(),lastReward=null;
+const IDLE_MS=60000;
+['pointerdown','keydown','touchstart'].forEach(ev=>document.addEventListener(ev,()=>{lastActivity=Date.now()},{passive:true}));
+function startTimer(){paused=false;lastActivity=Date.now();if(!timerInt)timerInt=setInterval(tick,1000);updateTimerUI()}
+function stopTimer(){if(timerInt){clearInterval(timerInt);timerInt=null}}
+function toggleTimer(){if(paused)startTimer();else{paused=true;updateTimerUI()}}
+function tick(){ensureDay();const d=data.daily[today()];
+ const idle=Date.now()-lastActivity>IDLE_MS;
+ if(paused||document.hidden||idle||mode==='deco'||mode==='skin'){updateTimerUI();return}
+ d[subject]=(d[subject]||0)+1;data.totalMinutes+=1/60;markActive();
+ let msg='';
+ if(subject!=='math'&&d[subject]===STUDY_DAY_SEC&&!d.bonus['lv_'+subject]){d.bonus['lv_'+subject]=true;lvStudyDay(subject)}
+ if(d[subject]%60===0&&d[subject]<=600){data.points+=2;data.todayPoints+=2;msg='🎉 1분 집중! 💎 +2포인트'}
+ if(d[subject]>=600&&!d.bonus[subject]){d.bonus[subject]=true;data.points+=20;data.todayPoints+=20;data.badges=[...new Set([...data.badges,'⏱️ 10분 집중'])];msg='👑 10분 달성! 보너스 💎 +20포인트!'}
+ const ac=checkAllClear();if(ac)msg=ac.msg;
+ checkBadges();save();updateTimerUI(msg);if(ac)celebrate({emoji:'👑',title:'오늘의 올클리어!',msg:ac.html,voice:'오늘 세 과목을 모두 끝냈어요! 정말 대단해요!'})}
+function updateTimerUI(reward){const v=$('timerValue');if(!v)return;
+ const d=data.daily[today()],sec=d[subject]||0,rem=Math.max(0,600-sec);
+ v.textContent=String(Math.floor(rem/60)).padStart(2,'0')+':'+String(rem%60).padStart(2,'0');
+ $('timerProgress').style.width=Math.min(100,sec/6)+'%';
+ const b=$('timerBtn');if(b)b.textContent=paused?'▶ 계속하기':'⏸ 잠깐 멈춤';
+ const idle=Date.now()-lastActivity>IDLE_MS;
+ const n=$('timerNote');if(n)n.textContent=paused?'⏸ 잠깐 멈췄어요':(idle||document.hidden)?'💤 화면을 눌러 계속해요!':'⏱️ 공부 시간을 재고 있어요';
+ if(reward)lastReward={msg:reward,at:Date.now()};
+ const r=$('timerReward');if(r)r.textContent=(lastReward&&Date.now()-lastReward.at<8000)?lastReward.msg:''}
+function timerBox(){return `<div class="tile"><div class="topline"><b>⏱️ 오늘의 ${SUBJ[subject]} 10분 타이머</b><span id="timerNote" class="small"></span></div><div id="timerValue" class="timer">10:00</div><div class="progress"><span id="timerProgress"></span></div><div class="row" style="margin-top:10px"><button id="timerBtn" class="mint" onclick="toggleTimer()">⏸ 잠깐 멈춤</button></div><div id="timerReward" class="feedback"></div></div>`}
+function setContent(html){$('content').innerHTML=html;updateTimerUI()}
+
+/* ===== 화면 이동 ===== */
+const DECO_TAB=['deco','🎀 꾸미기'],SKIN_TAB=['skin','👗 스킨'];
+const tabMap={math:[['topics','학습 주제'],['quiz','문제 풀기'],['times','구구단'],['review','오답노트'],SKIN_TAB,DECO_TAB],english:[['words','단어 배우기'],['talk','AI 영어 선생님'],['speak','발음 연습'],['exam','📝 단어 시험'],SKIN_TAB,DECO_TAB],chinese:[['words','단어 배우기'],['talk','AI 중국어 선생님'],['speak','발음·성조'],['exam','📝 단어 시험'],SKIN_TAB,DECO_TAB]};
+function hiTab(m){$('tabs').querySelectorAll('button').forEach((b,i)=>b.classList.toggle('active',tabMap[subject][i][0]===m))}
+function cancelSpeech(){try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}}
+function stopListening(){releaseMic()}
+function openSubject(s){subject=s;paused=false;$('home').classList.add('hidden');$('study').classList.remove('hidden');
+ updateSubjectTitle();
+ $('subjectEmoji').innerHTML=skinART(MASCOT[s]);cheer(s==='english'?'Hello! 오늘도 같이 영어해요! 💖':'오늘도 같이 해볼까요? 💖');
+ $('tabs').innerHTML=tabMap[s].map(([k,v])=>`<button onclick="setMode('${k}')">${v}</button>`).join('');
+ setMode(tabMap[s][0][0]);if(window.scrollTo)window.scrollTo(0,0)}
+function goHome(){stopTimer();chatToken++;cancelSpeech();stopListening();ggStop();renderHomeDeco();$('study').classList.add('hidden');$('home').classList.remove('hidden')}
+function setMode(m){mode=m;chatToken++;cancelSpeech();stopListening();ggStop();decoSel=null;
+ $('tabs').querySelectorAll('button').forEach((b,i)=>b.classList.toggle('active',tabMap[subject][i][0]===m));
+ if(m==='quiz')mathQuiz();if(m==='review')review();if(m==='topics')topics();if(m==='words')words();if(m==='talk')talk();if(m==='speak')speak();if(m==='times')times();if(m==='deco')deco();if(m==='skin')skinView();if(m==='exam')exam();
+ if(!timerInt)startTimer()}
+function shell(title,sub=''){return `<div class="lesson"><h3>${title}</h3>${sub}</div>`}
+function resetAll(){if(confirm('모든 학습 기록을 지울까요?')&&confirm('정말 지울까요? 되돌릴 수 없어요.')){stopTimer();data=fresh();fixData();ensureDay();mathUnit=null;save();goHome()}}
+
+/* ===== 연습장 ===== */
+const pad={open:true,color:'#e65c9b',size:4,eraser:false};
+const PAD_COLORS=['#40364d','#e65c9b','#3d8bff','#27a869'];
+function padHTML(){return `<div class="pad"><div class="topline"><b>✏️ 연습장</b><button id="padToggle" class="muted" onclick="togglePad()">${pad.open?'접기':'펼치기'}</button></div><div id="padBody" class="${pad.open?'':'hidden'}"><div class="padtools">${PAD_COLORS.map(c=>`<button class="swatch" data-pc="${c}" style="background:${c}" onclick="setPadColor('${c}')" aria-label="색 선택"></button>`).join('')}<button data-ps="4" onclick="setPadSize(4)">가늘게</button><button data-ps="9" onclick="setPadSize(9)">굵게</button><button id="padEraser" onclick="togglePadEraser()">🧽 지우개</button><button onclick="clearPad()">🗑️ 모두 지우기</button></div><canvas id="padCanvas" class="padcanvas"></canvas></div></div>`}
+function updatePadTools(){document.querySelectorAll('[data-pc]').forEach(b=>b.classList.toggle('active',!pad.eraser&&b.dataset.pc===pad.color));document.querySelectorAll('[data-ps]').forEach(b=>b.classList.toggle('active',Number(b.dataset.ps)===pad.size));const e=$('padEraser');if(e)e.classList.toggle('active',pad.eraser)}
+function setPadColor(c){pad.color=c;pad.eraser=false;updatePadTools()}
+function setPadSize(s){pad.size=s;updatePadTools()}
+function togglePadEraser(){pad.eraser=!pad.eraser;updatePadTools()}
+function clearPad(){const c=$('padCanvas');if(!c||!c.getContext)return;const x=c.getContext('2d');x.save();x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,c.width,c.height);x.restore()}
+function togglePad(){pad.open=!pad.open;const b=$('padBody');if(b)b.classList.toggle('hidden',!pad.open);const t=$('padToggle');if(t)t.textContent=pad.open?'접기':'펼치기';if(pad.open)initPad()}
+function initPad(){const c=$('padCanvas');if(!c||c.dataset.ready==='1'||!c.clientWidth)return;
+ const dpr=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);
+ const x=c.getContext('2d');x.scale(dpr,dpr);x.lineCap='round';x.lineJoin='round';c.dataset.ready='1';
+ let drawing=false,lx=0,ly=0;
+ const pos=e=>{const r=c.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
+ const style=()=>{x.globalCompositeOperation=pad.eraser?'destination-out':'source-over';x.strokeStyle=pad.color;x.lineWidth=pad.eraser?pad.size*4:pad.size};
+ c.addEventListener('pointerdown',e=>{drawing=true;[lx,ly]=pos(e);if(c.setPointerCapture)try{c.setPointerCapture(e.pointerId)}catch(_){}style();x.beginPath();x.moveTo(lx,ly);x.lineTo(lx+.01,ly+.01);x.stroke();e.preventDefault()});
+ c.addEventListener('pointermove',e=>{if(!drawing)return;const [px,py]=pos(e);style();x.beginPath();x.moveTo(lx,ly);x.lineTo(px,py);x.stroke();lx=px;ly=py;e.preventDefault()});
+ const end=()=>{drawing=false};c.addEventListener('pointerup',end);c.addEventListener('pointercancel',end);c.addEventListener('pointerleave',end)}
+
+/* ===== 수학 ===== */
+function makeOptions(ans){const s=new Set([ans]);
+ for(const c of shuffle([ans+1,ans-1,ans+10,ans-10,ans+2,ans-2,ans+5,ans-5,ans+20])){if(c>=0&&s.size<4)s.add(c)}
+ let g=0;while(s.size<4&&g++<50)s.add(ans+rand(3,15));return shuffle([...s])}
+const mathUnits=[
+{id:'add-plain',grade:'2학년 1학기',unit:'덧셈과 뺄셈',name:'두 자리 수 덧셈 (받아올림 없음)',desc:'일의 자리끼리, 십의 자리끼리 더해요',make(){const at=rand(1,8),au=rand(0,8),bt=rand(0,9-at),bu=rand(1,9-au),a=at*10+au,b=bt*10+bu;return {text:`${a} + ${b} = ?`,ans:a+b}}},
+{id:'add-carry',grade:'2학년 1학기',unit:'덧셈과 뺄셈',name:'두 자리 수 덧셈 (받아올림 있음)',desc:'일의 자리가 10이 넘으면 십의 자리로 올려요',make(){const au=rand(2,9),bu=rand(10-au,9),at=rand(1,7),bt=rand(1,8-at),a=at*10+au,b=bt*10+bu;return {text:`${a} + ${b} = ?`,ans:a+b}}},
+{id:'sub-plain',grade:'2학년 1학기',unit:'덧셈과 뺄셈',name:'두 자리 수 뺄셈 (받아내림 없음)',desc:'십의 자리와 일의 자리를 따로 생각해요',make(){const at=rand(2,9),au=rand(1,9),bt=rand(0,at-1),bu=rand(bt===0?1:0,au),a=at*10+au,b=bt*10+bu;return {text:`${a} − ${b} = ?`,ans:a-b}}},
+{id:'sub-borrow',grade:'2학년 1학기',unit:'덧셈과 뺄셈',name:'두 자리 수 뺄셈 (받아내림 있음)',desc:'일의 자리가 모자라면 십의 자리에서 빌려와요',make(){const at=rand(2,9),au=rand(0,8),bu=rand(au+1,9),bt=rand(0,at-1),a=at*10+au,b=bt*10+bu;return {text:`${a} − ${b} = ?`,ans:a-b}}},
+{id:'multiplication',grade:'2학년 2학기',unit:'2단원',name:'곱셈구구',desc:'같은 수를 여러 번 더하는 곱셈이에요',make(){const a=rand(2,9),b=rand(2,9);return {text:`${a} × ${b} = ?`,ans:a*b}}},
+{id:'time',grade:'2학년 2학기',unit:'시각과 시간',name:'시간과 분',desc:'1시간은 60분이에요',make(){const h=rand(1,3),m=rand(0,11)*5;return {text:m?`${h}시간 ${m}분은 모두 몇 분일까요?`:`${h}시간은 몇 분일까요?`,ans:h*60+m}}},
+{id:'patterns',grade:'2학년 2학기',unit:'규칙 찾기',name:'수의 규칙 찾기',desc:'숫자의 규칙을 찾아 □에 들어갈 수를 맞혀요',make(){const s=rand(2,9),a=rand(1,20);return {text:`${a}, ${a+s}, ${a+s*2}, □  (□에 들어갈 수는?)`,ans:a+s*3}}},
+{id:'three-digit',grade:'3학년 1학기 · 심화',unit:'심화 단원',name:'세 자리 수의 덧셈',desc:'백의 자리까지 차근차근 더해요',make(){const a=rand(100,699),b=rand(100,899);return {text:`${a} + ${b} = ?`,ans:a+b}}},
+{id:'three-sub',grade:'3학년 1학기 · 심화',unit:'심화 단원',name:'세 자리 수의 뺄셈',desc:'받아내림이 있는 뺄셈도 도전해요',make(){const a=rand(200,999),b=rand(100,a-1);return {text:`${a} − ${b} = ?`,ans:a-b}}}
+];
+function mathQuiz(){
+ if(!mathUnit){unitPicker();return}
+ if(mathQIndex>=10){mathSetSummary();return}
+ const q=mathUnit.make();current=q;
+ setContent(timerBox()+`<div class="topline" style="margin-top:10px"><button class="muted" onclick="unitPicker()">← 단원 목록</button><b>${mathUnit.grade} · ${mathUnit.unit}</b></div>`+
+ `<div class="lesson"><h3>📘 ${mathUnit.name}</h3><div class="small">단원 집중 학습 · ${mathQIndex+1} / 10문제</div><div class="progress" style="margin:10px 0"><span style="width:${mathQIndex*10}%"></span></div><div class="big">${q.text}</div>${padHTML()}<div class="answers">${makeOptions(q.ans).map(x=>`<button data-v="${x}" onclick="answerMath(${x},this)">${x}</button>`).join('')}</div><div id="feedback" class="feedback"></div><button id="nextMath" class="primary" disabled onclick="nextMathQuestion()">다음 문제 ➜</button></div>`);
+ updatePadTools();initPad()}
+function unitPicker(){
+ mode='topics';hiTab('topics');mathUnit=null;mathQIndex=0;mathSetCorrect=0;
+ setContent(timerBox()+shell('🗂️ 교과과정 단원별 학습','학년과 단원을 골라 한 단원씩 10문제를 풀어요.')+`<div class="grid2">${mathUnits.map((u,i)=>`<button class="tile" style="text-align:left;border:2px solid #eee2f2" onclick="beginMathUnit('${u.id}')"><div class="small">${u.grade} · ${u.unit}</div><b>${i+1}. ${u.name}</b><div class="small" style="margin-top:5px">${u.desc}</div><div style="margin-top:8px">🔟 10문제 한 세트</div></button>`).join('')}</div>`)}
+function beginMathUnit(id){mode='quiz';hiTab('quiz');mathUnit=mathUnits.find(u=>u.id===id);mathQIndex=0;mathSetCorrect=0;mathQuiz()}
+function nextMathQuestion(){mathQIndex++;
+ if(mathQIndex===10&&mathSetCorrect>=8){addPoints(20);data.badges=[...new Set([...data.badges,'📘 단원 마스터'])];checkBadges();save();sfxWin()}
+ mathQuiz()}
+function mathSetSummary(){
+ const i=mathUnits.indexOf(mathUnit),nx=mathUnits[i+1];
+ setContent(timerBox()+shell('🎉 단원 학습 완료!',`<div class="big">${mathSetCorrect} / 10 정답</div><p>${mathUnit.name} 단원을 끝냈어요!</p><p>${mathSetCorrect>=8?'정말 훌륭해요! 단원 보너스 💎 +20포인트를 받았어요.':'잘했어요! 오답노트를 확인하고 다시 도전해 봐요.'}</p><div class="row"><button class="primary" onclick="unitPicker()">다른 단원 선택하기</button><button class="blue" onclick="beginMathUnit('${mathUnit.id}')">이 단원 다시 풀기</button>${nx?`<button class="mint" onclick="beginMathUnit('${nx.id}')">다음 단원 ➜</button>`:''}</div>`))}
+function answerMath(x,el){
+ const box=el.parentNode;if(box.dataset.done)return;box.dataset.done='1';
+ box.querySelectorAll('button').forEach(b=>{b.disabled=true;if(Number(b.dataset.v)===current.ans)b.classList.add('correct');else b.classList.add('faded')});
+ data.attempts++;
+ const f=()=>$('feedback');
+ if(x===current.ans){data.correct++;mathSetCorrect++;award(10,pick(CHEER_OK));if(f())f().className='feedback ok';cheerVoice()}
+ else{el.classList.remove('faded');el.classList.add('wrongpick');
+  data.wrong.unshift(`${current.text} → 정답 ${current.ans} (내 답: ${x})`);data.wrong=[...new Set(data.wrong)].slice(0,50);
+  data.done++;markActive();save();
+  if(f()){f().textContent=`아쉬워요! 정답은 ${current.ans}이에요. 괜찮아요, 다음엔 맞힐 수 있어요 💗`;f().className='feedback bad'}cheer(pick(CHEER_BAD));sfxBad()}
+ const n=$('nextMath');n.disabled=false;n.textContent=mathQIndex===9?'결과 보기 ➜':'다음 문제 ➜'}
+function review(){setContent(timerBox()+shell('📝 오답 다시 보기',(data.wrong.length?data.wrong.slice(0,25).map(x=>'• '+escHtml(x)).join('<br>')+'<br><button class="muted" style="margin-top:10px" onclick="clearWrong()">오답노트 비우기</button>':'아직 오답이 없어요. 문제를 풀면 여기에 모아 둘게요!')))}
+function clearWrong(){data.wrong=[];save();review()}
+function topics(){unitPicker()}
+
+/* ===== 단어 ===== */
+/* ===== 음성 (듣기/말하기) ===== */
+function say(t,lang){if(!('speechSynthesis' in window)){alert('이 브라우저는 음성 읽기를 지원하지 않아요.');return}speechSynthesis.cancel();speechSynthesis.speak(utter(t,lang,1.1,.88))}
+function inFrame(){try{return window.self!==window.top}catch(e){return true}}
+function micError(err){
+ const frameHint=inFrame()?' (지금은 미리보기 창 안이라 막혔을 수 있어요. 파일을 크롬/엣지의 새 탭에서 열어 주세요.)':'';
+ const m={
+  'unsupported':'이 브라우저는 음성 인식을 지원하지 않아요. 컴퓨터는 Chrome 또는 Edge, 아이폰은 Safari 최신 버전을 써 주세요. 지금은 글자로 입력해도 돼요!',
+  'not-allowed':'🔒 마이크 사용이 허용되지 않았어요. 주소창 왼쪽 자물쇠(🔒) → 마이크 → "허용"으로 바꾼 뒤 다시 눌러 주세요.'+frameHint,
+  'service-not-allowed':'🔒 이 화면에서는 음성 인식이 막혀 있어요. 크롬/엣지에서 직접 열어 주세요.'+frameHint,
+  'no-speech':'🙉 목소리가 잘 안 들렸어요. 버튼을 누르고 1~2초 뒤에 마이크 가까이에서 말해 볼까요?',
+  'audio-capture':'🎙️ 마이크를 찾지 못했어요. 마이크가 연결되어 있는지 확인해 주세요.',
+  'network':'📶 음성 인식 서버에 연결하지 못했어요. 인터넷을 확인해 주세요.'+(/Edg\//.test(navigator.userAgent)?' (Edge에서는 음성 인식이 잘 안 될 수 있어요. 크롬에서 열어 보세요!)':''),
+  'language-not-supported':'이 기기는 이 언어의 음성 인식을 지원하지 않아요.',
+  'busy':'🎧 아직 듣고 있어요. 잠깐 기다렸다가 다시 눌러 주세요.'}[err];
+ return m||`음성 인식이 잠깐 멈췄어요. 한 번 더 눌러 주세요. (${escHtml(err)})`}
+function setFb(html,cls){const f=$('feedback');if(f){f.innerHTML=html;f.className='feedback '+(cls||'')}}
+function setChatFb(t){const f=$('chatFeedback');if(f)f.textContent=t}
+function similarity(a,b){a=a.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');b=b.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');if(!a||!b)return 0;const d=Array.from({length:a.length+1},()=>Array(b.length+1).fill(0));for(let i=0;i<=a.length;i++)d[i][0]=i;for(let j=0;j<=b.length;j++)d[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return Math.max(0,Math.round((1-d[a.length][b.length]/Math.max(a.length,b.length))*100))}
+
+/* ===== 발음 평가: 목소리 물결 + 단어별 물결 표시 ===== */
+let wv=null,waveSeq=0;
+function waveBoxShow(on){const b=$('waveBox');if(b)b.classList.toggle('hidden',!on)}
+async function startWave(){if(!waveOn())return;waveBoxShow(true);if(wv)return;const my=++waveSeq;
+ const sh=await getShared();if(!sh||!sh.an||my!==waveSeq||wv)return;
+ try{if(sh.ctx&&sh.ctx.state==='suspended')sh.ctx.resume()}catch(e){}
+ const an=sh.an,buf=sh.buf;wv={samples:[],raf:0,last:0,stopped:false};
+ const draw=ts=>{if(!wv||wv.stopped)return;an.getByteTimeDomainData(buf);let sum=0;for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;sum+=v*v}
+  const rms=Math.sqrt(sum/buf.length);if(ts-wv.last>100){wv.last=ts;wv.samples.push(Math.min(1,rms*4));if(wv.samples.length>80)wv.samples.shift()}
+  const c=$('waveCanvas');if(c&&c.getContext){const g=c.getContext('2d'),W=c.width,H=c.height;g.clearRect(0,0,W,H);g.lineWidth=4;g.lineCap='round';g.strokeStyle='#ff82b2';g.beginPath();
+   const amp=Math.min(1,rms*5)*H*.42+2;for(let x=0;x<=W;x+=4){const y=H/2+Math.sin(x/28+ts/120)*amp*Math.sin(x/W*Math.PI);if(x)g.lineTo(x,y);else g.moveTo(x,y)}g.stroke()}
+  wv.raf=requestAnimationFrame(draw)};
+ wv.raf=requestAnimationFrame(draw)}
+function stopWave(){waveSeq++;waveBoxShow(false);if(!wv)return [];const s=wv.samples;wv.stopped=true;try{cancelAnimationFrame(wv.raf)}catch(e){}wv=null;return s}
+function waveSVG(s){if(!s||s.length<5)return '';const n=Math.min(48,s.length),step=s.length/n;let bars='';
+ for(let i=0;i<n;i++){const h=Math.max(2,Math.round(s[Math.floor(i*step)]*30));bars+=`<rect x="${i*5}" y="${18-h/2}" width="3" height="${h}" rx="1.5"/>`}
+ return `<div class="small" style="margin-top:6px">내 목소리 물결</div><svg viewBox="0 0 ${n*5} 36" width="100%" height="36" style="max-width:280px" preserveAspectRatio="none" fill="#ff82b2" aria-hidden="true">${bars}</svg>`}
+const normTok=s=>s.toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
+function lcsMatch(a,b){const m=a.length,n=b.length,d=Array.from({length:m+1},()=>Array(n+1).fill(0));
+ for(let i=m-1;i>=0;i--)for(let j=n-1;j>=0;j--)d[i][j]=a[i]===b[j]?d[i+1][j+1]+1:Math.max(d[i+1][j],d[i][j+1]);
+ const ma=Array(m).fill(-1);let i=0,j=0;while(i<m&&j<n){if(a[i]===b[j]){ma[i]=j;i++;j++}else if(d[i+1][j]>=d[i][j+1])i++;else j++}return ma}
+function renderTarget(target,heard,lang){
+ if(lang.startsWith('zh')){const chars=[...target],idx=[];chars.forEach((c,i)=>{if(/[\p{L}\p{N}]/u.test(c))idx.push(i)});
+  const tk=idx.map(i=>chars[i]),hk=[...heard].filter(c=>/[\p{L}\p{N}]/u.test(c)),ma=lcsMatch(tk,hk),st={};let ok=0;
+  idx.forEach((ci,k)=>{st[ci]=ma[k]>=0?'ok':'miss';if(ma[k]>=0)ok++});
+  return {html:chars.map((c,i)=>st[i]?`<span class="w-${st[i]}">${escHtml(c)}</span>`:escHtml(c)).join(''),ok,close:0,miss:tk.length-ok,total:tk.length,heardCount:hk.length}}
+ const tw=target.split(/\s+/).filter(Boolean),tk=tw.map(normTok),hk=heard.split(/\s+/).map(normTok).filter(Boolean),ma=lcsMatch(tk,hk),used=new Set(ma.filter(x=>x>=0));
+ let ok=0,close=0,miss=0;
+ const html=tw.map((w,i)=>{let s='miss';if(ma[i]>=0)s='ok';else for(let j=0;j<hk.length;j++){if(!used.has(j)&&similarity(tk[i],hk[j])>=60){s='close';used.add(j);break}}
+  if(s==='ok')ok++;else if(s==='close')close++;else miss++;return `<span class="w-${s}">${escHtml(w)}</span>`}).join(' ');
+ return {html,ok,close,miss,total:tw.length,heardCount:hk.length}}
+/* 엄격한 채점: 단어(글자)가 하나라도 빠지거나 다르면 점수 상한이 내려가요 */
+const PASS_SCORE=75;
+function rateLabel(s){return s==null?'점수를 매기지 못했어요':s>=92?'🌟 아주 정확해요!':s>=80?'👍 좋아요!':s>=65?'💗 조금만 더 또박또박!':'🎧 다시 천천히 해 볼까요?'}
+function evalPron(heard,conf,targets,lang,samples){heard=fixHeardName(heard);
+ let best=null;targets.forEach(t=>{const s=similarity(heard,t);if(!best||s>best.sim)best={t,sim:s}});
+ const c=(typeof conf==='number'&&conf>0)?conf:null;
+ const r={mode:'free',score:null};let line='';
+ if(best&&best.sim>=45){const rt=renderTarget(best.t,heard,lang);line=rt.html;
+  const acc=(rt.ok+rt.close*.5)/Math.max(1,rt.total);
+  let sc=c==null?acc*100:(.7*acc*100+.3*c*100);
+  sc-=Math.min(15,Math.max(0,rt.heardCount-rt.total)*5);
+  if(rt.miss>0)sc=Math.min(sc,85);else if(rt.close>0)sc=Math.min(sc,92);
+  r.mode='target';r.target=best.t;r.score=Math.max(0,Math.round(sc))}
+ else if(c!=null)r.score=Math.round(c*100*.8);
+ const sc=r.score;
+ r.html=`<div class="pron"><div class="pronhead"><b>🎤 발음 ${sc==null?'평가 불가':sc+'점'}</b><span>${rateLabel(sc)}</span></div>${sc==null?'':`<div class="pronbar"><span style="width:${Math.max(0,Math.min(100,sc))}%"></span></div>`}${line?`<div class="pronline">${line}</div><div class="small">초록=잘 들렸어요 · 주황 물결=비슷하게 들렸어요 · 빨간 물결=다시 연습해요</div>`:''}<div class="small" style="margin-top:4px">인식한 말: <b>${escHtml(heard)}</b></div>${waveSVG(samples)}<div class="small" style="margin-top:4px">${lang.startsWith('zh')?'중국어는 성조까지는 평가하지 못해요. ':''}AI가 알아들은 정도로 추정한 참고 점수예요. (${PASS_SCORE}점 이상이면 포인트!)</div></div>`;
+ return r}
+/* ===== 레벨: 영어·중국어는 공부한 날마다 조금씩 어려워져요 ===== */
+const DAYS_PER_LEVEL=7,MAX_LV=6,STUDY_DAY_SEC=300;
+const lvOf=s=>(data.lv&&data.lv[s])||1;
+const VOCAB_LV={
+english:[
+[['apple','사과'],['cat','고양이'],['dog','강아지'],['blue','파란색'],['book','책'],['hello','안녕'],['water','물'],['happy','행복한'],['school','학교'],['friend','친구']],
+[['red','빨간색'],['milk','우유'],['bird','새'],['tree','나무'],['mom','엄마'],['sun','해'],['moon','달'],['star','별']],
+[['breakfast','아침 식사'],['banana','바나나'],['rabbit','토끼'],['flower','꽃'],['window','창문'],['teacher','선생님'],['music','음악'],['pencil','연필']],
+[['beautiful','아름다운'],['favorite','가장 좋아하는'],['morning','아침'],['weather','날씨'],['rainbow','무지개'],['birthday','생일'],['family','가족'],['playground','놀이터']],
+[['library','도서관'],['adventure','모험'],['together','함께'],['remember','기억하다'],['delicious','맛있는'],['wonderful','멋진'],['vacation','방학'],['umbrella','우산']],
+[['important','중요한'],['different','다른'],['imagine','상상하다'],['mountain','산'],['journey','여행'],['courage','용기'],['kindness','친절'],['treasure','보물']]],
+chinese:[
+[['你好','안녕','nǐ hǎo'],['谢谢','고마워요','xiè xie'],['再见','잘 가요','zài jiàn'],['苹果','사과','píng guǒ'],['猫','고양이','māo'],['狗','강아지','gǒu'],['水','물','shuǐ'],['学校','학교','xué xiào'],['朋友','친구','péng you'],['老师','선생님','lǎo shī']],
+[['红色','빨간색','hóng sè'],['牛奶','우유','niú nǎi'],['鸟','새','niǎo'],['树','나무','shù'],['妈妈','엄마','mā ma'],['太阳','해','tài yáng'],['月亮','달','yuè liang'],['星星','별','xīng xing']],
+[['早饭','아침밥','zǎo fàn'],['香蕉','바나나','xiāng jiāo'],['兔子','토끼','tù zi'],['花','꽃','huā'],['窗户','창문','chuāng hu'],['音乐','음악','yīn yuè'],['铅笔','연필','qiān bǐ'],['书包','책가방','shū bāo']],
+[['漂亮','예쁜','piào liang'],['喜欢','좋아하다','xǐ huan'],['早上','아침','zǎo shang'],['天气','날씨','tiān qì'],['彩虹','무지개','cǎi hóng'],['生日','생일','shēng rì'],['家人','가족','jiā rén'],['公园','공원','gōng yuán']],
+[['图书馆','도서관','tú shū guǎn'],['一起','함께','yì qǐ'],['记得','기억하다','jì de'],['好吃','맛있는','hǎo chī'],['太好了','정말 좋아요','tài hǎo le'],['假期','방학','jià qī'],['雨伞','우산','yǔ sǎn'],['快乐','즐거운','kuài lè']],
+[['重要','중요한','zhòng yào'],['不同','다른','bù tóng'],['想象','상상하다','xiǎng xiàng'],['山','산','shān'],['旅行','여행','lǚ xíng'],['勇气','용기','yǒng qì'],['善良','착한','shàn liáng'],['宝藏','보물','bǎo zàng']]]};
+/* 대화: a = [말할 문장, 뜻, (병음)] */
+const CONV={
+english:[
+[{q:'Hello! How are you?',ko:'안녕! 어떻게 지내?',a:[['I am fine.','잘 지내요.'],['I am happy.','행복해요.']],good:'Great! I am happy to hear that.'},
+ {q:'What is your name?',ko:'이름이 뭐니?',a:[['My name is {EN}.','내 이름은 {EN}이에요.'],['I am {EN}.','저는 {EN}이에요.']],good:'Nice to meet you!'},
+ {q:'What color do you like?',ko:'무슨 색을 좋아하니?',a:[['I like pink.','분홍색을 좋아해요.'],['I like blue.','파란색을 좋아해요.']],good:'Wonderful! I like that color too.'}],
+[{q:'How old are you?',ko:'몇 살이니?',a:[['I am eight years old.','저는 여덟 살이에요.'],['I am nine years old.','저는 아홉 살이에요.']],good:'Cool! That is a great age.'},
+ {q:'Do you have a pet?',ko:'반려동물이 있니?',a:[['Yes, I have a cat.','네, 고양이가 있어요.'],['No, I do not have a pet.','아니요, 반려동물이 없어요.']],good:'Pets are so cute!'},
+ {q:'What do you like to eat?',ko:'뭘 먹는 걸 좋아하니?',a:[['I like apples.','사과를 좋아해요.'],['I like pizza.','피자를 좋아해요.']],good:'Yummy! That sounds delicious!'}],
+[{q:'What do you do after school?',ko:'학교 끝나고 뭐 하니?',a:[['I play with my friends.','친구들과 놀아요.'],['I read a book.','책을 읽어요.']],good:'That sounds fun!'},
+ {q:'What is your favorite animal?',ko:'제일 좋아하는 동물이 뭐니?',a:[['My favorite animal is a rabbit.','제일 좋아하는 동물은 토끼예요.'],['My favorite animal is a dog.','제일 좋아하는 동물은 강아지예요.']],good:'Me too! Animals are wonderful.'},
+ {q:'How is the weather today?',ko:'오늘 날씨는 어때?',a:[['It is sunny today.','오늘은 맑아요.'],['It is rainy today.','오늘은 비가 와요.']],good:'Thank you for telling me!'}],
+[{q:'What do you want to be when you grow up?',ko:'커서 뭐가 되고 싶니?',a:[['I want to be a teacher.','선생님이 되고 싶어요.'],['I want to be a doctor.','의사가 되고 싶어요.']],good:'That is a great dream!'},
+ {q:'What time do you wake up?',ko:'몇 시에 일어나니?',a:[['I wake up at seven o’clock.','일곱 시에 일어나요.'],['I wake up at eight o’clock.','여덟 시에 일어나요.']],good:'Early birds are healthy!'},
+ {q:'Can you swim?',ko:'수영할 수 있니?',a:[['Yes, I can swim.','네, 수영할 수 있어요.'],['No, but I want to learn.','아니요, 하지만 배우고 싶어요.']],good:'Learning is fun!'}],
+[{q:'What did you do last weekend?',ko:'지난 주말에 뭐 했니?',a:[['I went to the park with my family.','가족과 공원에 갔어요.'],['I stayed home and watched a movie.','집에서 영화를 봤어요.']],good:'That sounds like a wonderful weekend!'},
+ {q:'Why do you like studying English?',ko:'왜 영어 공부가 좋니?',a:[['Because it is fun.','재미있어서요.'],['Because I want to make friends around the world.','세계 친구를 사귀고 싶어서요.']],good:'What a great reason!'},
+ {q:'What is your favorite subject?',ko:'제일 좋아하는 과목이 뭐니?',a:[['My favorite subject is math.','제일 좋아하는 과목은 수학이에요.'],['My favorite subject is music.','제일 좋아하는 과목은 음악이에요.']],good:'Interesting! Tell me more next time.'}],
+[{q:'If you had a magic wand, what would you do?',ko:'마법 지팡이가 있다면 뭘 할래?',a:[['I would make everyone happy.','모두를 행복하게 할 거예요.'],['I would fly over the mountains.','산 위를 날아다닐 거예요.']],good:'What a lovely wish!'},
+ {q:'What is the most important thing for friends?',ko:'친구에게 가장 중요한 건 뭘까?',a:[['Kindness is the most important.','친절이 가장 중요해요.'],['Sharing and listening are important.','나누고 들어주는 게 중요해요.']],good:'I agree with you!'},
+ {q:'How can we protect the earth?',ko:'지구를 어떻게 지킬 수 있을까?',a:[['We should recycle and save water.','재활용하고 물을 아껴야 해요.'],['We should plant more trees.','나무를 더 심어야 해요.']],good:'Great idea! Thank you for caring.'}]],
+chinese:[
+[{q:'你好！你好吗？',ko:'안녕! 잘 지내니?',a:[['我很好。','잘 지내요.','wǒ hěn hǎo'],['我很开心。','아주 기뻐요.','wǒ hěn kāi xīn']],good:'太好了！ (정말 잘했어!)'},
+ {q:'你叫什么名字？',ko:'이름이 뭐니?',a:[['我叫{ZH}。','내 이름은 {EN}이에요.','wǒ jiào {PY}'],['我是{ZH}。','저는 {EN}이에요.','wǒ shì {PY}']],good:'很高兴认识你！ (만나서 반가워!)'},
+ {q:'你喜欢什么颜色？',ko:'무슨 색을 좋아하니?',a:[['我喜欢粉色。','분홍색을 좋아해요.','wǒ xǐ huan fěn sè'],['我喜欢蓝色。','파란색을 좋아해요.','wǒ xǐ huan lán sè']],good:'真棒！ (정말 멋져!)'}],
+[{q:'你几岁？',ko:'몇 살이니?',a:[['我八岁。','저는 여덟 살이에요.','wǒ bā suì'],['我九岁。','저는 아홉 살이에요.','wǒ jiǔ suì']],good:'你真棒！ (정말 대단해!)'},
+ {q:'你有宠物吗？',ko:'반려동물이 있니?',a:[['我有一只猫。','고양이가 한 마리 있어요.','wǒ yǒu yì zhī māo'],['我没有宠物。','반려동물이 없어요.','wǒ méi yǒu chǒng wù']],good:'宠物很可爱！ (반려동물은 귀여워!)'},
+ {q:'你喜欢吃什么？',ko:'뭘 먹는 걸 좋아하니?',a:[['我喜欢苹果。','사과를 좋아해요.','wǒ xǐ huan píng guǒ'],['我喜欢米饭。','밥을 좋아해요.','wǒ xǐ huan mǐ fàn']],good:'听起来很好吃！ (맛있겠다!)'}],
+[{q:'放学以后你做什么？',ko:'학교 끝나고 뭐 하니?',a:[['我和朋友玩。','친구와 놀아요.','wǒ hé péng you wán'],['我看书。','책을 봐요.','wǒ kàn shū']],good:'听起来很有趣！ (재미있겠다!)'},
+ {q:'你最喜欢什么动物？',ko:'제일 좋아하는 동물이 뭐니?',a:[['我最喜欢兔子。','토끼를 제일 좋아해요.','wǒ zuì xǐ huan tù zi'],['我最喜欢小狗。','강아지를 제일 좋아해요.','wǒ zuì xǐ huan xiǎo gǒu']],good:'我也喜欢！ (나도 좋아해!)'},
+ {q:'今天天气怎么样？',ko:'오늘 날씨는 어때?',a:[['今天很晴朗。','오늘은 맑아요.','jīn tiān hěn qíng lǎng'],['今天下雨了。','오늘은 비가 와요.','jīn tiān xià yǔ le']],good:'谢谢你告诉我！ (알려줘서 고마워!)'}],
+[{q:'你长大想做什么？',ko:'커서 뭐가 되고 싶니?',a:[['我想当老师。','선생님이 되고 싶어요.','wǒ xiǎng dāng lǎo shī'],['我想当医生。','의사가 되고 싶어요.','wǒ xiǎng dāng yī shēng']],good:'这是个好梦想！ (멋진 꿈이야!)'},
+ {q:'你几点起床？',ko:'몇 시에 일어나니?',a:[['我七点起床。','일곱 시에 일어나요.','wǒ qī diǎn qǐ chuáng'],['我八点起床。','여덟 시에 일어나요.','wǒ bā diǎn qǐ chuáng']],good:'早起身体好！ (일찍 일어나면 건강해!)'},
+ {q:'你会游泳吗？',ko:'수영할 줄 아니?',a:[['我会游泳。','수영할 수 있어요.','wǒ huì yóu yǒng'],['我不会，但是我想学。','못하지만 배우고 싶어요.','wǒ bú huì, dàn shì wǒ xiǎng xué']],good:'学习很有趣！ (배우는 건 즐거워!)'}],
+[{q:'上个周末你做了什么？',ko:'지난 주말에 뭐 했니?',a:[['我和家人去了公园。','가족과 공원에 갔어요.','wǒ hé jiā rén qù le gōng yuán'],['我在家看了电影。','집에서 영화를 봤어요.','wǒ zài jiā kàn le diàn yǐng']],good:'听起来是个美好的周末！ (멋진 주말이었겠다!)'},
+ {q:'你为什么学中文？',ko:'왜 중국어를 배우니?',a:[['因为很有趣。','재미있어서요.','yīn wèi hěn yǒu qù'],['因为我想交朋友。','친구를 사귀고 싶어서요.','yīn wèi wǒ xiǎng jiāo péng you']],good:'这个理由很棒！ (좋은 이유야!)'},
+ {q:'你最喜欢什么课？',ko:'제일 좋아하는 과목이 뭐니?',a:[['我最喜欢数学。','수학을 제일 좋아해요.','wǒ zuì xǐ huan shù xué'],['我最喜欢音乐。','음악을 제일 좋아해요.','wǒ zuì xǐ huan yīn yuè']],good:'很有意思！ (재미있네!)'}],
+[{q:'如果你有魔法棒，你会做什么？',ko:'마법 지팡이가 있다면 뭘 할래?',a:[['我会让大家都开心。','모두를 기쁘게 할 거예요.','wǒ huì ràng dà jiā dōu kāi xīn'],['我会飞过大山。','큰 산을 날아서 넘을 거예요.','wǒ huì fēi guò dà shān']],good:'多美好的愿望！ (정말 멋진 소원이야!)'},
+ {q:'朋友之间什么最重要？',ko:'친구 사이에 뭐가 가장 중요할까?',a:[['善良最重要。','착한 마음이 가장 중요해요.','shàn liáng zuì zhòng yào'],['互相帮助最重要。','서로 돕는 게 가장 중요해요.','hù xiāng bāng zhù zuì zhòng yào']],good:'我同意你！ (나도 그렇게 생각해!)'},
+ {q:'我们怎样保护地球？',ko:'지구를 어떻게 지킬까?',a:[['我们要节约用水。','우리는 물을 아껴야 해요.','wǒ men yào jié yuē yòng shuǐ'],['我们要多种树。','우리는 나무를 더 심어야 해요.','wǒ men yào duō zhòng shù']],good:'好主意！谢谢你。 (좋은 생각이야!)'}]]};
+const SPEAK={
+english:[
+[['I like apples.','나는 사과를 좋아해요.'],['Hello, my name is {EN}.','안녕, 내 이름은 {EN}이에요.'],['Thank you very much.','정말 고마워요.']],
+[['I have a little cat.','나는 작은 고양이가 있어요.'],['This is my favorite book.','이것은 내가 제일 좋아하는 책이에요.'],['Good morning, teacher.','선생님, 좋은 아침이에요.']],
+[['Can I have some water, please?','물 좀 주실래요?'],['The flowers are very pretty.','꽃들이 아주 예뻐요.'],['I play with my friends at school.','나는 학교에서 친구들과 놀아요.']],
+[['My birthday is in the spring.','내 생일은 봄이에요.'],['I want to see the rainbow.','나는 무지개를 보고 싶어요.'],['We go to the playground after lunch.','우리는 점심 후에 놀이터에 가요.']],
+[['I remember our wonderful vacation.','우리의 멋진 방학이 기억나요.'],['The library is open every day.','도서관은 매일 열어요.'],['Let us go on an adventure together.','우리 함께 모험을 떠나요.']],
+[['It is important to be kind to everyone.','모두에게 친절한 것은 중요해요.'],['I can imagine a journey to the mountain.','산으로 떠나는 여행을 상상할 수 있어요.'],['Courage means trying even when you are scared.','용기란 무서워도 해 보는 거예요.']]],
+chinese:[
+[['你好，我叫{ZH}。','안녕하세요, 저는 {EN}이에요.','nǐ hǎo, wǒ jiào {PY}'],['我喜欢苹果。','나는 사과를 좋아해요.','wǒ xǐ huān píng guǒ'],['谢谢你！','고마워요!','xiè xie nǐ']],
+[['我有一只小猫。','나는 작은 고양이가 있어요.','wǒ yǒu yì zhī xiǎo māo'],['这是我的书。','이것은 내 책이에요.','zhè shì wǒ de shū'],['老师早上好。','선생님, 좋은 아침이에요.','lǎo shī zǎo shang hǎo']],
+[['请给我一杯水。','물 한 잔 주세요.','qǐng gěi wǒ yì bēi shuǐ'],['花很漂亮。','꽃이 아주 예뻐요.','huā hěn piào liang'],['我在学校和朋友玩。','나는 학교에서 친구와 놀아요.','wǒ zài xué xiào hé péng you wán']],
+[['我的生日在春天。','내 생일은 봄이에요.','wǒ de shēng rì zài chūn tiān'],['我想看彩虹。','나는 무지개를 보고 싶어요.','wǒ xiǎng kàn cǎi hóng'],['午饭以后我们去公园。','점심 후에 우리는 공원에 가요.','wǔ fàn yǐ hòu wǒ men qù gōng yuán']],
+[['我记得美好的假期。','멋진 방학이 기억나요.','wǒ jì de měi hǎo de jià qī'],['图书馆每天都开门。','도서관은 매일 열어요.','tú shū guǎn měi tiān dōu kāi mén'],['我们一起去冒险吧。','우리 함께 모험을 떠나요.','wǒ men yì qǐ qù mào xiǎn ba']],
+[['对大家都要善良。','모두에게 착하게 대해야 해요.','duì dà jiā dōu yào shàn liáng'],['我想象一次山里的旅行。','산속 여행을 상상해요.','wǒ xiǎng xiàng yí cì shān lǐ de lǚ xíng'],['勇气就是害怕也要试一试。','용기란 무서워도 해 보는 거예요.','yǒng qì jiù shì hài pà yě yào shì yi shi']]]};
+/* 같은 레벨에서도 매번 다른 주제가 나오도록 대화 주제를 넉넉히 준비 (q, 뜻, 답1, 답2, 칭찬) */
+const XE=[
+[['Do you like cats?','고양이를 좋아하니?',['Yes, I like cats.','네, 고양이를 좋아해요.'],['I like dogs.','저는 강아지를 좋아해요.'],'Cats are so cute!'],
+ ['What is this?','이게 뭐니? (사과를 보여 주며)',['This is an apple.','이것은 사과예요.'],['This is a book.','이것은 책이에요.'],'Very good!'],
+ ['Are you happy today?','오늘 기분이 좋니?',['Yes, I am happy.','네, 행복해요.'],['I am a little tired.','조금 피곤해요.'],'Thank you for telling me!'],
+ ['Can you count to three?','셋까지 셀 수 있니?',['One, two, three.','하나, 둘, 셋.'],['Yes, I can.','네, 할 수 있어요.'],'Great counting!'],
+ ['What do you say in the morning?','아침에 뭐라고 인사하니?',['Good morning.','좋은 아침이에요.'],['Hello, how are you?','안녕하세요, 잘 지내세요?'],'Perfect greeting!']],
+[['What is your favorite fruit?','제일 좋아하는 과일이 뭐니?',['My favorite fruit is a strawberry.','제일 좋아하는 과일은 딸기예요.'],['My favorite fruit is a banana.','제일 좋아하는 과일은 바나나예요.'],'Yum! Fruits are healthy.'],
+ ['Do you have a brother or a sister?','형제나 자매가 있니?',['I have a sister.','언니나 여동생이 있어요.'],['I am the only child.','저는 외동이에요.'],'Family is special!'],
+ ['What is in your bag?','가방에 뭐가 있니?',['I have a pencil and a book.','연필과 책이 있어요.'],['I have my lunch box.','도시락이 있어요.'],'Nice and ready for school!'],
+ ['What animal can you see?','어떤 동물이 보이니?',['I can see a bird.','새가 보여요.'],['I can see a big dog.','큰 강아지가 보여요.'],'Wow, I like animals too!'],
+ ['Where is the cat?','고양이가 어디 있니?',['The cat is on the bed.','고양이가 침대 위에 있어요.'],['The cat is under the table.','고양이가 탁자 아래에 있어요.'],'Found it!']],
+[['What do you do on Saturday?','토요일에 뭐 하니?',['I go to the park.','공원에 가요.'],['I watch TV with my family.','가족과 TV를 봐요.'],'That sounds relaxing!'],
+ ['What is your favorite season?','제일 좋아하는 계절이 뭐니?',['My favorite season is spring.','제일 좋아하는 계절은 봄이에요.'],['My favorite season is winter.','제일 좋아하는 계절은 겨울이에요.'],'Nice choice!'],
+ ['What do you eat for breakfast?','아침으로 뭘 먹니?',['I eat bread and milk.','빵과 우유를 먹어요.'],['I eat rice and eggs.','밥과 달걀을 먹어요.'],'A healthy breakfast!'],
+ ['How do you go to school?','학교에 어떻게 가니?',['I walk to school.','걸어서 학교에 가요.'],['I go to school by bus.','버스를 타고 학교에 가요.'],'Good to know!'],
+ ['What music do you like?','어떤 음악을 좋아하니?',['I like pop music.','팝 음악을 좋아해요.'],['I like to sing and dance.','노래하고 춤추는 걸 좋아해요.'],'Music makes us happy!']],
+[['What did you eat for lunch today?','오늘 점심에 뭘 먹었니?',['I ate noodles for lunch.','점심에 국수를 먹었어요.'],['I had a sandwich and juice.','샌드위치와 주스를 먹었어요.'],'That sounds delicious!'],
+ ['Who is your best friend?','제일 친한 친구가 누구니?',['My best friend is very kind.','제 단짝 친구는 아주 친절해요.'],['I have many good friends.','좋은 친구가 많아요.'],'Friends are important!'],
+ ['What do you like to do on a rainy day?','비 오는 날 뭘 하는 걸 좋아하니?',['I like to read at home.','집에서 책 읽는 걸 좋아해요.'],['I like to draw pictures.','그림 그리는 걸 좋아해요.'],'Rainy days can be cozy!'],
+ ['Where do you want to travel?','어디로 여행 가고 싶니?',['I want to go to the beach.','바닷가에 가고 싶어요.'],['I want to visit the zoo.','동물원에 가고 싶어요.'],'What a fun place!'],
+ ['What is your favorite game?','제일 좋아하는 놀이가 뭐니?',['I like hide and seek.','숨바꼭질을 좋아해요.'],['I like playing with blocks.','블록 놀이를 좋아해요.'],'That sounds like fun!']],
+[['What is the best thing about your school?','학교에서 제일 좋은 점은 뭐니?',['I can learn many new things.','새로운 걸 많이 배울 수 있어요.'],['I can play with my friends.','친구들과 놀 수 있어요.'],'School is a great place!'],
+ ['What would you like to learn next?','다음에 뭘 배우고 싶니?',['I would like to learn to swim.','수영을 배우고 싶어요.'],['I would like to play the piano.','피아노를 배우고 싶어요.'],'That is a wonderful idea!'],
+ ['What did you do yesterday?','어제 뭐 했니?',['I studied with my mom.','엄마와 공부했어요.'],['I played outside with my friends.','밖에서 친구들과 놀았어요.'],'It sounds like a good day!'],
+ ['What do you do when you feel nervous?','긴장될 때 어떻게 하니?',['I take a deep breath.','심호흡을 해요.'],['I ask my family for help.','가족에게 도와 달라고 해요.'],'That is a smart idea!'],
+ ['What do you do to stay healthy?','건강하려면 뭘 하니?',['I eat vegetables and exercise.','채소를 먹고 운동해요.'],['I sleep early every night.','매일 밤 일찍 자요.'],'Good habits make you strong!']],
+[['What is the most beautiful place you have seen?','본 곳 중 가장 아름다운 곳은 어디니?',['The sea at sunset was beautiful.','해질녘 바다가 아름다웠어요.'],['The mountains in autumn were beautiful.','가을 산이 아름다웠어요.'],'That sounds like a picture!'],
+ ['If you could meet anyone, who would it be?','누구든 만날 수 있다면 누구를 만날래?',['I would meet a famous scientist.','유명한 과학자를 만나고 싶어요.'],['I would meet my future self.','미래의 나를 만나고 싶어요.'],'What an interesting answer!'],
+ ['What makes you feel brave?','무엇이 용기를 주니?',['My family makes me feel brave.','가족이 저에게 용기를 줘요.'],['Practicing makes me feel brave.','연습하면 용기가 나요.'],'Courage grows with practice!'],
+ ['How can we help our neighbors?','이웃을 어떻게 도울 수 있을까?',['We can say hello and share food.','인사하고 음식을 나눌 수 있어요.'],['We can help them carry heavy bags.','무거운 가방 드는 걸 도울 수 있어요.'],'Kindness makes a happy town!'],
+ ['What would you invent to make life better?','삶을 더 좋게 하려면 뭘 발명할래?',['I would invent a robot helper.','로봇 도우미를 발명할 거예요.'],['I would invent a machine to clean the sea.','바다를 깨끗하게 하는 기계를 발명할 거예요.'],'What a creative idea!']]];
+const XZ=[
+[['你喜欢猫吗？','고양이를 좋아하니?',['我喜欢猫。','고양이를 좋아해요.','wǒ xǐ huan māo'],['我喜欢小狗。','강아지를 좋아해요.','wǒ xǐ huan xiǎo gǒu'],'猫很可爱！ (고양이는 귀여워!)'],
+ ['这是什么？','이게 뭐니?',['这是苹果。','이것은 사과예요.','zhè shì píng guǒ'],['这是书。','이것은 책이에요.','zhè shì shū'],'很好！ (잘했어!)'],
+ ['你今天开心吗？','오늘 기분이 좋니?',['我今天很开心。','오늘 기뻐요.','wǒ jīn tiān hěn kāi xīn'],['我有点累。','조금 피곤해요.','wǒ yǒu diǎn lèi'],'谢谢你告诉我！ (알려줘서 고마워!)'],
+ ['你会数到三吗？','셋까지 셀 수 있니?',['一，二，三。','하나, 둘, 셋.','yī, èr, sān'],['我会。','할 수 있어요.','wǒ huì'],'数得真好！ (정말 잘 세네!)'],
+ ['早上你说什么？','아침에 뭐라고 인사하니?',['早上好。','좋은 아침이에요.','zǎo shang hǎo'],['你好吗？','잘 지내요?','nǐ hǎo ma'],'问候得真好！ (인사를 잘했어!)']],
+[['你最喜欢什么水果？','제일 좋아하는 과일이 뭐니?',['我最喜欢草莓。','딸기를 제일 좋아해요.','wǒ zuì xǐ huan cǎo méi'],['我最喜欢香蕉。','바나나를 제일 좋아해요.','wǒ zuì xǐ huan xiāng jiāo'],'水果很健康！ (과일은 건강에 좋아!)'],
+ ['你有兄弟姐妹吗？','형제나 자매가 있니?',['我有一个姐姐。','언니(누나)가 한 명 있어요.','wǒ yǒu yí gè jiě jie'],['我是独生女。','저는 외동딸이에요.','wǒ shì dú shēng nǚ'],'家人很重要！ (가족은 소중해!)'],
+ ['你的书包里有什么？','가방에 뭐가 있니?',['我有铅笔和书。','연필과 책이 있어요.','wǒ yǒu qiān bǐ hé shū'],['我有午饭。','도시락이 있어요.','wǒ yǒu wǔ fàn'],'准备得真好！ (준비를 잘했네!)'],
+ ['你看见什么动物？','어떤 동물이 보이니?',['我看见一只鸟。','새 한 마리가 보여요.','wǒ kàn jiàn yì zhī niǎo'],['我看见一只大狗。','큰 강아지가 보여요.','wǒ kàn jiàn yì zhī dà gǒu'],'我也喜欢动物！ (나도 동물을 좋아해!)'],
+ ['猫在哪里？','고양이가 어디 있니?',['猫在床上。','고양이가 침대 위에 있어요.','māo zài chuáng shàng'],['猫在桌子下面。','고양이가 탁자 아래에 있어요.','māo zài zhuō zi xià miàn'],'找到了！ (찾았다!)']],
+[['星期六你做什么？','토요일에 뭐 하니?',['我去公园。','공원에 가요.','wǒ qù gōng yuán'],['我和家人看电视。','가족과 TV를 봐요.','wǒ hé jiā rén kàn diàn shì'],'听起来很轻松！ (편안하겠다!)'],
+ ['你最喜欢哪个季节？','제일 좋아하는 계절이 뭐니?',['我最喜欢春天。','봄을 제일 좋아해요.','wǒ zuì xǐ huan chūn tiān'],['我最喜欢冬天。','겨울을 제일 좋아해요.','wǒ zuì xǐ huan dōng tiān'],'好选择！ (좋은 선택이야!)'],
+ ['你早饭吃什么？','아침으로 뭘 먹니?',['我吃面包和牛奶。','빵과 우유를 먹어요.','wǒ chī miàn bāo hé niú nǎi'],['我吃米饭和鸡蛋。','밥과 달걀을 먹어요.','wǒ chī mǐ fàn hé jī dàn'],'早饭很健康！ (건강한 아침이네!)'],
+ ['你怎么去学校？','학교에 어떻게 가니?',['我走路去学校。','걸어서 학교에 가요.','wǒ zǒu lù qù xué xiào'],['我坐公共汽车去学校。','버스를 타고 학교에 가요.','wǒ zuò gōng gòng qì chē qù xué xiào'],'我知道了！ (알겠어!)'],
+ ['你喜欢什么音乐活动？','어떤 음악 활동을 좋아하니?',['我喜欢唱歌。','노래하는 걸 좋아해요.','wǒ xǐ huan chàng gē'],['我喜欢跳舞。','춤추는 걸 좋아해요.','wǒ xǐ huan tiào wǔ'],'音乐让人开心！ (음악은 기분을 좋게 해!)']],
+[['你今天午饭吃了什么？','오늘 점심에 뭘 먹었니?',['我吃了面条。','국수를 먹었어요.','wǒ chī le miàn tiáo'],['我吃了三明治。','샌드위치를 먹었어요.','wǒ chī le sān míng zhì'],'听起来很好吃！ (맛있겠다!)'],
+ ['你最好的朋友是谁？','제일 친한 친구가 누구니?',['我的好朋友很善良。','내 단짝 친구는 착해요.','wǒ de hǎo péng you hěn shàn liáng'],['我有很多好朋友。','좋은 친구가 많아요.','wǒ yǒu hěn duō hǎo péng you'],'朋友很重要！ (친구는 소중해!)'],
+ ['下雨天你喜欢做什么？','비 오는 날 뭘 하는 걸 좋아하니?',['我喜欢在家看书。','집에서 책 보는 걸 좋아해요.','wǒ xǐ huan zài jiā kàn shū'],['我喜欢画画。','그림 그리는 걸 좋아해요.','wǒ xǐ huan huà huà'],'下雨天也很舒服！ (비 오는 날도 아늑해!)'],
+ ['你想去哪里旅行？','어디로 여행 가고 싶니?',['我想去海边。','바닷가에 가고 싶어요.','wǒ xiǎng qù hǎi biān'],['我想去动物园。','동물원에 가고 싶어요.','wǒ xiǎng qù dòng wù yuán'],'那里很有趣！ (재미있는 곳이야!)'],
+ ['你最喜欢什么游戏？','제일 좋아하는 놀이가 뭐니?',['我喜欢捉迷藏。','숨바꼭질을 좋아해요.','wǒ xǐ huan zhuō mí cáng'],['我喜欢玩积木。','블록 놀이를 좋아해요.','wǒ xǐ huan wán jī mù'],'听起来很好玩！ (재미있겠다!)']],
+[['你们学校最好的是什么？','학교에서 제일 좋은 점은 뭐니?',['我可以学到很多新东西。','새로운 걸 많이 배울 수 있어요.','wǒ kě yǐ xué dào hěn duō xīn dōng xi'],['我可以和朋友一起玩。','친구들과 함께 놀 수 있어요.','wǒ kě yǐ hé péng you yì qǐ wán'],'学校是个好地方！ (학교는 좋은 곳이야!)'],
+ ['你接下来想学什么？','다음에 뭘 배우고 싶니?',['我想学游泳。','수영을 배우고 싶어요.','wǒ xiǎng xué yóu yǒng'],['我想学弹钢琴。','피아노를 배우고 싶어요.','wǒ xiǎng xué tán gāng qín'],'这个主意真好！ (정말 좋은 생각이야!)'],
+ ['你昨天做了什么？','어제 뭐 했니?',['我和妈妈一起学习。','엄마와 함께 공부했어요.','wǒ hé mā ma yì qǐ xué xí'],['我和朋友在外面玩。','친구들과 밖에서 놀았어요.','wǒ hé péng you zài wài miàn wán'],'听起来是美好的一天！ (좋은 하루였겠다!)'],
+ ['你紧张的时候怎么办？','긴장될 때 어떻게 하니?',['我会深呼吸。','심호흡을 해요.','wǒ huì shēn hū xī'],['我会请家人帮忙。','가족에게 도와 달라고 해요.','wǒ huì qǐng jiā rén bāng máng'],'这个办法很聪明！ (똑똑한 방법이야!)'],
+ ['你怎样保持健康？','어떻게 건강을 지키니?',['我吃蔬菜，也做运动。','채소를 먹고 운동도 해요.','wǒ chī shū cài, yě zuò yùn dòng'],['我每天早点睡觉。','매일 일찍 자요.','wǒ měi tiān zǎo diǎn shuì jiào'],'好习惯让你更强壮！ (좋은 습관은 튼튼하게 해!)']],
+[['你见过的最美的地方是哪里？','본 곳 중 가장 아름다운 곳은 어디니?',['日落时的大海很美。','해질녘 바다가 아름다웠어요.','rì luò shí de dà hǎi hěn měi'],['秋天的山很美。','가을 산이 아름다웠어요.','qiū tiān de shān hěn měi'],'听起来像一幅画！ (그림 같겠다!)'],
+ ['如果能见到任何人，你想见谁？','누구든 만날 수 있다면 누구를 만날래?',['我想见一位科学家。','과학자를 만나고 싶어요.','wǒ xiǎng jiàn yí wèi kē xué jiā'],['我想见未来的自己。','미래의 나를 만나고 싶어요.','wǒ xiǎng jiàn wèi lái de zì jǐ'],'这个回答真有趣！ (재미있는 대답이야!)'],
+ ['什么让你有勇气？','무엇이 용기를 주니?',['家人让我有勇气。','가족이 용기를 줘요.','jiā rén ràng wǒ yǒu yǒng qì'],['多练习让我有勇气。','많이 연습하면 용기가 나요.','duō liàn xí ràng wǒ yǒu yǒng qì'],'勇气来自练习！ (용기는 연습에서 나와!)'],
+ ['我们怎样帮助邻居？','이웃을 어떻게 도울까?',['我们可以打招呼，分享食物。','인사하고 음식을 나눌 수 있어요.','wǒ men kě yǐ dǎ zhāo hu, fēn xiǎng shí wù'],['我们可以帮他们提重东西。','무거운 짐 드는 걸 도울 수 있어요.','wǒ men kě yǐ bāng tā men tí zhòng dōng xi'],'善良让小区更快乐！ (친절은 동네를 즐겁게 해!)'],
+ ['你想发明什么让生活更好？','삶을 더 좋게 하려면 뭘 발명할래?',['我想发明机器人助手。','로봇 도우미를 발명하고 싶어요.','wǒ xiǎng fā míng jī qì rén zhù shǒu'],['我想发明清洁海洋的机器。','바다를 깨끗하게 하는 기계를 발명하고 싶어요.','wǒ xiǎng fā míng qīng jié hǎi yáng de jī qì'],'真有创意！ (정말 창의적이야!)']]];
+{const mk=a=>({q:a[0],ko:a[1],a:[a[2],a[3]],good:a[4]});
+ XE.forEach((lv,i)=>lv.forEach(a=>CONV.english[i].push(mk(a))));XZ.forEach((lv,i)=>lv.forEach(a=>CONV.chinese[i].push(mk(a))))}
+const CONV_T=JSON.stringify(CONV),SPEAK_T=JSON.stringify(SPEAK);
+function pname(){const n=data.pname||{},en=(n.en||'Zion').trim()||'Zion';return {en,zh:(n.zh||'智昷').trim()||'智昷',py:(n.py||'zhì wēn').trim()||'zhì wēn',say:(n.say||'').trim()||(en.toLowerCase()==='zion'?'Zee on':en)}}
+function sayName(text,lang){if(!/^en/i.test(lang))return text;const n=pname();if(n.say===n.en)return text;return text.replace(new RegExp('\\b'+n.en.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','gi'),n.say)}
+function fixHeardName(h){const n=pname();if(n.en.toLowerCase()!=='zion')return h;return h.replace(/\b(zee[\s-]?on|ze[\s-]?on|zeon|zi[\s-]?on|zian|zyon)\b/gi,n.en)}
+function applyName(){const n=pname(),f=s=>s.replace(/\{EN\}/g,n.en).replace(/\{ZH\}/g,n.zh).replace(/\{PY\}/g,n.py);
+ const c=JSON.parse(f(CONV_T)),s=JSON.parse(f(SPEAK_T));CONV.english=c.english;CONV.chinese=c.chinese;SPEAK.english=s.english;SPEAK.chinese=s.chinese}
+applyName();
+function saveName(){const g=id=>($(id)||{}).value||'';data.pname={en:g('nmEn'),zh:g('nmZh'),py:g('nmPy'),say:g('nmSay')};applyName();save();alert('이름을 저장했어요! 이제 이름을 물어볼 때 이 이름으로 말해요 👑')}
+const convSet=s=>CONV[s][Math.min(MAX_LV,lvOf(s))-1];
+function lvLine(){const s=subject;if(s==='math')return '';const L=lvOf(s),d=data.studyDays[s]||0,nxt=L>=MAX_LV?'':` · 다음 레벨까지 ${DAYS_PER_LEVEL-(d%DAYS_PER_LEVEL)}일`;
+ return `<div class="lvline">📈 ${SUBJ[s]} Lv.${L}${L>=MAX_LV?' (최고 레벨!)':''} · 공부한 날 ${d}일${nxt}</div>`}
+function lvStudyDay(s){data.studyDays[s]=(data.studyDays[s]||0)+1;
+ const nl=Math.min(MAX_LV,1+Math.floor(data.studyDays[s]/DAYS_PER_LEVEL));
+ if(nl>lvOf(s)){data.lv[s]=nl;deckSubject='';celebrate({emoji:'📈',title:SUBJ[s]+' 레벨 UP!',msg:`${SUBJ[s]} <b>Lv.${nl}</b>이 되었어요!<br>새로운 단어·대화·문장이 열렸어요 ✨`,voice:`축하해요! ${SUBJ[s]} 레벨이 올랐어요!`})}
+ if(mode==='words'||mode==='talk'||mode==='speak')updateSubjectTitle()}
+function updateSubjectTitle(){const n={math:'수학 왕국',english:'영어 나라',chinese:'중국어 정원'}[subject];$('subjectTitle').textContent=n+(subject==='math'?'':` · Lv.${lvOf(subject)}`)}
+
+/* ===== 단어 (레벨별) ===== */
+const LANG=()=>subject==='english'?'en-US':'zh-CN';
+let deckList=[];
+function vocabLv(s){const L=Math.min(MAX_LV,lvOf(s)),V=VOCAB_LV[s],list=V[L-1].slice(),older=[];
+ for(let i=0;i<L-1;i++)V[i].forEach(w=>older.push(w));return list.concat(shuffle(older).slice(0,4))}
+function words(){const key=subject+':'+lvOf(subject);
+ if(deckSubject!==key||deckPos>=deckOrder.length){deckList=vocabLv(subject);deckOrder=shuffle(deckList.map((_,i)=>i));deckPos=0;deckSubject=key}
+ const w=deckList[deckOrder[deckPos++]];current={word:w};markLearned(w);
+ setContent(timerBox()+shell(subject==='english'?'🐱 영어 단어 카드':'🐼 중국어 단어 카드',lvLine()+`<div class="big">${w[0]}</div><div style="font-size:22px">${w[1]}</div><p class="translation">${w[2]||''}</p><div class="row"><button class="blue" onclick="say('${esc(w[0])}','${LANG()}')">🔊 발음 듣기</button><button class="primary" onclick="words()">다음 카드 ➜</button></div><button class="mint" style="margin-top:12px" onclick="wordDone(this)">⭐ 이 단어 공부 완료 +5</button><div id="feedback" class="feedback"></div>`))}
+function wordDone(b){if(b.disabled)return;b.disabled=true;award(5,'단어를 공부했어요!');const f=$('feedback');if(f)f.className='feedback ok'}
+
+/* ===== 마이크: 한 번 켜 두면 계속 듣는 방식 (허용창이 계속 뜨지 않도록) ===== */
+const waveOn=()=>data.wave&&location.protocol!=='file:';
+const mic={alive:false,opening:false,rec:null,want:false,accept:null,lang:'',ui:null,fails:0,lastStart:0,to:null};
+let wvShared=null,wvPromise=null,sharedGen=0;
+function micUI(on){['micBtn','chatMic'].forEach(id=>{const b=$(id);if(b)b.classList.toggle('rec',on)})}
+function openShared(){const g=sharedGen;return (async()=>{try{
+  if(typeof navigator==='undefined'||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return null;
+  const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+  if(g!==sharedGen){stream.getTracks().forEach(x=>x.stop());return null}
+  const AC=window.AudioContext||window.webkitAudioContext;let ctx=null,an=null;
+  if(AC){ctx=new AC();const src=ctx.createMediaStreamSource(stream);an=ctx.createAnalyser();an.fftSize=1024;src.connect(an)}
+  wvShared={stream,ctx,an,buf:new Uint8Array(1024)};return wvShared}catch(e){return null}})()}
+function getShared(){if(wvShared)return Promise.resolve(wvShared);
+ if(!wvPromise)wvPromise=openShared().then(r=>{wvPromise=null;return r});return wvPromise}
+async function micOpen(lang,ui){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){ui.error&&ui.error('unsupported');return false}
+ mic.ui=ui;
+ if(mic.want&&mic.lang===lang){if(!mic.alive&&!mic.opening)micSpawn();return true}
+ micClose();mic.want=true;mic.lang=lang;mic.fails=0;mic.opening=true;
+ if(waveOn())await getShared();          /* 마이크 권한은 여기서 딱 한 번만 요청해요 */
+ mic.opening=false;
+ if(!mic.want)return false;
+ micSpawn();return true}
+function micSpawn(){if(!mic.want)return;
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let r;
+ try{r=new SR()}catch(e){mic.want=false;mic.ui&&mic.ui.error&&mic.ui.error('unsupported');return}
+ mic.rec=r;mic.alive=true;r.lang=mic.lang;r.continuous=true;r.interimResults=true;r.maxAlternatives=3;
+ r.onstart=()=>{mic.lastStart=Date.now();micUI(true)};
+ r.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++){const res=e.results[i];if(!mic.accept)continue;
+   if(res.isFinal){const cb=mic.accept;mic.accept=null;cb(res)}else if(mic.ui&&mic.ui.interim)mic.ui.interim(res[0].transcript)}};
+ r.onerror=e=>{if(e.error==='no-speech'||e.error==='aborted')return;
+  if(e.error==='not-allowed'||e.error==='service-not-allowed'||e.error==='audio-capture'||e.error==='language-not-supported')mic.want=false;
+  mic.ui&&mic.ui.error&&mic.ui.error(e.error)};
+ r.onend=()=>{micUI(false);if(mic.rec===r)mic.alive=false;if(!mic.want||mic.rec!==r)return;
+  if(!mic.accept)return;   /* 말할 차례가 아닐 때는 다시 켜지 않아요 (허용창이 불필요하게 뜨는 것을 막아요) */
+  const quick=Date.now()-mic.lastStart<1500;mic.fails=quick?mic.fails+1:0;
+  if(mic.fails>4){mic.want=false;mic.ui&&mic.ui.error&&mic.ui.error('network');return}
+  setTimeout(()=>{if(mic.want&&mic.rec===r)micSpawn()},quick?800:150)};
+ try{r.start()}catch(e){/* 이미 시작됨 */}}
+function micClose(){mic.want=false;mic.alive=false;mic.opening=false;mic.accept=null;clearTimeout(mic.to);const r=mic.rec;mic.rec=null;try{if(r)r.abort()}catch(e){}micUI(false)}
+function releaseMic(){micClose();stopWave();sharedGen++;
+ if(wvShared){try{wvShared.stream.getTracks().forEach(x=>x.stop())}catch(e){}try{if(wvShared.ctx)wvShared.ctx.close()}catch(e){}wvShared=null}wvPromise=null}
+async function listenOnce(lang,ui,onRes,onTimeout){
+ cancelSpeech();clearTimeout(mic.to);mic.accept=null;
+ const ok=await micOpen(lang,ui);if(!ok)return;
+ mic.accept=res=>{clearTimeout(mic.to);onRes(res)};
+ mic.to=setTimeout(()=>{if(mic.accept){mic.accept=null;onTimeout&&onTimeout()}},20000);
+ startWave()}
+
+/* ===== AI 대화: 문장을 골라서 소리 내어 말하는 대화형 ===== */
+const chat={sel:null,fails:0,set:[],pool:[],used:new Set(),opts:[],turns:0};
+function fileTip(){return location.protocol==='file:'?'<div class="small" style="margin-top:8px;text-align:left;background:#fff8e1;border-radius:12px;padding:8px 10px">💡 <b>마이크 허용창이 나오는 이유</b>: 파일을 그냥 열면 브라우저가 “허용”을 기억하지 못해요. 이 파일을 https 주소(예: Netlify Drop, GitHub Pages)에 올려서 열고 한 번 “허용”하면 다음부터 뜨지 않아요. (기록은 주소마다 따로 저장되니, 이사할 때는 맨 아래 ⚙️ 설정의 “기록 옮기기”를 써 주세요.) 또 음성 인식은 크롬에서 가장 잘 돼요.</div>':''}
+function talk(){chat.sel=null;chat.fails=0;chat.set=shuffle(convSet(subject));chat.pool=chat.set.slice();{const L=Math.min(MAX_LV,lvOf(subject));if(L>1){const lower=[];for(let i=0;i<L-1;i++)CONV[subject][i].forEach(c=>lower.push(c));chat.pool=chat.pool.concat(shuffle(lower).slice(0,3))}}chat.used=new Set();chat.turns=0;chat.opts=[];chatStep=0;chatLock=false;
+ setContent(timerBox()+`<div class="lesson"><h3>🤖 ${subject==='english'?'AI 영어 선생님':'AI 중국어 선생님'}와 대화해요!</h3>${lvLine()}<p class="small">선생님이 물어보면 <b>말할 문장을 하나 골라서</b> 소리 내어 말해 보세요.<br>발음이 ${PASS_SCORE}점을 넘으면 대화가 이어져요! (마이크는 한 번만 켜져요) 대화는 몇 번이든 계속할 수 있고, 그만하고 싶을 때 “대화 끝내기”를 누르면 돼요.</p><div id="chatlog" class="chatlog"></div><div id="chatChoices" class="choices"></div><div id="waveBox" class="wavebox hidden"><canvas id="waveCanvas" width="600" height="70"></canvas><div class="small">🎧 말해 보세요! 물결이 크게 움직이면 목소리가 잘 들리고 있어요.</div></div><div id="chatLive" class="small" style="min-height:20px"></div><div id="chatActions" class="row"></div><div id="chatFeedback" class="feedback"></div><details style="margin-top:10px"><summary class="small">⌨️ 마이크가 안 될 때: 글자로 말하기</summary><div class="chatrow" style="margin-top:8px"><input id="chatInput" class="input" placeholder="문장을 입력해 보세요" onkeydown="if(event.key==='Enter'&&!event.isComposing){chatType()}"><button class="primary" onclick="chatType()">보내기</button></div></details>${fileTip()}</div>`);
+ addBubble('teacher',subject==='english'?'Hello, friend! Let’s talk together!':'你好！我们一起说中文吧！');nextChat()}
+function addBubble(who,t){const log=$('chatlog');if(!log)return;const el=document.createElement('div');el.className='bubble '+who;el.textContent=t;log.appendChild(el);log.scrollTop=log.scrollHeight}
+function addEvalBubble(html){const log=$('chatlog');if(!log)return;const el=document.createElement('div');el.className='bubble teacher evalbubble';el.innerHTML=html;log.appendChild(el);log.scrollTop=log.scrollHeight}
+function chatLive(t){const e=$('chatLive');if(e)e.textContent=t}
+function nextChat(){if(mode!=='talk'||!$('chatlog'))return;askChat(chat.set[0])}
+function askChat(c){if(mode!=='talk'||!$('chatlog'))return;chatLock=false;chat.sel=null;chat.fails=0;chat.used.add(c.q);
+ current={conversation:c};addBubble('teacher',c.q+' ('+c.ko+')');
+ $('chatChoices').innerHTML=c.a.map((a,i)=>`<div class="choice" id="ch${i}"><div class="cs">${escHtml(a[0])}</div>${a[2]?`<div class="cp">${escHtml(a[2])}</div>`:''}<div class="ck">${escHtml(a[1])}</div><div class="row"><button class="blue" onclick="chatHear(${i})">🔊 듣기</button><button class="primary" onclick="pickChat(${i})">🎙️ 이 문장 말하기</button></div></div>`).join('');
+ $('chatActions').innerHTML='<button class="muted" onclick="chatEnd()">🏁 대화 끝내기</button>';setChatFb('');chatLive('👆 말하고 싶은 문장을 골라 주세요!');say(c.q,LANG())}
+/* 한 번 대화가 끝나면, 다음에 이어 갈 대화를 아이가 고르는 단계 */
+function chatDone(){const t=chatToken;chatStep++;chat.turns++;setTimeout(()=>{if(t===chatToken)chatMenu()},data.voice?1700:700)}
+function chatMenu(){if(mode!=='talk'||!$('chatlog'))return;chatLock=true;
+ if(chat.turns>0&&chat.turns%5===0){award(5,'',true);addBubble('teacher','🎁 '+chat.turns+'번 대화했어요! 보너스 💎 +5')}
+ let left=chat.pool.filter(c=>!chat.used.has(c.q));
+ if(left.length<2){chat.used=new Set(current&&current.conversation?[current.conversation.q]:[]);left=chat.pool.filter(c=>!chat.used.has(c.q))}
+ chat.opts=shuffle(left).slice(0,3);
+ addBubble('teacher',subject==='english'?'What shall we talk about next? (다음엔 무슨 이야기를 할까요?)':'接下来我们聊什么？ (다음엔 무슨 이야기를 할까요?)');
+ $('chatChoices').innerHTML=chat.opts.map((c,i)=>`<div class="choice"><div class="cs">${escHtml(c.q)}</div><div class="ck">${escHtml(c.ko)}</div><button class="primary" onclick="chatNextTopic(${i})">💬 이 이야기 하기</button></div>`).join('');
+ $('chatActions').innerHTML='<button class="muted" onclick="chatEnd()">🏁 대화 끝내기</button>';setChatFb('');chatLive('👆 이어서 이야기하고 싶은 주제를 골라 주세요!')}
+function chatNextTopic(i){const c=chat.opts[i];if(!c)return;addBubble('student',c.q);askChat(c)}
+function chatEnd(){const all=false;const t=chat.turns;mic.accept=null;clearTimeout(mic.to);stopWave();chatLock=true;
+ let bonus=0;if(all&&t>=3){bonus=10;award(10,'',true)}
+ addBubble('teacher',subject==='english'?'You did great today! See you next time!':'你今天做得很好！下次见！');
+ $('chatChoices').innerHTML=`<div class="lesson"><div class="big">🎉 ${t}번 대화했어요!</div><p>${all?'준비된 이야기를 모두 했어요!'+(bonus?' 완주 보너스 💎 +10':''):'수고했어요!'}</p></div>`;
+ $('chatActions').innerHTML='<button class="primary" onclick="talk()">🔁 새 대화 시작</button>';chatLive('');setChatFb('')}
+function chatHear(i){if(chatLock||!current||!current.conversation)return;mic.accept=null;clearTimeout(mic.to);stopWave();say(current.conversation.a[i][0],LANG());chatLive('🔊 잘 들어 보고, “이 문장 말하기”를 눌러 따라 해 봐요!')}
+function pickChat(i){if(chatLock)return;chat.sel=current.conversation.a[i];chat.fails=0;
+ document.querySelectorAll('.choice').forEach((el,k)=>el.classList.toggle('picked',k===i));chatListen()}
+const chatUI={interim(t){chatLive('🎧 듣는 중… '+t)},error(err){stopWave();chatLive('');addBubble('teacher',micError(err).replace(/<[^>]*>/g,''));chatActions(true)}};
+function chatListen(){if(chatLock||!chat.sel)return;setChatFb('');$('chatActions').innerHTML='';
+ chatLive('🎧 마이크가 켜졌어요! 소리 내어 말해 보세요 → '+chat.sel[0]);
+ listenOnce(LANG(),chatUI,onChatResult,()=>{stopWave();chatLive('');setChatFb('🙉 목소리가 잘 안 들렸어요. 마이크 가까이에서 다시 말해 볼까요?');chatActions()})}
+function chatActions(openType){const el=$('chatActions');if(!el)return;
+ el.innerHTML=`<button class="primary" onclick="chatListen()">🔁 다시 말하기</button><button class="muted" onclick="chatChange()">🔀 다른 문장 고르기</button>${chat.fails>=2?'<button class="yellow" onclick="chatSkip()">⏭ 넘어가기 (+2)</button>':''}`;
+ if(openType){const d=document.querySelector('#content details');if(d)d.open=true}}
+function chatChange(){if(chatLock)return;mic.accept=null;clearTimeout(mic.to);stopWave();chat.sel=null;
+ document.querySelectorAll('.choice').forEach(el=>el.classList.remove('picked'));$('chatActions').innerHTML='';setChatFb('');chatLive('👆 말하고 싶은 문장을 골라 주세요!')}
+function onChatResult(res){if(chatLock||!chat.sel)return;const target=chat.sel[0];
+ let alt=res[0];for(let i=1;i<res.length;i++){if(similarity(res[i].transcript,target)>similarity(alt.transcript,target))alt=res[i]}
+ const samples=stopWave();chatLive('');
+ const ev=evalPron(alt.transcript,alt.confidence,[target],LANG(),samples),ok=ev.mode==='target'&&ev.score>=PASS_SCORE;
+ addBubble('student',alt.transcript);addEvalBubble(ev.html);
+ if(ok)chatSuccess(10,`대화 성공! 발음 ${ev.score}점 💎 +10포인트`);
+ else{sfxBad();chat.fails++;addBubble('teacher',subject==='english'?`Almost! Let’s try again: "${target}"`:`거의 다 됐어요! 다시 해 볼까요? (${target})`);chatActions()}}
+function chatSuccess(pts,msg){chatLock=true;mic.accept=null;clearTimeout(mic.to);
+ addBubble('teacher',current.conversation.good);setChatFb(msg);$('chatActions').innerHTML='';chatLive('');
+ award(pts,'',true);cheer('말해서 대화를 이어 갔어요! 💬');cheerVoice();chatDone()}
+function chatSkip(){if(chatLock)return;mic.accept=null;clearTimeout(mic.to);stopWave();chatLock=true;
+ addBubble('teacher',current.conversation.good);setChatFb('괜찮아요! 다음엔 꼭 소리 내어 말해 봐요 💗 +2');$('chatActions').innerHTML='';chatLive('');award(2,'',true);chatDone()}
+function chatType(){if(chatLock||!current||!current.conversation)return;const inp=$('chatInput');if(!inp)return;const v=inp.value.trim();if(!v)return;
+ const c=current.conversation;let best=null;c.a.forEach(a=>{const s=similarity(v,a[0]);if(!best||s>best.s)best={a,s}});
+ addBubble('student',v);inp.value='';
+ if(best&&best.s>=80){stopWave();chatSuccess(4,'글자로 대답했어요! 💎 +4포인트 (소리 내어 말하면 +10!)')}
+ else addBubble('teacher',subject==='english'?`Good try! Try: "${c.a[0][0]}"`:`잘했어요! 이 문장으로 해 볼까요? (${c.a[0][0]})`)}
+
+/* ===== 발음 연습 ===== */
+function speak(){const L=Math.min(MAX_LV,lvOf(subject)),S=SPEAK[subject],pool=S[L-1].slice();if(L>1)pool.push(pick(S[L-2]));
+ let l;do{l=pick(pool)}while(pool.length>1&&lastLine&&l[0]===lastLine);lastLine=l[0];current={line:l};
+ setContent(timerBox()+shell('🎤 따라 말하고 발음 연습하기',lvLine()+`<div class="big">${l[0]}</div><div class="translation">${l[1]}</div><div class="translation">${l[2]||''}</div><div class="row"><button class="blue" onclick="say('${esc(l[0])}','${LANG()}')">🔊 선생님 음성 듣기</button><button id="micBtn" class="primary" onclick="startSpeech()">🎙️ 내 목소리 말하기</button><button class="muted" onclick="speak()">다음 문장 ➜</button></div><div id="waveBox" class="wavebox hidden"><canvas id="waveCanvas" width="600" height="70"></canvas><div class="small">🎧 말해 보세요! 물결이 크게 움직이면 목소리가 잘 들리고 있어요.</div></div><div id="feedback" class="feedback"></div><div id="speakFallback"></div><p class="small">중국어는 성조를 살려 천천히 말해 보세요. 점수는 AI가 알아들은 정도로 추정한 참고값이에요. 마이크는 한 번 켜면 이 화면에서 계속 들어요.</p>${fileTip()}`))}
+function selfSpeak(b){if(b.disabled)return;b.disabled=true;award(3,'소리 내어 따라 말했어요!');const f=$('feedback');if(f)f.className='feedback ok'}
+function startSpeech(){const target=current&&current.line?current.line[0]:'';if(!target)return;
+ setFb('🎧 마이크가 켜졌어요! 문장을 말해 보세요...');
+ listenOnce(LANG(),{interim(t){setFb('🎧 듣는 중… '+escHtml(t))},error(err){stopWave();setFb(micError(err),'bad');const fb=$('speakFallback');if(fb)fb.innerHTML='<button class="yellow" onclick="selfSpeak(this)">🙌 소리 내어 따라 말했어요 (+3)</button>'}},
+ res=>{let alt=res[0];for(let i=1;i<res.length;i++){if(similarity(res[i].transcript,target)>similarity(alt.transcript,target))alt=res[i]}
+   const samples=stopWave(),ev=evalPron(alt.transcript,alt.confidence,[target],LANG(),samples),ok=ev.mode==='target'&&ev.score>=PASS_SCORE;
+   let html=ev.html;
+   if(ok){award(5,'',true);html+='<div style="margin-top:6px"><b>💎 +5포인트!</b></div>';cheer('멋진 발음이에요! 🌟');cheerVoice()}else{sfxBad();html+='<div style="margin-top:6px">💗 천천히 한 번 더 따라 해 봐요. (버튼을 다시 눌러 주세요)</div>'}
+   setFb(html,ok?'ok':'')},
+ ()=>{stopWave();setFb('🙉 목소리가 잘 안 들렸어요. 버튼을 다시 누르고 말해 볼까요?','bad')})}
+
+/* ===== 구구단 ===== */
+const gg={view:'home',dan:2,qs:[],qi:0,ok:0,input:'',locked:false,cur:null,t:0,int:null,score:0,active:false,tok:0};
+function ggStop(){clearInterval(gg.int);gg.int=null;gg.active=false;gg.tok++}
+const KD='일이삼사오육칠팔구';
+function sino(n){const t=Math.floor(n/10),u=n%10;return (t===0?'':(t===1?'십':KD[t-1]+'십'))+(u?KD[u-1]:'')}
+const chant=(a,b)=>`${sino(a)} ${sino(b)}${b===1?'은':''} ${sino(a*b)}`;
+function times(){ggStop();ggHome()}
+function ggHome(){ggStop();gg.view='home';const m=data.gg.mastery;
+ setContent(timerBox()+shell('✖️ 구구단 놀이터','단을 골라서 외우고, 연습하고, 도전해 봐요!')+`<div class="lesson"><h3>어떤 단을 공부할까요?</h3><div class="dans">${[2,3,4,5,6,7,8,9].map(d=>`<button class="dan ${gg.dan===d?'on':''}" onclick="ggPick(${d})">${d}단${m[d]?'<br><span class="small">'+'⭐'.repeat(Math.min(3,m[d]))+'</span>':''}</button>`).join('')}</div><h4 style="margin:12px 0 6px">📚 쉽게 배우기</h4><div class="row"><button class="yellow" onclick="ggPicLearn(1)">🍎 그림으로 배우기</button><button class="blue" onclick="ggLearn()">📖 ${gg.dan}단 외우기</button></div><h4 style="margin:14px 0 6px">🎮 게임으로 놀기</h4><div class="row"><button class="primary" onclick="ggPicQuiz()">🖼️ 그림 문제</button><button class="mint" onclick="ggBalloon()">🎈 풍선 터뜨리기</button><button class="blue" onclick="ggMemory()">🃏 카드 짝 맞추기</button></div><h4 style="margin:14px 0 6px">✏️ 실력 키우기</h4><div class="row"><button class="primary" onclick="ggPractice()">✏️ ${gg.dan}단 연습 (10문제)</button><button class="mint" onclick="ggChallenge()">⚡ 60초 도전</button></div><p class="small">연습 10문제를 모두 맞히면 ⭐ 마스터 (💎 +15)! · 🏆 60초 최고 기록: <b>${data.gg.best}</b>개</p></div>`)}
+function ggPick(d){gg.dan=d;ggHome()}
+function ggLearn(){ggStop();const d=gg.dan;
+ setContent(timerBox()+`<div class="lesson"><h3>📖 ${d}단 외우기</h3><p class="small">줄을 누르면 읽어 줘요 🔊</p><div class="ggtable">${[1,2,3,4,5,6,7,8,9].map(b=>`<button class="ggrow" onclick="ggSay(${b})"><span>${d} × ${b}</span><b>${d*b}</b><span>🔊</span></button>`).join('')}</div><div class="row"><button class="primary" onclick="ggSayAll()">🎵 ${d}단 쭉 듣기</button><button class="muted" onclick="ggHome()">← 단 고르기</button></div></div>`)}
+function ggSay(b){say(chant(gg.dan,b),'ko-KR')}
+function ggSayAll(){say([1,2,3,4,5,6,7,8,9].map(b=>chant(gg.dan,b)).join(', '),'ko-KR')}
+const keypad=()=>`<div class="keypad">${[1,2,3,4,5,6,7,8,9].map(n=>`<button onclick="ggKey('${n}')">${n}</button>`).join('')}<button onclick="ggKey('C')">⌫</button><button onclick="ggKey('0')">0</button><button class="ok" onclick="ggKey('E')">✔</button></div>`;
+function ggQuestion(head,extra){const [a,b]=gg.cur;gg.input='';gg.locked=false;gg.active=true;
+ setContent(timerBox()+`<div class="lesson">${head}<div class="big">${a} × ${b} = <span id="ggAns" class="ggans">?</span></div><div id="ggFb" class="feedback"></div>${keypad()}${extra||''}</div>`)}
+function ggPractice(){ggStop();gg.view='p';gg.qs=shuffle([1,2,3,4,5,6,7,8,9,rand(2,9)]).map(b=>[gg.dan,b]);gg.qi=0;gg.ok=0;ggAskP()}
+function ggAskP(){gg.cur=gg.qs[gg.qi];ggQuestion(`<div class="small">${gg.dan}단 연습 · ${gg.qi+1} / 10</div><div class="progress" style="margin:8px 0"><span style="width:${gg.qi*10}%"></span></div>`,`<button class="muted" onclick="ggHome()">← 그만하기</button>`)}
+function ggKey(k){if(!gg.active||gg.locked)return;const ans=String(gg.cur[0]*gg.cur[1]);
+ if(k==='C')gg.input=gg.input.slice(0,-1);else if(k==='E'){ggSubmit();return}else if(gg.input.length<3)gg.input+=k;
+ const e=$('ggAns');if(e)e.textContent=gg.input||'?';
+ if(gg.input.length>=ans.length)ggSubmit()}
+function ggSubmit(){if(gg.locked||gg.input==='')return;gg.locked=true;const [a,b]=gg.cur,ans=a*b,ok=Number(gg.input)===ans,tok=gg.tok;
+ const e=$('ggAns');if(e){e.textContent=gg.input;e.style.color=ok?'#1f9e5f':'#d6456b'}
+ data.attempts++;
+ if(gg.view==='c'){
+  if(ok){data.correct++;gg.score++;sfxOk()}else{sfxBad();data.wrong.unshift(`${a} × ${b} = ${ans} (내 답: ${gg.input})`);data.wrong=[...new Set(data.wrong)].slice(0,50)}
+  save();const fb=$('ggFb');if(fb){fb.textContent=ok?'⭕ 정답!':`❌ 정답은 ${ans}`;fb.className='feedback '+(ok?'ok':'bad')}
+  setTimeout(()=>{if(tok===gg.tok&&gg.view==='c'&&gg.t>0)ggNextC()},ok?250:700);return}
+ const fb=$('ggFb');
+ if(ok){data.correct++;gg.ok++;award(3,'',true);if(fb){fb.textContent='정답이에요! 💎 +3';fb.className='feedback ok'}cheerVoice()}
+ else{data.wrong.unshift(`${a} × ${b} = ${ans} (내 답: ${gg.input})`);data.wrong=[...new Set(data.wrong)].slice(0,50);data.done++;markActive();save();if(fb){fb.textContent=`아쉬워요! 정답은 ${ans}이에요 💗`;fb.className='feedback bad'}cheer(pick(CHEER_BAD));sfxBad()}
+ setTimeout(()=>{if(tok!==gg.tok||gg.view!=='p')return;gg.qi++;if(gg.qi>=10)ggPracticeEnd();else ggAskP()},ok?900:1700)}
+function ggPracticeEnd(){ggStop();const perfect=gg.ok===10,d=gg.dan;
+ if(perfect){data.gg.mastery[d]=(data.gg.mastery[d]||0)+1;addPoints(15);data.badges=[...new Set([...data.badges,'✖️ '+d+'단 마스터'])];
+  if([2,3,4,5,6,7,8,9].every(x=>data.gg.mastery[x]>0))data.badges=[...new Set([...data.badges,'🏆 구구단 박사'])];
+  checkBadges();save();sfxWin()}
+ setContent(timerBox()+shell('🎉 연습 끝!',`<div class="big">${gg.ok} / 10 정답</div><p>${perfect?`완벽해요! ⭐ ${d}단 마스터! 💎 +15포인트`:'잘했어요! 한 번 더 도전하면 마스터할 수 있어요.'}</p><div class="row"><button class="primary" onclick="ggPractice()">🔁 다시 연습</button><button class="blue" onclick="ggLearn()">📖 외우기</button>${d<9?`<button class="mint" onclick="ggPick(${d+1});ggPractice()">다음 단 ➜</button>`:''}<button class="muted" onclick="ggHome()">단 고르기</button></div>`))}
+function ggChallenge(){ggStop();gg.view='c';gg.t=60;gg.score=0;gg.cur=null;ggNextC();gg.int=setInterval(ggTick,1000)}
+function ggNextC(){let q;do{q=[rand(2,9),rand(2,9)]}while(gg.cur&&q[0]===gg.cur[0]&&q[1]===gg.cur[1]);gg.cur=q;
+ ggQuestion(`<div class="topline"><b>⚡ 60초 도전</b><b>⏱️ <span id="ggTime">${gg.t}</span>초 · ⭕ ${gg.score}개</b></div><div class="progress" style="margin:8px 0"><span style="width:${gg.t/.6}%"></span></div>`,`<button class="muted" onclick="ggHome()">← 그만하기</button>`)}
+function ggTick(){if(gg.view!=='c'||mode!=='times'){ggStop();return}gg.t--;const e=$('ggTime');if(e)e.textContent=Math.max(0,gg.t);if(gg.t<=0)ggChallengeEnd()}
+function ggChallengeEnd(){const sc=gg.score;ggStop();gg.view='c-end';const rec=sc>data.gg.best,pts=Math.min(30,sc)+(rec&&sc>0?10:0);
+ if(rec)data.gg.best=sc;if(pts>0)addPoints(pts);checkBadges();save();sfxWin();
+ setContent(timerBox()+shell('⚡ 도전 끝!',`<div class="big">${sc}개 정답</div><p>${rec&&sc>0?'🏆 새 기록! 보너스 +10':'최고 기록 '+data.gg.best+'개'} · 💎 +${pts}포인트</p><div class="row"><button class="primary" onclick="ggChallenge()">🔁 다시 도전</button><button class="muted" onclick="ggHome()">처음으로</button></div>`))}
+document.addEventListener('keydown',e=>{if(mode!=='times'||!gg.active||(e.target&&e.target.tagName==='INPUT'))return;
+ if(/^[0-9]$/.test(e.key))ggKey(e.key);else if(e.key==='Backspace')ggKey('C');else if(e.key==='Enter')ggKey('E')});
+
+
+/* ===== 구구단: 그림으로 배우기 + 게임 ===== */
+const GEMO=['🍎','🍓','🍪','⭐','🦋','🌸','🐟','🍭'];
+const emo=a=>GEMO[(a-2)%8];
+const groupsHTML=(a,b)=>'<div class="grps">'+Array.from({length:b},()=>`<div class="grp">${emo(a).repeat(a)}</div>`).join('')+'</div>';
+function ggPicLearn(b){ggStop();b=b||gg.b||1;gg.b=b;const a=gg.dan,p=a*b,plus=Array(b).fill(a).join(' + '),skip=Array.from({length:b},(_,i)=>a*(i+1));
+ setContent(timerBox()+`<div class="lesson"><h3>🍎 그림으로 배우기 · ${a}단</h3><p class="small">${emo(a)} ${a}개씩 <b>${b}묶음</b>이에요!</p>${groupsHTML(a,b)}<div class="big">${a} × ${b} = ${p}</div><div class="translation">${plus} = ${p}</div><div class="skipc">${skip.map((x,i)=>`<span class="${i===b-1?'on':''}">${x}</span>`).join(' → ')}</div><div class="row"><button class="muted" onclick="ggPicLearn(${Math.max(1,b-1)})">◀ 이전</button><button class="primary" onclick="ggSay(${b})">🔊 읽어 주기</button><button class="muted" onclick="ggPicLearn(${Math.min(9,b+1)})">다음 ▶</button></div><div class="row" style="margin-top:8px">${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="chip ${n===b?'on':''}" onclick="ggPicLearn(${n})">${n}</button>`).join('')}</div><div class="row" style="margin-top:10px"><button class="muted" onclick="ggHome()">← 처음으로</button></div></div>`)}
+/* 그림 문제 */
+function ggPicQuiz(){ggStop();gg.view='pq';gg.qs=shuffle([1,2,3,4,5,6,7,8,9,rand(2,9)]);gg.qi=0;gg.ok=0;ggPQ()}
+function ggPQ(){const a=gg.dan,b=gg.qs[gg.qi];gg.cur=[a,b];
+ setContent(timerBox()+`<div class="lesson"><div class="small">그림 문제 · ${gg.qi+1} / 10</div><div class="progress" style="margin:8px 0"><span style="width:${gg.qi*10}%"></span></div><p>${emo(a)} ${a}개씩 <b>${b}묶음</b>! 모두 몇 개일까요?</p>${groupsHTML(a,b)}<div class="answers">${makeOptions(a*b).map(x=>`<button data-v="${x}" onclick="ggPQans(${x},this)">${x}</button>`).join('')}</div><div id="ggFb" class="feedback"></div><button class="muted" onclick="ggHome()">← 그만하기</button></div>`)}
+function ggPQans(x,el){const box=el.parentNode;if(box.dataset.done)return;box.dataset.done='1';
+ const ans=gg.cur[0]*gg.cur[1],ok=x===ans,tok=gg.tok;
+ box.querySelectorAll('button').forEach(b=>{b.disabled=true;if(Number(b.dataset.v)===ans)b.classList.add('correct');else b.classList.add('faded')});
+ data.attempts++;const fb=$('ggFb');
+ if(ok){data.correct++;gg.ok++;award(3,'',true);if(fb){fb.textContent='정답이에요! 💎 +3';fb.className='feedback ok'}cheerVoice()}
+ else{sfxBad();el.classList.remove('faded');el.classList.add('wrongpick');data.wrong.unshift(`${gg.cur[0]} × ${gg.cur[1]} = ${ans} (내 답: ${x})`);data.wrong=[...new Set(data.wrong)].slice(0,50);data.done++;markActive();save();if(fb){fb.textContent=`아쉬워요! 정답은 ${ans}이에요 💗`;fb.className='feedback bad'}}
+ setTimeout(()=>{if(tok!==gg.tok||gg.view!=='pq')return;gg.qi++;if(gg.qi>=10)ggPQEnd();else ggPQ()},ok?900:1700)}
+function ggPQEnd(){ggStop();const perfect=gg.ok===10;if(perfect){addPoints(10);checkBadges();save();sfxWin()}
+ setContent(timerBox()+shell('🎉 그림 문제 끝!',`<div class="big">${gg.ok} / 10 정답</div><p>${perfect?'완벽해요! 보너스 💎 +10':'잘했어요! 다시 도전해 봐요.'}</p><div class="row"><button class="primary" onclick="ggPicQuiz()">🔁 다시</button><button class="muted" onclick="ggHome()">처음으로</button></div>`))}
+/* 풍선 터뜨리기 */
+function ggBalloon(){ggStop();gg.view='b';gg.t=45;gg.score=0;gg.cur=null;ggBQ();gg.int=setInterval(ggBTick,1000)}
+function ggBQ(){const a=gg.dan;let b;do{b=rand(1,9)}while(gg.cur&&gg.cur[1]===b);gg.cur=[a,b];gg.locked=false;
+ const opts=makeOptions(a*b),cols=['#ff82b2','#9c8cff','#4cc3ee','#59c98b'];
+ setContent(timerBox()+`<div class="lesson"><div class="topline"><b>🎈 풍선 터뜨리기 · ${a}단</b><b>⏱️ <span id="ggTime">${gg.t}</span>초 · 🎯 ${gg.score}</b></div><div class="big">${a} × ${b} = ?</div><p class="small">정답이 적힌 풍선을 톡! 눌러요</p><div class="arena">${opts.map((x,i)=>`<button class="balloon" style="left:${5+i*24}%;top:${10+rand(0,70)}px;background:${cols[i]};animation-delay:${i*.45}s" onclick="ggBPop(${x},this)">${x}</button>`).join('')}</div><div id="ggFb" class="feedback"></div><button class="muted" onclick="ggHome()">← 그만하기</button></div>`)}
+function ggBPop(x,el){if(gg.locked||gg.view!=='b')return;const ans=gg.cur[0]*gg.cur[1],tok=gg.tok;data.attempts++;
+ if(x===ans){gg.locked=true;gg.score++;data.correct++;sfxOk();el.classList.add('pop');el.textContent='💥';save();const fb=$('ggFb');if(fb){fb.textContent='🎉 팡!';fb.className='feedback ok'}
+  setTimeout(()=>{if(tok===gg.tok&&gg.view==='b'&&gg.t>0)ggBQ()},400)}
+ else{sfxBad();el.disabled=true;el.classList.add('wrongb');data.wrong.unshift(`${gg.cur[0]} × ${gg.cur[1]} = ${ans} (내 답: ${x})`);data.wrong=[...new Set(data.wrong)].slice(0,50);save();const fb=$('ggFb');if(fb){fb.textContent='앗, 다른 풍선이에요! 다시 찾아봐요 💗';fb.className='feedback bad'}}}
+function ggBTick(){if(gg.view!=='b'||mode!=='times'){ggStop();return}gg.t--;const e=$('ggTime');if(e)e.textContent=Math.max(0,gg.t);
+ if(gg.t<=0){const sc=gg.score,pts=Math.min(25,sc*3);ggStop();gg.view='b-end';if(pts>0)addPoints(pts);if(sc>=8)data.badges=[...new Set([...data.badges,'🎈 풍선 달인'])];checkBadges();save();sfxWin();
+  setContent(timerBox()+shell('🎈 게임 끝!',`<div class="big">풍선 ${sc}개 터뜨렸어요!</div><p>💎 +${pts}포인트</p><div class="row"><button class="primary" onclick="ggBalloon()">🔁 다시</button><button class="muted" onclick="ggHome()">처음으로</button></div>`))}}
+/* 카드 짝 맞추기 */
+function ggMemory(){ggStop();gg.view='m';const a=gg.dan,bs=shuffle([1,2,3,4,5,6,7,8,9]).slice(0,4);
+ gg.cards=shuffle(bs.flatMap(b=>[{id:b,t:`${a} × ${b}`},{id:b,t:String(a*b)}])).map((c,i)=>({...c,i,up:false,done:false}));gg.open=[];gg.moves=0;gg.pairs=0;gg.busy=false;ggMemDraw()}
+function ggMemDraw(){setContent(timerBox()+`<div class="lesson"><h3>🃏 카드 짝 맞추기 · ${gg.dan}단</h3><p class="small">곱셈 카드와 답 카드를 찾아요! · 뒤집은 횟수 ${gg.moves}</p><div class="mcards">${gg.cards.map(c=>`<button class="mcard ${c.done?'done':c.up?'up':''}" onclick="ggFlip(${c.i})">${c.done||c.up?c.t:'❓'}</button>`).join('')}</div><div class="row" style="margin-top:10px"><button class="muted" onclick="ggHome()">← 그만하기</button></div></div>`)}
+function ggFlip(i){const c=gg.cards[i];if(gg.view!=='m'||gg.busy||c.up||c.done)return;c.up=true;gg.open.push(c);
+ if(gg.open.length===2){gg.moves++;const [x,y]=gg.open;
+  if(x.id===y.id){x.done=y.done=true;gg.open=[];gg.pairs++;sfxOk();if(gg.pairs===4){ggMemEnd();return}}
+  else{gg.busy=true;const tok=gg.tok;ggMemDraw();setTimeout(()=>{if(tok!==gg.tok||gg.view!=='m')return;x.up=y.up=false;gg.open=[];gg.busy=false;ggMemDraw()},900);return}}
+ ggMemDraw()}
+function ggMemEnd(){const pts=Math.max(5,16-Math.max(0,gg.moves-4));ggStop();gg.view='m-end';addPoints(pts);checkBadges();save();sfxWin();
+ setContent(timerBox()+shell('🃏 모두 찾았어요!',`<div class="big">${gg.moves}번 만에 성공!</div><p>💎 +${pts}포인트 (적게 뒤집을수록 더 많이 받아요)</p><div class="row"><button class="primary" onclick="ggMemory()">🔁 다시</button><button class="muted" onclick="ggHome()">처음으로</button></div>`))}
+
+/* ===== 캐릭터 스킨 (색깔 + 악세서리) ===== */
+const SKIN_COLORS=[['plain','기본 색',0,''],['peach','🍑 복숭아',50,'30'],['lemon','🍋 레몬',50,'55'],['mint','🍃 민트',80,'150'],['sky','🫐 하늘',80,'200'],['grape','🍇 포도',80,'280'],['rainbow','🌈 무지개 (색이 계속 바뀌어요)',250,'rainbow']];
+const SKIN_ACCS=[['none','없음',0,'',''],['ribbon','🎀 리본',40,'🎀','ear'],['flower','🌸 꽃',40,'🌸','ear'],['star','⭐ 별',40,'⭐','ear'],['heart','💖 하트',50,'💖','ear'],['balloon','🎈 풍선',50,'🎈','side'],['wand','🪄 요술봉',60,'🪄','side'],['phones','🎧 헤드폰',70,'🎧','top'],['crown','👑 왕관',80,'👑','top'],['sparkle','✨ 반짝이',90,'✨','sparkle']];
+const BASE_HUE={bunny:340,cat:265,panda:340};
+const skinFilter=(ch,c)=>(c[3]&&c[3]!=='rainbow')?`hue-rotate(${((Number(c[3])-BASE_HUE[ch])%360+360)%360}deg)`:'';
+const MASCOTS=['bunny','cat','panda'],CHAR_NAME={bunny:'토끼',cat:'고양이',panda:'판다'};
+function skinART(key){if(!ART[key])return '';if(!MASCOTS.includes(key)||!data.look)return ART[key];
+ const L=data.look[key]||{c:'plain',a:'none'},c=SKIN_COLORS.find(x=>x[0]===L.c)||SKIN_COLORS[0],a=SKIN_ACCS.find(x=>x[0]===L.a)||SKIN_ACCS[0];
+ if(c[0]==='plain'&&a[0]==='none')return ART[key];
+ const ff=skinFilter(key,c),fil=ff?` style="filter:${ff}"`:'';
+ let acc='';if(a[4]==='sparkle')acc='<span class="acc sk1">✨</span><span class="acc sk2">✨</span><span class="acc sk3">⭐</span>';else if(a[3])acc=`<span class="acc ${a[4]}">${a[3]}</span>`;
+ return `<div class="skinbox"><div class="skin${c[3]==='rainbow'?' rainbow':''}"${fil}>${ART[key]}</div>${acc}</div>`}
+function refreshArt(){paintArt();const m=$('subjectEmoji');if(m&&subject)m.innerHTML=skinART(MASCOT[subject])}
+function skinView(){const ch=MASCOT[subject],L=data.look[ch];
+ const row=(kind,list,pv)=>list.map(x=>{const id=x[0],key=`${ch}:${kind}:${id}`,own=x[2]===0||data.skinsOwned[key],on=L[kind]===id,can=data.points>=x[2];
+  const btn=on?'<button class="muted" disabled>입는 중 ✔</button>':own?`<button class="mint" onclick="skinWear('${kind}','${id}')">입기</button>`:`<button class="${can?'primary':'muted'}" ${can?'':'disabled'} onclick="skinBuy('${kind}','${id}')">💎 ${x[2]} 사기</button>`;
+  return `<div class="shopitem"><div class="se" style="width:54px;height:54px;flex:none;display:flex;align-items:center;justify-content:center">${pv(x)}</div><div style="flex:1;min-width:0;text-align:left"><b>${x[1]}</b></div>${btn}</div>`}).join('');
+ const pvC=x=>`<div style="width:54px;height:54px;${skinFilter(ch,x)?'filter:'+skinFilter(ch,x):''}" class="${x[3]==='rainbow'?'rainbow':''}">${ART[ch]}</div>`,pvA=x=>x[3]?`<span style="font-size:30px">${x[3]}</span>`:'—';
+ setContent(`<div class="lesson"><h3>👗 ${CHAR_NAME[ch]} 스킨 가게</h3><div class="small">💎 내 포인트 <b>${data.points}</b> · 사면 바로 입혀 줘요 (스킨 가게에서는 공부 타이머가 흐르지 않아요)</div><div class="art" style="width:150px;height:150px;margin:8px auto">${skinART(ch)}</div><h4 style="margin:10px 0 6px">🎨 색깔 스킨</h4><div class="shop">${row('c',SKIN_COLORS,pvC)}</div><h4 style="margin:14px 0 6px">🎀 악세서리</h4><div class="shop">${row('a',SKIN_ACCS,pvA)}</div></div>`)}
+function skinBuy(kind,id){const ch=MASCOT[subject],x=(kind==='c'?SKIN_COLORS:SKIN_ACCS).find(y=>y[0]===id);if(!x||data.points<x[2])return;
+ data.points-=x[2];data.skinsOwned[`${ch}:${kind}:${id}`]=true;data.look[ch][kind]=id;data.badges=[...new Set([...data.badges,'👗 첫 스킨'])];save();refreshArt();skinView();
+ sfxWin();cheer('새 스킨이 정말 잘 어울려요! 💖')}
+function skinWear(kind,id){const ch=MASCOT[subject];data.look[ch][kind]=id;save();refreshArt();skinView()}
+
+/* ===== 오늘의 단어 시험 (90점 이상이면 보너스) ===== */
+const exm={qs:[],i:0,ok:0,wrong:[],locked:false};
+function markLearned(w){ensureDay();const d=data.daily[today()];if(!d.learned)d.learned={};const a=d.learned[subject]||(d.learned[subject]=[]);if(!a.includes(w[0]))a.push(w[0])}
+const allVocab=s=>[].concat(...VOCAB_LV[s]);
+function examWords(){const d=data.daily[today()],keys=(d.learned&&d.learned[subject])||[],pool=allVocab(subject);return keys.map(k=>pool.find(w=>w[0]===k)).filter(Boolean)}
+function exam(){const ws=examWords();
+ if(ws.length<3){setContent(timerBox()+shell('📝 오늘의 단어 시험',`<p>오늘 배운 단어가 <b>${ws.length}개</b>예요.<br>단어 배우기에서 카드를 <b>3개 이상</b> 넘겨 보면 시험을 볼 수 있어요!</p><div class="row"><button class="primary" onclick="setMode('words')">📖 단어 배우러 가기</button></div>`));return}
+ const got=data.daily[today()].bonus['exam_'+subject]||0;
+ setContent(timerBox()+shell('📝 오늘의 단어 시험',`${lvLine()}<p>오늘 배운 단어 <b>${ws.length}개</b> 중 최대 10문제를 풀어요.<br><b>90점 이상</b>이면 💎 +20, <b>100점</b>이면 💎 +30 보너스!${got?`<br><span class="small">오늘 받은 시험 보너스: 💎 ${got} (보너스는 하루에 한 번만, 더 높은 점수면 차액을 받아요)</span>`:''}</p><div class="row"><button class="primary" onclick="examStart()">✏️ 시험 시작!</button></div><div class="small" style="margin-top:8px">오늘 배운 단어: ${ws.map(w=>escHtml(w[0])).join(', ')}</div>`))}
+function examStart(){const ws=shuffle(examWords()).slice(0,10),pool=allVocab(subject),zh=subject==='chinese';
+ const lab=(w,t)=>t==='w'?(zh?`${w[0]} (${w[2]})`:w[0]):w[1];
+ exm.qs=ws.map((w,i)=>{const t=['m','w','l'][i%3];const wrong=shuffle(pool.filter(x=>x[0]!==w[0]&&lab(x,t)!==lab(w,t))).slice(0,3);
+  const opts=shuffle([w,...wrong]);return {w,t,opts:opts.map(o=>lab(o,t)),ans:opts.indexOf(w)}});
+ exm.qs=shuffle(exm.qs);exm.i=0;exm.ok=0;exm.wrong=[];examAsk()}
+function examAsk(){const q=exm.qs[exm.i],w=q.w;exm.locked=false;
+ const head=q.t==='m'?`<div class="big">${w[0]}</div><button class="blue" onclick="say('${esc(w[0])}','${LANG()}')">🔊 듣기</button><p>이 단어의 뜻은?</p>`
+  :q.t==='w'?`<div class="big">${w[1]}</div><p>알맞은 단어는?</p>`
+  :`<div class="big">🎧</div><button class="blue" onclick="say('${esc(w[0])}','${LANG()}')">🔊 다시 듣기</button><p>잘 듣고, 뜻을 골라요!</p>`;
+ setContent(timerBox()+`<div class="lesson"><div class="small">단어 시험 · ${exm.i+1} / ${exm.qs.length}</div><div class="progress" style="margin:8px 0"><span style="width:${exm.i/exm.qs.length*100}%"></span></div>${head}<div class="answers">${q.opts.map((o,i)=>`<button onclick="examAns(${i},this)">${escHtml(o)}</button>`).join('')}</div><div id="feedback" class="feedback"></div></div>`);
+ if(q.t==='l')say(w[0],LANG())}
+function examAns(i,el){if(exm.locked)return;exm.locked=true;const q=exm.qs[exm.i],ok=i===q.ans,bs=[...el.parentNode.querySelectorAll('button')],t=exm.i;
+ bs.forEach((b,k)=>{b.disabled=true;if(k===q.ans)b.classList.add('correct');else b.classList.add('faded')});
+ if(ok){exm.ok++;sfxOk()}else{sfxBad();el.classList.remove('faded');el.classList.add('wrongpick');exm.wrong.push(q.w)}
+ const f=$('feedback');if(f){f.textContent=ok?'정답이에요! ⭕':`아쉬워요! 정답은 「${q.w[1]}」(${q.w[0]})`;f.className='feedback '+(ok?'ok':'bad')}
+ setTimeout(()=>{if(mode!=='exam'||exm.i!==t)return;exm.i++;if(exm.i>=exm.qs.length)examEnd();else examAsk()},ok?800:1700)}
+function examEnd(){const n=exm.qs.length,score=Math.round(exm.ok/n*100),d=data.daily[today()],prev=d.bonus['exam_'+subject]||0,pay=score>=100?30:score>=90?20:0;
+ let msg='';
+ data.attempts+=0;
+ if(pay>prev){addPoints(pay-prev);d.bonus['exam_'+subject]=pay;data.badges=[...new Set([...data.badges,'📝 단어 시험 우등생'])];checkBadges();save();msg=`🎉 ${score}점! 시험 보너스 💎 +${pay-prev}`;
+  celebrate({emoji:'📝',title:'단어 시험 우수!',msg:`${score}점을 받았어요!<br>💎 +${pay-prev}포인트`,voice:`${score}점! 정말 대단해요!`})}
+ else if(pay>0)msg=`🎉 ${score}점! 오늘 시험 보너스는 이미 받았어요 (💎 ${prev})`;
+ else msg=`${score}점이에요. 90점 이상이면 보너스! 틀린 단어를 다시 보고 한 번 더 도전해 봐요 💪`;
+ if(pay===0){save()}
+ setContent(timerBox()+shell(`📝 시험 결과: ${score}점`,`<div class="big">${exm.ok} / ${n} 정답</div><p>${msg}</p>${exm.wrong.length?`<div class="tile" style="text-align:left"><b>다시 볼 단어</b><br>${exm.wrong.map(w=>`${escHtml(w[0])} = ${escHtml(w[1])}${w[2]?' ('+escHtml(w[2])+')':''}`).join('<br>')}</div>`:''}<div class="row" style="margin-top:10px"><button class="primary" onclick="examStart()">🔁 다시 시험</button><button class="blue" onclick="setMode('words')">📖 단어 더 배우기</button></div>`))}
+
+/* ===== 기록 옮기기 (다른 주소/기기로 이사할 때) ===== */
+function exportData(){const b=$('dataBox');if(!b)return;b.value=JSON.stringify(data);try{b.select()}catch(e){}try{navigator.clipboard.writeText(b.value)}catch(e){}alert('기록을 복사했어요! 새 곳에서 “불러오기” 칸에 붙여넣기 하세요.')}
+function importData(){const b=$('dataBox');if(!b||!b.value.trim()){alert('불러올 기록을 칸에 붙여넣어 주세요.');return}
+ let o;try{o=JSON.parse(b.value)}catch(e){alert('기록 형식이 맞지 않아요.');return}
+ if(!o||typeof o!=='object'){alert('기록 형식이 맞지 않아요.');return}
+ if(!confirm('지금 기록을 지우고 불러온 기록으로 바꿀까요?'))return;
+ data=Object.assign(fresh(),o);fixData();ensureDay();data.grade=gradeIndex(data.earned);data.ptsSeen=data.points;save();refreshArt();renderHomeDeco();alert('기록을 불러왔어요! 🎉')}
+
+/* ===== 상점 & 꾸미기 ===== */
+const REALM={math:{icon:'🏰',name:'수학 왕국'},english:{icon:'🏡',name:'영어 나라'},chinese:{icon:'🎋',name:'중국어 정원'}};
+/* [id, 그림, 이름, 가격, 크기(cqw)] */
+const SHOP={
+math:[['m-tree','🌳','나무',20,10],['m-flower','🌷','꽃밭',20,7],['m-star','⭐','반짝 별',25,6],['m-balloon','🎈','풍선',30,7],['m-abacus','🧮','마법 주판',40,8],['m-crown','👑','왕관',60,7],['m-ship','⛵','돛단배',70,9],['m-fountain','⛲','분수',80,11],['m-fairy','🧚','요정',90,9],['m-rainbow','🌈','무지개',100,17],['m-unicorn','🦄','유니콘',150,12],['m-carousel','🎠','회전목마',180,13],['m-castle','🏰','큰 성',250,22]],
+english:[['e-cloud','☁️','구름',20,10],['e-tree','🌳','나무',20,10],['e-sun','🌻','해바라기',25,7],['e-bird','🐦','새',30,6],['e-umb','☂️','우산',30,7],['e-sheep','🐑','양',40,8],['e-mail','📮','우체통',40,7],['e-cake','🍰','케이크',50,7],['e-bike','🚲','자전거',50,8],['e-house','🏡','집',120,15],['e-bus','🚌','이층 버스',120,13],['e-wheel','🎡','관람차',220,19]],
+chinese:[['c-bamboo','🎋','대나무',20,9],['c-blossom','🌸','벚꽃',25,7],['c-hibis','🌺','꽃',30,7],['c-lantern','🏮','등불',40,8],['c-fish','🐟','잉어',40,7],['c-tea','🍵','차 한 잔',50,6],['c-mount','⛰️','산',60,15],['c-red','🧧','복 주머니',60,7],['c-moon','🌕','보름달',80,11],['c-panda','🐼','아기 판다',150,11],['c-dragon','🐲','용',180,13]]};
+const ITEM_BY_ID={};Object.keys(SHOP).forEach(r=>SHOP[r].forEach(x=>{ITEM_BY_ID[x[0]]=x;x.realm=r}));
+const SCENE_BG={
+math:'<svg class="bg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="160" height="100" fill="url(#dskM)"/><circle cx="134" cy="19" r="9" fill="#fff4b8"/><ellipse cx="30" cy="22" rx="14" ry="5" fill="#fff" opacity=".85"/><ellipse cx="42" cy="18" rx="9" ry="5" fill="#fff" opacity=".85"/><ellipse cx="96" cy="30" rx="12" ry="4" fill="#fff" opacity=".7"/><path d="M0 68Q40 50 82 64T160 58V100H0Z" fill="#bff0cf"/><path d="M0 82Q50 70 100 80T160 76V100H0Z" fill="#9fe3b7"/><path d="M66 100Q76 86 84 74L96 74Q92 88 104 100Z" fill="#f6e3bd"/></svg>',
+english:'<svg class="bg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="160" height="100" fill="url(#dskE)"/><circle cx="24" cy="18" r="8" fill="#fff1a8"/><ellipse cx="100" cy="20" rx="16" ry="5" fill="#fff"/><ellipse cx="116" cy="16" rx="10" ry="5" fill="#fff"/><path d="M0 62Q36 44 78 58T160 54V100H0Z" fill="#a8e6a1"/><path d="M0 76Q60 62 110 74T160 72V100H0Z" fill="#86d98c"/><path d="M60 100Q90 80 150 76L160 82V100Z" fill="#e9ddc4"/></svg>',
+chinese:'<svg class="bg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="160" height="100" fill="url(#dskC)"/><circle cx="120" cy="22" r="10" fill="#fff3c2" opacity=".9"/><path d="M0 58L26 34 48 54 74 28 104 56 130 38 160 60V100H0Z" fill="#a9d4bf"/><path d="M0 66L30 48 58 64 88 46 120 66 148 52 160 62V100H0Z" fill="#8fc7a6"/><path d="M0 76Q80 66 160 76V100H0Z" fill="#b9e6a8"/><ellipse cx="82" cy="86" rx="46" ry="11" fill="#a8e0f0"/><ellipse cx="82" cy="86" rx="38" ry="8" fill="#c6eefa"/></svg>'};
+let decoSel=null,dDrag=null;
+const decoCount=r=>(data.deco[r]||[]).length;
+const placedOf=id=>{let n=0;KEYS.forEach(r=>data.deco[r].forEach(o=>{if(o.id===id)n++}));return n};
+const unplaced=id=>(data.owned[id]||0)-placedOf(id);
+function itemEl(o){const it=ITEM_BY_ID[o.id];if(!it)return '';return `<div class="it${decoSel===o.uid?' sel':''}" data-uid="${o.uid}" style="left:${o.x}%;top:${o.y}%;font-size:${it[4]}cqw;z-index:${Math.round(o.y)+1}">${it[1]}</div>`}
+function sceneHTML(r,cls){return `<div class="scene ${cls||''}" ${cls?'':'id="scene"'}>${SCENE_BG[r]}${data.deco[r].map(itemEl).join('')}</div>`}
+function trayHTML(r){const l=SHOP[r].filter(x=>unplaced(x[0])>0);
+ return l.length?l.map(x=>`<button class="trayit" onclick="placeItem('${x[0]}')"><span>${x[1]}</span> ×${unplaced(x[0])}</button>`).join(''):'<span class="small">상자가 비었어요. 아래 상점에서 아이템을 사 보세요!</span>'}
+function deco(){decoSel=null;decoView()}
+function decoView(){const r=subject;
+ setContent(`<div class="lesson"><h3>${REALM[r].icon} 나의 ${REALM[r].name} 꾸미기</h3><div class="small">💎 내 포인트 <b>${data.points}</b> · 아이템을 끌어서 옮겨요 (꾸미는 시간은 공부 타이머에 들어가지 않아요)</div>${sceneHTML(r)}<div id="decoSel" class="small" style="margin:8px 0;min-height:34px"></div><h4 style="margin:6px 0">🎒 내 상자 <span class="small">(눌러서 놓기)</span></h4><div class="tray">${trayHTML(r)}</div><h4 style="margin:14px 0 6px">🛍️ 상점</h4><div class="shop">${SHOP[r].map(x=>{const can=data.points>=x[3];return `<div class="shopitem"><div class="se">${x[1]}</div><div style="flex:1;min-width:0;text-align:left"><b>${x[2]}</b><div class="small">💎 ${x[3]} · 보유 ${data.owned[x[0]]||0}</div></div><button class="${can?'primary':'muted'}" ${can?'':'disabled'} onclick="buyItem('${x[0]}')">사기</button></div>`}).join('')}</div></div>`);
+ decoBind();decoUpdateSel()}
+function decoUpdateSel(){document.querySelectorAll('#scene .it').forEach(el=>el.classList.toggle('sel',el.dataset.uid===decoSel));
+ const e=$('decoSel');if(!e)return;const o=decoSel&&data.deco[subject].find(x=>x.uid===decoSel),it=o&&ITEM_BY_ID[o.id];
+ e.innerHTML=it?`선택: <b>${it[1]} ${it[2]}</b> <button class="muted" style="padding:6px 10px;font-size:13px" onclick="decoRemove()">🎒 상자에 넣기</button>`:'👆 아이템을 눌러 고르고, 손가락으로 끌어서 옮겨 보세요!'}
+function decoBind(){const sc=$('scene');if(!sc)return;
+ sc.addEventListener('pointerdown',e=>{const el=e.target.closest('.it');if(!el){decoSel=null;decoUpdateSel();return}
+  decoSel=el.dataset.uid;const o=data.deco[subject].find(x=>x.uid===decoSel);if(!o)return;dDrag={el,o,moved:false};
+  try{el.setPointerCapture(e.pointerId)}catch(_){}decoUpdateSel();e.preventDefault()});
+ sc.addEventListener('pointermove',e=>{if(!dDrag)return;const r=sc.getBoundingClientRect();if(!r.width)return;
+  const x=Math.min(96,Math.max(4,(e.clientX-r.left)/r.width*100)),y=Math.min(95,Math.max(8,(e.clientY-r.top)/r.height*100));
+  dDrag.o.x=+x.toFixed(1);dDrag.o.y=+y.toFixed(1);dDrag.el.style.left=x+'%';dDrag.el.style.top=y+'%';dDrag.el.style.zIndex=Math.round(y)+1;dDrag.moved=true;e.preventDefault()});
+ const end=()=>{if(dDrag){const m=dDrag.moved;dDrag=null;if(m)save()}};
+ sc.addEventListener('pointerup',end);sc.addEventListener('pointercancel',end)}
+function placeItem(id){const it=ITEM_BY_ID[id];if(!it||unplaced(id)<=0)return;const arr=data.deco[it.realm];if(arr.length>=40)return;
+ const o={uid:Date.now().toString(36)+rand(100,999),id,x:rand(20,80),y:rand(45,82)};arr.push(o);decoSel=o.uid;
+ if(arr.length>=10)data.badges=[...new Set([...data.badges,'🎀 '+REALM[it.realm].name+' 꾸미기 박사'])];save();if(mode==='deco')decoView()}
+function decoRemove(){const arr=data.deco[subject],i=arr.findIndex(x=>x.uid===decoSel);if(i<0)return;arr.splice(i,1);decoSel=null;save();decoView()}
+function buyItem(id){const it=ITEM_BY_ID[id];if(!it||data.points<it[3])return;
+ data.points-=it[3];data.owned[id]=(data.owned[id]||0)+1;data.badges=[...new Set([...data.badges,'🛍️ 첫 쇼핑'])];
+ const arr=data.deco[it.realm];save();
+ if(arr.length<40){placeItem(id)}else decoView();
+ sfxWin();cheer(`${it[1]} ${it[2]} 샀어요! 💖`)}
+function openDeco(s){openSubject(s);setMode('deco')}
+function renderHomeDeco(){const h=$('homeDeco');if(!h)return;
+ h.innerHTML=KEYS.map(r=>`<button class="homedeco" onclick="openDeco('${r}')">${sceneHTML(r,'mini')}<b>${REALM[r].icon} ${REALM[r].name}</b><span class="small">🎀 꾸민 아이템 ${decoCount(r)}개 · 눌러서 꾸미기</span></button>`).join('')}
+
+if(typeof data.grade!=='number')data.grade=gradeIndex(data.earned);
+paintArt();renderHomeDeco();render();
+</script></body></html>
