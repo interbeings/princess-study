@@ -272,7 +272,8 @@ if(typeof data.wave!=='boolean')data.wave=true;
 if(typeof data.clearStreak!=='number')data.clearStreak=0;
 if(typeof data.lastClearDay!=='string')data.lastClearDay='';
 if(!data.voicePick||typeof data.voicePick!=='object')data.voicePick={};
-function fixData(){if(typeof data.points!=='number'||data.points<0)data.points=0;
+function fixData(){if(!data.mtest||typeof data.mtest!=='object')data.mtest={};if(!data.msel||typeof data.msel!=='object')data.msel={g:2,s:2};
+ if(typeof data.points!=='number'||data.points<0)data.points=0;
  if(typeof data.earned!=='number')data.earned=data.points;
  if(typeof data.ptsSeen!=='number')data.ptsSeen=data.points;
  if(!data.owned||typeof data.owned!=='object')data.owned={};
@@ -465,34 +466,313 @@ function initPad(){const c=$('padCanvas');if(!c||c.dataset.ready==='1'||!c.clien
 function makeOptions(ans){const s=new Set([ans]);
  for(const c of shuffle([ans+1,ans-1,ans+10,ans-10,ans+2,ans-2,ans+5,ans-5,ans+20])){if(c>=0&&s.size<4)s.add(c)}
  let g=0;while(s.size<4&&g++<50)s.add(ans+rand(3,15));return shuffle([...s])}
-const mathUnits=[
-{id:'add-plain',grade:'2학년 1학기',unit:'덧셈과 뺄셈',name:'두 자리 수 덧셈 (받아올림 없음)',desc:'일의 자리끼리, 십의 자리끼리 더해요',make(){const at=rand(1,8),au=rand(0,8),bt=rand(0,9-at),bu=rand(1,9-au),a=at*10+au,b=bt*10+bu;return {text:`${a} + ${b} = ?`,ans:a+b}}},
-{id:'add-carry',grade:'2학년 1학기',unit:'덧셈과 뺄셈',name:'두 자리 수 덧셈 (받아올림 있음)',desc:'일의 자리가 10이 넘으면 십의 자리로 올려요',make(){const au=rand(2,9),bu=rand(10-au,9),at=rand(1,7),bt=rand(1,8-at),a=at*10+au,b=bt*10+bu;return {text:`${a} + ${b} = ?`,ans:a+b}}},
-{id:'sub-plain',grade:'2학년 1학기',unit:'덧셈과 뺄셈',name:'두 자리 수 뺄셈 (받아내림 없음)',desc:'십의 자리와 일의 자리를 따로 생각해요',make(){const at=rand(2,9),au=rand(1,9),bt=rand(0,at-1),bu=rand(bt===0?1:0,au),a=at*10+au,b=bt*10+bu;return {text:`${a} − ${b} = ?`,ans:a-b}}},
-{id:'sub-borrow',grade:'2학년 1학기',unit:'덧셈과 뺄셈',name:'두 자리 수 뺄셈 (받아내림 있음)',desc:'일의 자리가 모자라면 십의 자리에서 빌려와요',make(){const at=rand(2,9),au=rand(0,8),bu=rand(au+1,9),bt=rand(0,at-1),a=at*10+au,b=bt*10+bu;return {text:`${a} − ${b} = ?`,ans:a-b}}},
-{id:'multiplication',grade:'2학년 2학기',unit:'2단원',name:'곱셈구구',desc:'같은 수를 여러 번 더하는 곱셈이에요',make(){const a=rand(2,9),b=rand(2,9);return {text:`${a} × ${b} = ?`,ans:a*b}}},
-{id:'time',grade:'2학년 2학기',unit:'시각과 시간',name:'시간과 분',desc:'1시간은 60분이에요',make(){const h=rand(1,3),m=rand(0,11)*5;return {text:m?`${h}시간 ${m}분은 모두 몇 분일까요?`:`${h}시간은 몇 분일까요?`,ans:h*60+m}}},
-{id:'patterns',grade:'2학년 2학기',unit:'규칙 찾기',name:'수의 규칙 찾기',desc:'숫자의 규칙을 찾아 □에 들어갈 수를 맞혀요',make(){const s=rand(2,9),a=rand(1,20);return {text:`${a}, ${a+s}, ${a+s*2}, □  (□에 들어갈 수는?)`,ans:a+s*3}}},
-{id:'three-digit',grade:'3학년 1학기 · 심화',unit:'심화 단원',name:'세 자리 수의 덧셈',desc:'백의 자리까지 차근차근 더해요',make(){const a=rand(100,699),b=rand(100,899);return {text:`${a} + ${b} = ?`,ans:a+b}}},
-{id:'three-sub',grade:'3학년 1학기 · 심화',unit:'심화 단원',name:'세 자리 수의 뺄셈',desc:'받아내림이 있는 뺄셈도 도전해요',make(){const a=rand(200,999),b=rand(100,a-1);return {text:`${a} − ${b} = ?`,ans:a-b}}}
-];
+const Q=(text,ans)=>({text,ans});
+const WT=['사과','구슬','스티커','색연필','젤리','과자'];
+const WN=['지온이','토끼','하늘이','별이'];
+const wt=()=>pick(WT),wn=()=>pick(WN);
+const jo=(w,a,b)=>{const c=w.charCodeAt(w.length-1)-0xAC00;return w+((c>=0&&c<11172&&c%28)?a:b)};
+const wi=()=>jo(wt(),'이','가'),wo=()=>jo(wt(),'을','를');
+const SHAPES=[['삼각형',3],['사각형',4],['오각형',5],['육각형',6]];
+const MATH_CUR={
+'1-1':[
+{name:'9까지의 수',desc:'1부터 9까지의 수를 세고 순서를 알아요',
+ kinds:[()=>{const n=rand(1,8);return Q(`${n}보다 1 큰 수는?`,n+1)},
+  ()=>{const n=rand(2,9);return Q(`${n}보다 1 작은 수는?`,n-1)},
+  ()=>{const a=rand(1,7);return Q(`${a}, ${a+1}, □  (□에 알맞은 수는?)`,a+2)},
+  ()=>{const a=rand(1,9);let b=rand(1,9);while(b===a)b=rand(1,9);return Q(`${a}와(과) ${b} 중 더 큰 수는?`,Math.max(a,b))},
+  ()=>{const a=rand(1,9);let b=rand(1,9);while(b===a)b=rand(1,9);return Q(`${a}와(과) ${b} 중 더 작은 수는?`,Math.min(a,b))}],
+ word:[()=>{const n=rand(2,9);return Q(`${wt()} ${n}개가 있어요. 하나를 더 놓으면 몇 개가 될까요?`,n+1)},
+  ()=>{const n=rand(2,9);return Q(`순서를 셀 때 ${n} 바로 앞의 수는?`,n-1)}]},
+{name:'여러 가지 모양',desc:'상자·둥근기둥·공 모양을 알아요',
+ kinds:[()=>{const a=rand(1,4),b=rand(1,4),c=rand(1,4);return Q(`상자 모양 ${a}개, 둥근기둥 모양 ${b}개, 공 모양 ${c}개예요. 모두 몇 개일까요?`,a+b+c)},
+  ()=>{const a=rand(1,9),b=rand(1,9),c=rand(1,9);return Q(`상자 모양 ${a}개, 둥근기둥 모양 ${b}개, 공 모양 ${c}개예요. 가장 많은 모양은 몇 개일까요?`,Math.max(a,b,c))},
+  ()=>{const a=rand(4,9),b=rand(1,3);return Q(`공 모양 ${a}개, 상자 모양 ${b}개예요. 공 모양이 몇 개 더 많을까요?`,a-b)}],
+ word:[()=>{const a=rand(2,5),b=rand(2,4);return Q(`축구공 ${a}개와 야구공 ${b}개는 모두 몇 개일까요? (둘 다 공 모양)`,a+b)},
+  ()=>{const a=rand(2,5),b=rand(2,4);return Q(`과자 상자 ${a}개와 필통 ${b}개는 모두 몇 개일까요? (둘 다 상자 모양)`,a+b)}]},
+{name:'덧셈과 뺄셈',desc:'9까지의 수를 모으고 가르고, 더하고 빼요',
+ kinds:[()=>{const a=rand(1,8),b=rand(1,9-a);return Q(`${a} + ${b} = ?`,a+b)},
+  ()=>{const a=rand(2,9),b=rand(1,a-1);return Q(`${a} − ${b} = ?`,a-b)},
+  ()=>{const a=rand(3,9),b=rand(1,a-1);return Q(`${a}은(는) ${b}와(과) □ 로 가를 수 있어요. (□는?)`,a-b)},
+  ()=>{const a=rand(1,8),b=rand(1,9-a);return Q(`${a} + □ = ${a+b}  (□는?)`,b)}],
+ word:[()=>{const a=rand(1,8),b=rand(1,9-a);return Q(`${wt()} ${a}개가 있는데 ${b}개를 더 받았어요. 모두 몇 개일까요?`,a+b)},
+  ()=>{const a=rand(3,9),b=rand(1,a-1);return Q(`${wt()} ${a}개 중에서 ${b}개를 먹었어요. 남은 것은 몇 개일까요?`,a-b)}]},
+{name:'비교하기',desc:'길이·무게·넓이·담을 수 있는 양을 비교해요',
+ kinds:[()=>{const a=rand(1,9);let b=rand(1,9);while(b===a)b=rand(1,9);return Q(`연필 ${Math.max(a,b)}자루와 지우개 ${Math.min(a,b)}개가 있어요. 연필이 몇 개 더 많을까요?`,Math.abs(a-b))},
+  ()=>{const a=rand(1,9),b=rand(1,9),c=rand(1,9);return Q(`${a}, ${b}, ${c} 중 가장 큰 수는?`,Math.max(a,b,c))},
+  ()=>{const a=rand(1,9),b=rand(1,9),c=rand(1,9);return Q(`${a}, ${b}, ${c} 중 가장 작은 수는?`,Math.min(a,b,c))}],
+ word:[()=>{const a=rand(5,9),b=rand(1,4);return Q(`키가 ${a}칸인 막대와 ${b}칸인 막대가 있어요. 몇 칸 더 길까요?`,a-b)},
+  ()=>{const a=rand(5,9),b=rand(1,4);return Q(`컵에 물이 ${a}칸, 병에 물이 ${b}칸 들어 있어요. 물이 몇 칸 더 많을까요?`,a-b)}]},
+{name:'50까지의 수',desc:'10개씩 묶음과 낱개로 50까지 세어요',
+ kinds:[()=>{const t=rand(1,4),o=rand(0,9);return Q(`10개씩 묶음 ${t}개와 낱개 ${o}개는 얼마일까요?`,t*10+o)},
+  ()=>{const n=rand(11,48);return Q(`${n}보다 1 큰 수는?`,n+1)},
+  ()=>{const n=rand(10,49);return Q(`${n}에서 십의 자리 숫자는?`,Math.floor(n/10))},
+  ()=>{const a=rand(1,2)*10+rand(0,9);return Q(`${a}, ${a+10}, ${a+20}, □ (10씩 뛰어 세기)`,a+30)}],
+ word:[()=>{const t=rand(2,4),o=rand(1,9);return Q(`${wt()}이(가) 10개씩 ${t}묶음과 낱개 ${o}개 있어요. 모두 몇 개일까요?`,t*10+o)},
+  ()=>{const n=rand(20,39);return Q(`${n}보다 10 큰 수는?`,n+10)}]}
+],
+'1-2':[
+{name:'100까지의 수',desc:'10개씩 묶음과 낱개로 100까지 세어요',
+ kinds:[()=>{const t=rand(1,9),o=rand(0,9);return Q(`10개씩 묶음 ${t}개와 낱개 ${o}개는 얼마일까요?`,t*10+o)},
+  ()=>{const n=rand(11,98);return Q(`${n}보다 1 큰 수는?`,n+1)},
+  ()=>{const n=rand(12,99);return Q(`${n}보다 1 작은 수는?`,n-1)},
+  ()=>{const n=rand(10,99);return Q(`${n}에서 십의 자리 숫자는?`,Math.floor(n/10))},
+  ()=>{const a=rand(1,6)*10+rand(0,9);return Q(`${a}, ${a+10}, ${a+20}, □ (10씩 뛰어 세기)`,a+30)}],
+ word:[()=>{const t=rand(2,8),o=rand(1,9);return Q(`${wi()} 10개씩 ${t}묶음과 낱개 ${o}개 있어요. 모두 몇 개일까요?`,t*10+o)},
+  ()=>{const n=rand(2,9)*10+rand(0,9);return Q(`${n}보다 10 큰 수는?`,n+10)}]},
+{name:'여러 가지 모양',desc:'네모·세모·동그라미 모양을 찾고 만들어요',
+ kinds:[()=>{const n=rand(2,6);return Q(`세모 모양 ${n}개의 뾰족한 부분은 모두 몇 개일까요?`,3*n)},
+  ()=>{const n=rand(2,6);return Q(`네모 모양 ${n}개의 뾰족한 부분은 모두 몇 개일까요?`,4*n)},
+  ()=>Q('동그라미 모양의 뾰족한 부분은 몇 개일까요?',0),
+  ()=>{const a=rand(1,5),b=rand(1,5),c=rand(1,5);return Q(`네모 ${a}개, 세모 ${b}개, 동그라미 ${c}개를 모았어요. 모두 몇 개일까요?`,a+b+c)}],
+ word:[()=>{const a=rand(2,5),b=rand(2,5);return Q(`색종이로 세모 모양 ${a}개와 네모 모양 ${b}개를 만들었어요. 모두 몇 개일까요?`,a+b)},
+  ()=>{const a=rand(1,3),b=rand(1,3);return Q(`세모 모양 ${a}개와 네모 모양 ${b}개의 뾰족한 부분은 모두 몇 개일까요?`,3*a+4*b)}]},
+{name:'덧셈과 뺄셈(1)',desc:'받아올림이 있는 (몇)+(몇), 받아내림이 있는 (십몇)−(몇)',
+ kinds:[()=>{const a=rand(2,9),b=rand(10-a,9);return Q(`${a} + ${b} = ?`,a+b)},
+  ()=>{const x=rand(11,18),y=rand(x-9,9);return Q(`${x} − ${y} = ?`,x-y)},
+  ()=>{const a=rand(3,9),b=rand(10-a,9),c=rand(1,9);return Q(`${a} + ${b} − ${c} = ?`,a+b-c)},
+  ()=>{const a=rand(2,9),b=rand(10-a,9);return Q(`${a} + □ = ${a+b}  (□는?)`,b)}],
+ word:[()=>{const a=rand(4,9),b=rand(10-a,9);return Q(`${wt()} ${a}개가 있는데 ${b}개를 더 받았어요. 모두 몇 개일까요?`,a+b)},
+  ()=>{const x=rand(11,18),y=rand(x-9,9);return Q(`${wt()} ${x}개 중 ${y}개를 먹었어요. 남은 것은 몇 개일까요?`,x-y)}]},
+{name:'시계 보기',desc:'몇 시, 몇 시 30분을 시계로 읽어요',
+ kinds:[()=>Q(`${rand(1,12)}시일 때 긴바늘이 가리키는 숫자는?`,12),
+  ()=>Q(`${rand(1,11)}시 30분일 때 긴바늘이 가리키는 숫자는?`,6),
+  ()=>{const h=rand(1,12);return Q(`짧은바늘이 ${h}, 긴바늘이 12를 가리켜요. 몇 시일까요?`,h)},
+  ()=>{const h=rand(1,10);return Q(`${h}시에서 1시간이 지나면 몇 시일까요?`,h+1)},
+  ()=>{const h=rand(1,10);return Q(`${h}시 30분이에요. 30분이 지나면 몇 시일까요?`,h+1)}],
+ word:[()=>{const h=rand(1,10);return Q(`${wn()}는 ${h}시에 숙제를 시작해서 1시간 뒤에 끝냈어요. 끝낸 시각은 몇 시일까요?`,h+1)},
+  ()=>{const h=rand(1,10);return Q(`${h}시 30분에 점심을 먹기 시작해서 30분 뒤에 끝났어요. 끝난 시각은 몇 시일까요?`,h+1)}]},
+{name:'덧셈과 뺄셈(2)',desc:'몇십몇과 몇십몇, 두 자리 수와 한 자리 수의 계산',
+ kinds:[()=>{const a=rand(1,4)*10,b=rand(1,4)*10;return Q(`${a} + ${b} = ?`,a+b)},
+  ()=>{const a=rand(3,9)*10,b=rand(1,a/10-1)*10;return Q(`${a} − ${b} = ?`,a-b)},
+  ()=>{const t=rand(1,7),o=rand(2,9),b=rand(10-o,9);return Q(`${t*10+o} + ${b} = ?`,t*10+o+b)},
+  ()=>{const t=rand(2,9),o=rand(0,8),b=rand(o+1,9);return Q(`${t*10+o} − ${b} = ?`,t*10+o-b)}],
+ word:[()=>{const t=rand(1,7),o=rand(3,9),b=rand(10-o,9);return Q(`${wn()}는 ${wt()} ${t*10+o}개를 모았고, ${b}개를 더 모았어요. 모두 몇 개일까요?`,t*10+o+b)},
+  ()=>{const t=rand(3,9),o=rand(0,7),b=rand(o+1,9);return Q(`${wt()} ${t*10+o}개 중 ${b}개를 나누어 주었어요. 남은 것은 몇 개일까요?`,t*10+o-b)}]},
+{name:'규칙 찾기',desc:'수와 모양의 규칙을 찾아요',
+ kinds:[()=>{const s=rand(1,20),k=pick([1,2,3,5,10]);return Q(`${s}, ${s+k}, ${s+2*k}, □  (규칙을 찾아 □에 알맞은 수는?)`,s+3*k)},
+  ()=>{const a=rand(1,5),b=rand(6,9);return Q(`${a}, ${b}, ${a}, ${b}, ${a}, □  (□는?)`,b)},
+  ()=>{const k=rand(1,4),s=rand(3,5)*k;return Q(`${s+3*k}, ${s+2*k}, ${s+k}, □  (□는?)`,s)},
+  ()=>{const a=rand(1,4);return Q(`${a}, ${a+1}, ${a}, ${a+1}, ${a}, ${a+1}, □  (□는?)`,a)}],
+ word:[()=>{const s=rand(1,5),k=rand(1,3);return Q(`규칙에 따라 수를 놓았어요. ${s}, ${s+k}, ${s+2*k}, ${s+3*k}, □ 에 들어갈 수는?`,s+4*k)},
+  ()=>{const k=rand(2,5);return Q(`${k}씩 커지는 규칙이에요. ${k}, ${2*k}, ${3*k}, □, ${5*k}  (□는?)`,4*k)}]}
+],
+'2-1':[
+{name:'세 자리 수',desc:'백·십·일의 자리로 세 자리 수를 읽고 써요',
+ kinds:[()=>{const h=rand(1,9),t=rand(0,9),o=rand(0,9);return Q(`백 ${h}개, 십 ${t}개, 일 ${o}개인 수는?`,h*100+t*10+o)},
+  ()=>{const n=rand(100,890);return Q(`${n}보다 100 큰 수는?`,n+100)},
+  ()=>{const n=rand(100,998);return Q(`${n}에서 백의 자리 숫자는?`,Math.floor(n/100))},
+  ()=>{const a=rand(100,600);return Q(`${a}, ${a+100}, ${a+200}, □  (100씩 뛰어 세기)`,a+300)},
+  ()=>{const a=rand(100,900);return Q(`${a}, ${a+10}, ${a+20}, □  (10씩 뛰어 세기)`,a+30)}],
+ word:[()=>{const h=rand(1,5),t=rand(1,9),o=rand(1,9);return Q(`100원짜리 ${h}개, 10원짜리 ${t}개, 1원짜리 ${o}개는 모두 얼마일까요?`,h*100+t*10+o)},
+  ()=>{const n=rand(200,899);return Q(`${n}보다 1 큰 수는?`,n+1)}]},
+{name:'여러 가지 도형',desc:'삼각형·사각형·오각형·육각형을 알아요',
+ kinds:[()=>{const s=pick(SHAPES);return Q(`${s[0]}의 꼭짓점은 몇 개일까요?`,s[1])},
+  ()=>{const s=pick(SHAPES);return Q(`${s[0]}의 변은 몇 개일까요?`,s[1])},
+  ()=>{const [a,b]=shuffle(SHAPES).slice(0,2);return Q(`${a[0]}과(와) ${b[0]}의 변의 수를 모두 더하면?`,a[1]+b[1])},
+  ()=>{const n=rand(2,4);return Q(`사각형 ${n}개의 꼭짓점은 모두 몇 개일까요?`,4*n)}],
+ word:[()=>{const n=rand(2,3),m=rand(1,3);return Q(`오각형 ${n}개와 삼각형 ${m}개의 변은 모두 몇 개일까요?`,5*n+3*m)},
+  ()=>{const n=rand(2,4);return Q(`육각형 ${n}개의 꼭짓점은 모두 몇 개일까요?`,6*n)}]},
+{name:'덧셈과 뺄셈',desc:'받아올림·받아내림이 있는 두 자리 수의 덧셈과 뺄셈',
+ kinds:[()=>{const au=rand(2,9),bu=rand(10-au,9),at=rand(1,7),bt=rand(1,8-at);return Q(`${at*10+au} + ${bt*10+bu} = ?`,at*10+au+bt*10+bu)},
+  ()=>{const at=rand(2,9),au=rand(0,8),bu=rand(au+1,9),bt=rand(0,at-1);return Q(`${at*10+au} − ${bt*10+bu} = ?`,at*10+au-bt*10-bu)},
+  ()=>{const a=rand(10,50),b=rand(10,40),c=rand(5,9);return Q(`${a} + ${b} − ${c} = ?`,a+b-c)},
+  ()=>{const a=rand(11,60),b=rand(11,35);return Q(`□ + ${b} = ${a+b}  (□는?)`,a)}],
+ word:[()=>{const a=rand(18,49),b=rand(15,45);return Q(`${wn()}는 ${wt()} ${a}개, 친구는 ${b}개 가지고 있어요. 모두 몇 개일까요?`,a+b)},
+  ()=>{const a=rand(52,95),b=rand(18,a-20);return Q(`${wn()}는 ${wo()} ${a}개 가지고 있다가 ${b}개를 친구에게 주었어요. 남은 것은 몇 개일까요?`,a-b)}]},
+{name:'길이재기',desc:'1m와 cm, 길이를 어림하고 재요',
+ kinds:[()=>{const n=rand(1,9);return Q(`${n}m는 몇 cm일까요?`,n*100)},
+  ()=>{const m=rand(1,5),c=rand(1,9)*10;return Q(`${m}m ${c}cm는 몇 cm일까요?`,m*100+c)},
+  ()=>{const m=rand(1,5),c=rand(1,9)*10;return Q(`${m*100+c}cm는 ${m}m와 몇 cm일까요?`,c)},
+  ()=>{const a=rand(1,4)*10,b=rand(1,4)*10;return Q(`1m ${a}cm + ${b}cm 는 1m 몇 cm일까요?`,a+b)}],
+ word:[()=>{const m=rand(2,6);return Q(`끈의 길이가 ${m}m예요. 몇 cm일까요?`,m*100)},
+  ()=>{const a=rand(1,4)*10,b=rand(1,4)*10;return Q(`리본 1m ${a}cm와 ${b}cm를 이으면 1m 몇 cm가 될까요?`,a+b)}]},
+{name:'분류하기',desc:'기준에 따라 나누고 세어요',
+ kinds:[()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9);return Q(`빨강 ${a}개, 파랑 ${b}개, 노랑 ${c}개예요. 모두 몇 개일까요?`,a+b+c)},
+  ()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9);return Q(`빨강 ${a}개, 파랑 ${b}개, 노랑 ${c}개예요. 가장 많은 색은 몇 개일까요?`,Math.max(a,b,c))},
+  ()=>{const a=rand(6,12),b=rand(2,5);return Q(`고양이 ${a}마리, 강아지 ${b}마리예요. 고양이는 강아지보다 몇 마리 더 많을까요?`,a-b)}],
+ word:[()=>{const a=rand(3,9),b=rand(3,9);return Q(`남학생 ${a}명, 여학생 ${b}명이에요. 모두 몇 명일까요?`,a+b)},
+  ()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9);return Q(`네모 ${a}개, 동그라미 ${b}개, 세모 ${c}개 중 가장 적은 모양은 몇 개일까요?`,Math.min(a,b,c))}]},
+{name:'곱셈',desc:'묶어 세기와 몇 배, 곱셈식을 알아요',
+ kinds:[()=>{const a=rand(2,5),b=rand(2,5);return Q(`${a}씩 ${b}묶음은 모두 몇 개일까요?`,a*b)},
+  ()=>{const a=rand(2,5),b=rand(2,5);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(2,5),b=rand(2,5);return Q(`${a}의 ${b}배는 얼마일까요?`,a*b)},
+  ()=>{const a=rand(2,5),b=rand(2,5);return Q(`${a}를 ${b}번 더하면 얼마일까요?`,a*b)}],
+ word:[()=>{const a=rand(2,5),b=rand(2,5);return Q(`한 상자에 ${wi()} ${a}개씩 들어 있어요. ${b}상자에는 모두 몇 개일까요?`,a*b)},
+  ()=>{const a=rand(2,5),b=rand(2,5);return Q(`접시 한 개에 ${wi()} ${a}개씩 있어요. 접시 ${b}개에는 모두 몇 개일까요?`,a*b)}]}
+],
+'2-2':[
+{name:'네 자리 수',desc:'천·백·십·일의 자리로 네 자리 수를 읽고 써요',
+ kinds:[()=>{const a=rand(1,9),b=rand(0,9),c=rand(0,9),d=rand(0,9);return Q(`천 ${a}개, 백 ${b}개, 십 ${c}개, 일 ${d}개인 수는?`,a*1000+b*100+c*10+d)},
+  ()=>{const n=rand(1000,8999);return Q(`${n}보다 1000 큰 수는?`,n+1000)},
+  ()=>{const n=rand(1000,9999);return Q(`${n}에서 천의 자리 숫자는?`,Math.floor(n/1000))},
+  ()=>{const a=rand(1000,6000);return Q(`${a}, ${a+1000}, ${a+2000}, □  (1000씩 뛰어 세기)`,a+3000)}],
+ word:[()=>{const a=rand(1,5),b=rand(1,9);return Q(`1000원짜리 ${a}개와 100원짜리 ${b}개는 모두 얼마일까요?`,a*1000+b*100)},
+  ()=>{const n=rand(2000,8998);return Q(`${n}보다 1 큰 수는?`,n+1)}]},
+{name:'곱셈구구',desc:'2단부터 9단까지 곱셈구구를 외워요',
+ kinds:[()=>{const a=rand(2,5),b=rand(2,9);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(6,9),b=rand(2,9);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(2,9),b=rand(2,9);return Q(`${a} × □ = ${a*b}  (□는?)`,b)},
+  ()=>{const a=rand(2,9),b=rand(2,9),c=rand(1,9);return Q(`${a} × ${b} + ${c} = ?`,a*b+c)}],
+ word:[()=>{const a=rand(2,9),b=rand(2,9);return Q(`한 봉지에 ${wi()} ${a}개씩 들어 있어요. ${b}봉지에는 모두 몇 개일까요?`,a*b)},
+  ()=>{const a=rand(3,9),b=rand(3,9);return Q(`${wn()}는 하루에 ${a}쪽씩 ${b}일 동안 책을 읽었어요. 모두 몇 쪽일까요?`,a*b)}]},
+{name:'길이재기',desc:'m와 cm를 더하고 빼요',
+ kinds:[()=>{const m=rand(1,5),c=rand(1,9);return Q(`${m}m ${c}cm는 몇 cm일까요?`,m*100+c)},
+  ()=>{const a=rand(10,60),b=rand(10,39);return Q(`1m ${a}cm + 1m ${b}cm = 2m □cm  (□는?)`,a+b)},
+  ()=>{const a=rand(50,90),b=rand(10,40);return Q(`5m ${a}cm − 2m ${b}cm = 3m □cm  (□는?)`,a-b)},
+  ()=>{const m=rand(1,6);return Q(`${m}m ${m*10}cm는 몇 cm일까요?`,m*100+m*10)}],
+ word:[()=>{const a=rand(10,60),b=rand(10,39);return Q(`색 테이프 2m ${a}cm와 1m ${b}cm를 이으면 3m 몇 cm일까요?`,a+b)},
+  ()=>{const a=rand(50,90),b=rand(10,40);return Q(`나무 막대 4m ${a}cm에서 1m ${b}cm를 잘라냈어요. 남은 막대는 3m 몇 cm일까요?`,a-b)}]},
+{name:'시각과 시간',desc:'분 단위 시각과 시간, 하루와 일주일을 알아요',
+ kinds:[()=>{const h=rand(1,3),m=rand(0,11)*5;return Q(m?`${h}시간 ${m}분은 모두 몇 분일까요?`:`${h}시간은 몇 분일까요?`,h*60+m)},
+  ()=>{const n=rand(2,5);return Q(`하루는 24시간이에요. ${n}일은 몇 시간일까요?`,24*n)},
+  ()=>{const n=rand(2,5);return Q(`일주일은 7일이에요. ${n}주일은 며칠일까요?`,7*n)},
+  ()=>{const s=rand(0,3)*10,e=rand(4,5)*10;return Q(`2시 ${s}분부터 2시 ${e}분까지는 몇 분일까요?`,e-s)}],
+ word:[()=>{const h=rand(1,4),m=rand(1,5)*10;return Q(`영화가 ${h}시간 ${m}분 동안 상영돼요. 몇 분일까요?`,h*60+m)},
+  ()=>{const n=rand(2,4);return Q(`방학이 ${n}주일이에요. 모두 며칠일까요?`,n*7)}]},
+{name:'표와 그래프',desc:'자료를 표와 그래프로 나타내요',
+ kinds:[()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9);return Q(`사과 ${a}개, 배 ${b}개, 귤 ${c}개를 조사했어요. 모두 몇 개일까요?`,a+b+c)},
+  ()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9);return Q(`사과 ${a}개, 배 ${b}개, 귤 ${c}개예요. 가장 많은 과일은 몇 개일까요?`,Math.max(a,b,c))},
+  ()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9);return Q(`사과 ${a}개, 배 ${b}개, 귤 ${c}개예요. 가장 적은 과일은 몇 개일까요?`,Math.min(a,b,c))},
+  ()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9);return Q(`사과 ${a}개, 배 ${b}개, 귤 ${c}개예요. 가장 많은 것과 가장 적은 것의 차는?`,Math.max(a,b,c)-Math.min(a,b,c))}],
+ word:[()=>{const a=rand(3,9),b=rand(3,9);return Q(`좋아하는 놀이로 ${a}명은 줄넘기, ${b}명은 술래잡기를 골랐어요. 모두 몇 명일까요?`,a+b)},
+  ()=>{const a=rand(6,12),b=rand(2,5);return Q(`딸기 맛을 고른 학생 ${a}명, 포도 맛을 고른 학생 ${b}명이에요. 딸기 맛이 몇 명 더 많을까요?`,a-b)}]},
+{name:'규칙 찾기',desc:'수와 쌓기나무의 규칙을 찾아요',
+ kinds:[()=>{const s=rand(2,9),a=rand(1,20);return Q(`${a}, ${a+s}, ${a+s*2}, □  (□에 들어갈 수는?)`,a+s*3)},
+  ()=>{const a=rand(1,3),k=rand(2,4);return Q(`쌓기나무를 첫째 ${a}개, 둘째 ${a+k}개, 셋째 ${a+2*k}개 쌓았어요. 넷째는 몇 개일까요?`,a+3*k)},
+  ()=>{const k=rand(3,9);return Q(`${k}단 곱셈구구: ${k}, ${2*k}, ${3*k}, □`,4*k)},
+  ()=>{const d=rand(1,20);return Q(`어떤 달 ${d}일이 월요일이에요. 다음 주 월요일은 며칠일까요?`,d+7)}],
+ word:[()=>{const k=rand(2,6);return Q(`${k}씩 커지는 규칙이에요. ${k}, ${2*k}, ${3*k}, □, ${5*k}  (□는?)`,4*k)},
+  ()=>{const a=rand(1,3),k=rand(2,3);return Q(`쌓기나무를 첫째 ${a}개, 둘째 ${a+k}개, 셋째 ${a+2*k}개 쌓았어요. 다섯째는 몇 개일까요?`,a+4*k)}]}
+],
+'3-1':[
+{name:'덧셈과 뺄셈',desc:'세 자리 수의 덧셈과 뺄셈',
+ kinds:[()=>{const a=rand(100,699),b=rand(100,899);return Q(`${a} + ${b} = ?`,a+b)},
+  ()=>{const a=rand(200,999),b=rand(100,a-1);return Q(`${a} − ${b} = ?`,a-b)},
+  ()=>{const a=rand(2,7)*100+rand(1,9)*10,b=rand(1,2)*100+rand(1,9)*10;return Q(`${a} + ${b} = ?`,a+b)},
+  ()=>{const a=rand(150,500),b=rand(150,400);return Q(`□ + ${b} = ${a+b}  (□는?)`,a)}],
+ word:[()=>{const a=rand(120,480),b=rand(120,480);return Q(`${wn()}는 ${wt()} ${a}개, 친구는 ${b}개 가지고 있어요. 모두 몇 개일까요?`,a+b)},
+  ()=>{const a=rand(400,900),b=rand(120,a-100);return Q(`${wi()} ${a}개 있었는데 ${b}개를 팔았어요. 남은 것은 몇 개일까요?`,a-b)}]},
+{name:'평면도형',desc:'선분·반직선·직선, 각과 직각, 직사각형·정사각형',
+ kinds:[()=>Q('직사각형에는 직각이 몇 개 있을까요?',4),
+  ()=>Q('직각삼각형에는 직각이 몇 개 있을까요?',1),
+  ()=>{const a=rand(2,9);return Q(`한 변이 ${a}cm인 정사각형의 네 변의 길이의 합은 몇 cm일까요?`,4*a)},
+  ()=>{const a=rand(3,9),b=rand(2,a-1);return Q(`가로 ${a}cm, 세로 ${b}cm인 직사각형의 네 변의 길이의 합은 몇 cm일까요?`,2*(a+b))}],
+ word:[()=>{const a=rand(2,9);return Q(`한 변이 ${a}cm인 정사각형 모양 색종이의 둘레는 몇 cm일까요?`,4*a)},
+  ()=>{const n=rand(2,5);return Q(`직사각형 ${n}개의 직각은 모두 몇 개일까요?`,4*n)}]},
+{name:'나눗셈',desc:'똑같이 나누기와 나눗셈의 몫',
+ kinds:[()=>{const b=rand(2,9),c=rand(2,9);return Q(`${b*c} ÷ ${b} = ?`,c)},
+  ()=>{const b=rand(2,9),c=rand(2,9);return Q(`${b} × □ = ${b*c}  (□는?)`,c)},
+  ()=>{const b=rand(2,9),c=rand(2,9);return Q(`${b*c}를 ${c}로 나눈 몫은?`,b)},
+  ()=>{const b=rand(2,6),c=rand(3,9);return Q(`${b*c}에서 ${b}를 계속 빼서 0이 되려면 ${b}를 몇 번 빼야 할까요?`,c)}],
+ word:[()=>{const b=rand(2,9),c=rand(2,9);return Q(`${wt()} ${b*c}개를 ${b}명에게 똑같이 나누어 주면 한 명이 몇 개씩 받을까요?`,c)},
+  ()=>{const b=rand(2,9),c=rand(2,9);return Q(`${wt()} ${b*c}개를 한 봉지에 ${b}개씩 담으면 모두 몇 봉지가 될까요?`,c)}]},
+{name:'곱셈',desc:'(두 자리 수)×(한 자리 수) 곱셈',
+ kinds:[()=>{const a=rand(11,49),b=rand(2,9);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(2,9)*10,b=rand(2,9);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(100,300),b=rand(2,3);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(12,35),b=rand(2,4);return Q(`${a} × ${b} = ?`,a*b)}],
+ word:[()=>{const a=rand(12,45),b=rand(2,6);return Q(`한 상자에 ${wi()} ${a}개씩 들어 있어요. ${b}상자에는 모두 몇 개일까요?`,a*b)},
+  ()=>{const a=rand(15,60),b=rand(2,5);return Q(`하루에 ${a}쪽씩 ${b}일 동안 읽으면 모두 몇 쪽일까요?`,a*b)}]},
+{name:'길이와 시간',desc:'km와 m, 초 단위의 시간을 알아요',
+ kinds:[()=>{const n=rand(1,9);return Q(`${n}km는 몇 m일까요?`,n*1000)},
+  ()=>{const k=rand(1,5),m=rand(1,9)*100;return Q(`${k}km ${m}m는 몇 m일까요?`,k*1000+m)},
+  ()=>{const m=rand(1,5),s=rand(1,5)*10;return Q(`${m}분 ${s}초는 몇 초일까요?`,m*60+s)},
+  ()=>{const h=rand(1,8),m=rand(1,4)*10,p=rand(1,2)*10;return Q(`${h}시 ${m}분에서 ${p}분 후의 시각은 ${h}시 □분이에요. (□는?)`,m+p)}],
+ word:[()=>{const k=rand(2,6),m=rand(1,9)*100;return Q(`집에서 학교까지 ${k}km ${m}m예요. 몇 m일까요?`,k*1000+m)},
+  ()=>{const m=rand(2,5);return Q(`달리기를 ${m}분 동안 했어요. 몇 초일까요?`,m*60)}]},
+{name:'분수와 소수',desc:'전체와 부분, 분수와 소수의 뜻',
+ kinds:[()=>{const k=rand(2,6),n=k*rand(2,5);return Q(`${n}의 1/${k}은 얼마일까요?`,n/k)},
+  ()=>{const k=rand(3,9),a=rand(1,k-1);return Q(`${a}/${k}에서 분모는 얼마일까요?`,k)},
+  ()=>{const k=rand(3,9),a=rand(1,k-1);return Q(`${a}/${k}에서 분자는 얼마일까요?`,a)},
+  ()=>{const a=rand(1,9);return Q(`0.1이 ${a}개이면 0.□ 이에요. (□는?)`,a)}],
+ word:[()=>{const k=rand(2,5),n=k*rand(2,6);return Q(`${wt()} ${n}개를 똑같이 ${k}묶음으로 나누면 한 묶음은 몇 개일까요?`,n/k)},
+  ()=>{const k=rand(3,8),a=rand(1,k-1);return Q(`피자를 똑같이 ${k}조각으로 나누어 ${a}조각을 먹었어요. 먹은 조각 수는?`,a)}]}
+],
+'3-2':[
+{name:'곱셈',desc:'(두 자리 수)×(두 자리 수) 곱셈',
+ kinds:[()=>{const a=rand(11,30),b=rand(11,20);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(2,9)*10,b=rand(2,9)*10;return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(12,40),b=rand(10,15);return Q(`${a} × ${b} = ?`,a*b)},
+  ()=>{const a=rand(11,25),b=rand(2,9);return Q(`${a} × ${b} = ?`,a*b)}],
+ word:[()=>{const a=rand(12,30),b=rand(11,20);return Q(`한 상자에 ${wt()}이(가) ${a}개씩 들어 있어요. ${b}상자에는 모두 몇 개일까요?`,a*b)},
+  ()=>{const a=rand(11,25),b=rand(12,30);return Q(`한 줄에 ${a}명씩 ${b}줄로 서 있어요. 모두 몇 명일까요?`,a*b)}]},
+{name:'나눗셈',desc:'(두 자리 수)÷(한 자리 수), 몫과 나머지',
+ kinds:[()=>{const b=rand(2,9),c=rand(11,30);return Q(`${b*c} ÷ ${b} = ?`,c)},
+  ()=>{const b=rand(3,9),c=rand(5,15),r=rand(1,b-1);return Q(`${b*c+r} ÷ ${b} 의 몫은?`,c)},
+  ()=>{const b=rand(3,9),c=rand(5,15),r=rand(1,b-1);return Q(`${b*c+r} ÷ ${b} 의 나머지는?`,r)},
+  ()=>{const b=rand(2,9),c=rand(10,20);return Q(`${b} × □ = ${b*c}  (□는?)`,c)}],
+ word:[()=>{const b=rand(3,9),c=rand(5,15);return Q(`${wt()} ${b*c}개를 ${b}명에게 똑같이 나누어 주면 한 명이 몇 개씩 받을까요?`,c)},
+  ()=>{const b=rand(3,9),c=rand(5,12),r=rand(1,b-1);return Q(`${wt()} ${b*c+r}개를 ${b}명에게 똑같이 나누어 주면 몇 개가 남을까요?`,r)}]},
+{name:'원',desc:'원의 중심, 반지름, 지름',
+ kinds:[()=>{const r=rand(2,9);return Q(`반지름이 ${r}cm인 원의 지름은 몇 cm일까요?`,2*r)},
+  ()=>{const r=rand(2,9);return Q(`지름이 ${2*r}cm인 원의 반지름은 몇 cm일까요?`,r)},
+  ()=>{const r=rand(3,9);return Q(`한 원에서 지름은 반지름의 몇 배일까요? (반지름 ${r}cm, 지름 ${2*r}cm)`,2)},
+  ()=>{const r=rand(2,6);return Q(`반지름이 ${r}cm인 원 2개를 나란히 붙였어요. 전체 길이는 몇 cm일까요?`,4*r)}],
+ word:[()=>{const r=rand(3,9);return Q(`반지름이 ${r}cm인 접시의 지름은 몇 cm일까요?`,2*r)},
+  ()=>{const r=rand(2,8);return Q(`지름이 ${2*r}cm인 훌라후프의 반지름은 몇 cm일까요?`,r)}]},
+{name:'분수',desc:'분수만큼은 얼마인지, 진분수·가분수·대분수',
+ kinds:[()=>{const k=rand(2,6),n=k*rand(2,5);return Q(`${n}의 1/${k}은 얼마일까요?`,n/k)},
+  ()=>{const k=rand(3,6),a=rand(2,k-1),m=rand(2,4);return Q(`${k*m}의 ${a}/${k}는 얼마일까요?`,a*m)},
+  ()=>{const k=rand(3,9),a=rand(1,k-1);return Q(`${a}/${k}에서 분모는 얼마일까요?`,k)},
+  ()=>{const k=rand(2,6),a=rand(1,4);return Q(`1/${k}이 ${a+k}개인 수는 ${a+k}/${k}이에요. 분자는 얼마일까요?`,a+k)}],
+ word:[()=>{const k=rand(2,5),n=k*rand(2,6);return Q(`${wt()} ${n}개의 1/${k}은 몇 개일까요?`,n/k)},
+  ()=>{const k=rand(3,6),a=rand(2,k-1),m=rand(2,4);return Q(`${wt()} ${k*m}개의 ${a}/${k}는 몇 개일까요?`,a*m)}]},
+{name:'들이와 무게',desc:'L와 mL, kg와 g, t',
+ kinds:[()=>{const n=rand(1,9);return Q(`${n}L는 몇 mL일까요?`,n*1000)},
+  ()=>{const l=rand(1,5),m=rand(1,9)*100;return Q(`${l}L ${m}mL는 몇 mL일까요?`,l*1000+m)},
+  ()=>{const n=rand(1,9);return Q(`${n}kg은 몇 g일까요?`,n*1000)},
+  ()=>{const k=rand(1,5),g=rand(1,9)*100;return Q(`${k}kg ${g}g은 몇 g일까요?`,k*1000+g)},
+  ()=>{const n=rand(1,5);return Q(`${n}t은 몇 kg일까요?`,n*1000)}],
+ word:[()=>{const a=rand(1,4)*100,b=rand(1,4)*100;return Q(`물통에 물 1L를 담고 ${a}mL를 더 넣었어요. 물은 모두 몇 mL일까요?`,1000+a)},
+  ()=>{const k=rand(2,6);return Q(`쌀 ${k}kg은 몇 g일까요?`,k*1000)}]},
+{name:'자료의 정리',desc:'표와 그림그래프로 자료를 정리해요',
+ kinds:[()=>{const a=rand(2,9),b=rand(2,9),c=rand(2,9);return Q(`딸기 ${a}명, 포도 ${b}명, 사과 ${c}명이 좋아해요. 조사한 학생은 모두 몇 명일까요?`,a+b+c)},
+  ()=>{const a=rand(1,4),b=rand(1,9);return Q(`그림그래프에서 큰 그림(10명) ${a}개, 작은 그림(1명) ${b}개예요. 모두 몇 명일까요?`,a*10+b)},
+  ()=>{const a=rand(10,40),b=rand(10,40),c=rand(10,40);return Q(`${a}명, ${b}명, ${c}명 중 가장 많은 수는?`,Math.max(a,b,c))},
+  ()=>{const a=rand(20,60),b=rand(5,19);return Q(`표에서 ${a}명과 ${b}명의 차는 몇 명일까요?`,a-b)}],
+ word:[()=>{const a=rand(10,40),b=rand(10,40),c=rand(10,40);return Q(`우리 반 학생 중 축구 ${a}명, 농구 ${b}명, 피구 ${c}명이 좋아해요. 모두 몇 명일까요?`,a+b+c)},
+  ()=>{const a=rand(2,4),b=rand(1,9);return Q(`그림그래프에서 큰 그림(10개) ${a}개, 작은 그림(1개) ${b}개는 모두 몇 개일까요?`,a*10+b)}]}
+]
+};
+const MATH_AVAIL={1:[1,2],2:[1,2],3:[1,2]};
+function mkMathUnit(key,i,m){
+ const [g,s]=key.split('-'),us=MATH_CUR[key],grade=`${g}학년 ${s}학기`;
+ if(i<0)return{key,idx:-1,mode:'test',id:key+'-final',grade,unit:'학기 종합',name:`${grade} 종합평가`,
+  make(){const u=us[mathQIndex%us.length];return (mathQIndex%2?pick(u.word):pick(u.kinds))()}};
+ const u=us[i];
+ if(m==='test')return{key,idx:i,mode:'test',id:key+'-t'+(i+1),grade,unit:`${i+1}단원 종합`,name:`${i+1}단원 종합문제 (${u.name})`,
+  make(){return mathQIndex<6?u.kinds[mathQIndex%u.kinds.length]():pick(u.word)()}};
+ return{key,idx:i,mode:'learn',id:key+'-'+(i+1),grade,unit:`${i+1}단원`,name:u.name,desc:u.desc,make(){return pick(u.kinds)()}}}
 function mathQuiz(){
  if(!mathUnit){unitPicker();return}
  if(mathQIndex>=10){mathSetSummary();return}
  const q=mathUnit.make();current=q;
  setContent(timerBox()+`<div class="topline" style="margin-top:10px"><button class="muted" onclick="unitPicker()">← 단원 목록</button><b>${mathUnit.grade} · ${mathUnit.unit}</b></div>`+
- `<div class="lesson"><h3>📘 ${mathUnit.name}</h3><div class="small">단원 집중 학습 · ${mathQIndex+1} / 10문제</div><div class="progress" style="margin:10px 0"><span style="width:${mathQIndex*10}%"></span></div><div class="big">${q.text}</div>${padHTML()}<div class="answers">${makeOptions(q.ans).map(x=>`<button data-v="${x}" onclick="answerMath(${x},this)">${x}</button>`).join('')}</div><div id="feedback" class="feedback"></div><button id="nextMath" class="primary" disabled onclick="nextMathQuestion()">다음 문제 ➜</button></div>`);
+ `<div class="lesson"><h3>📘 ${mathUnit.name}</h3><div class="small">${mathUnit.mode==='test'?'단원평가':'단원 집중 학습'} · ${mathQIndex+1} / 10문제</div><div class="progress" style="margin:10px 0"><span style="width:${mathQIndex*10}%"></span></div><div class="big">${q.text}</div>${padHTML()}<div class="answers">${makeOptions(q.ans).map(x=>`<button data-v="${x}" onclick="answerMath(${x},this)">${x}</button>`).join('')}</div><div id="feedback" class="feedback"></div><button id="nextMath" class="primary" disabled onclick="nextMathQuestion()">다음 문제 ➜</button></div>`);
  updatePadTools();initPad()}
+function setMathSel(g,s){data.msel={g,s};if(!MATH_CUR[g+'-'+s]){const ok=MATH_AVAIL[g];data.msel.s=ok.includes(s)?s:ok[0]}save();unitPicker()}
 function unitPicker(){
  mode='topics';hiTab('topics');mathUnit=null;mathQIndex=0;mathSetCorrect=0;
- setContent(timerBox()+shell('🗂️ 교과과정 단원별 학습','학년과 단원을 골라 한 단원씩 10문제를 풀어요.')+`<div class="grid2">${mathUnits.map((u,i)=>`<button class="tile" style="text-align:left;border:2px solid #eee2f2" onclick="beginMathUnit('${u.id}')"><div class="small">${u.grade} · ${u.unit}</div><b>${i+1}. ${u.name}</b><div class="small" style="margin-top:5px">${u.desc}</div><div style="margin-top:8px">🔟 10문제 한 세트</div></button>`).join('')}</div>`)}
-function beginMathUnit(id){mode='quiz';hiTab('quiz');mathUnit=mathUnits.find(u=>u.id===id);mathQIndex=0;mathSetCorrect=0;mathQuiz()}
+ let g=data.msel&&data.msel.g||2,s=data.msel&&data.msel.s||2;if(!MATH_CUR[g+'-'+s]){g=2;s=2}
+ const key=g+'-'+s,us=MATH_CUR[key],tm=data.mtest||{};
+ const gch=[1,2,3].map(n=>`<button class="chip ${n===g?'on':''}" onclick="setMathSel(${n},${s})">${n}학년</button>`).join('');
+ const sch=MATH_AVAIL[g].map(n=>`<button class="chip ${n===s?'on':''}" onclick="setMathSel(${g},${n})">${n}학기</button>`).join('');
+ const best=id=>tm[id]?` · 최고 ${tm[id].best*10}점`:'';
+ setContent(timerBox()+shell('🗂️ 교과과정 단원별 학습','학년 → 학기 → 단원을 골라요. 단원은 교과서 순서대로 나열했어요.')+
+ `<div class="row" style="margin:8px 0"><b>학년</b> ${gch}</div><div class="row" style="margin:8px 0"><b>학기</b> ${sch}</div>`+
+ `<div class="grid2">${us.map((u,i)=>`<div class="tile" style="border:2px solid #eee2f2"><div class="small">${g}학년 ${s}학기 · ${i+1}단원</div><b>${i+1}. ${u.name}</b><div class="small" style="margin-top:5px">${u.desc}</div><div class="row" style="margin-top:8px"><button class="primary" onclick="beginMathUnit('${key}',${i},'learn')">🔟 학습</button><button class="blue" onclick="beginMathUnit('${key}',${i},'test')">📝 ${i+1}단원 종합문제</button></div><div class="small" style="margin-top:4px">${best(key+'-t'+(i+1))}</div></div>`).join('')}</div>`+
+ `<div class="tile" style="margin-top:10px;border:2px solid #ffd3e6"><b>🏅 ${g}학년 ${s}학기 종합평가</b><div class="small">모든 단원에서 골고루 10문제${best(key+'-final')}</div><button class="primary" style="margin-top:8px" onclick="beginMathUnit('${key}',-1,'test')">📝 학기 종합평가 시작</button></div>`)}
+function beginMathUnit(key,i,m){mode='quiz';hiTab('quiz');mathUnit=mkMathUnit(key,i,m);mathQIndex=0;mathSetCorrect=0;mathQuiz()}
 function nextMathQuestion(){mathQIndex++;
- if(mathQIndex===10&&mathSetCorrect>=8){addPoints(20);data.badges=[...new Set([...data.badges,'📘 단원 마스터'])];checkBadges();save();sfxWin()}
+ if(mathQIndex===10){const mu=mathUnit;
+  if(mu.mode==='test'){data.mtest=data.mtest||{};const r=data.mtest[mu.id]||(data.mtest[mu.id]={best:0,paid:''});r.best=Math.max(r.best,mathSetCorrect);
+   if(mathSetCorrect>=8&&r.paid!==today()){r.paid=today();addPoints(mu.idx<0?40:30);data.badges=[...new Set([...data.badges,'📘 단원 마스터'])];checkBadges();mu.paid=true;sfxWin()}save()}
+  else if(mathSetCorrect>=8){addPoints(20);data.badges=[...new Set([...data.badges,'📘 단원 마스터'])];checkBadges();save();sfxWin()}}
  mathQuiz()}
 function mathSetSummary(){
- const i=mathUnits.indexOf(mathUnit),nx=mathUnits[i+1];
- setContent(timerBox()+shell('🎉 단원 학습 완료!',`<div class="big">${mathSetCorrect} / 10 정답</div><p>${mathUnit.name} 단원을 끝냈어요!</p><p>${mathSetCorrect>=8?'정말 훌륭해요! 단원 보너스 💎 +20포인트를 받았어요.':'잘했어요! 오답노트를 확인하고 다시 도전해 봐요.'}</p><div class="row"><button class="primary" onclick="unitPicker()">다른 단원 선택하기</button><button class="blue" onclick="beginMathUnit('${mathUnit.id}')">이 단원 다시 풀기</button>${nx?`<button class="mint" onclick="beginMathUnit('${nx.id}')">다음 단원 ➜</button>`:''}</div>`))}
+ const mu=mathUnit,us=MATH_CUR[mu.key],nx=mu.idx>=0&&mu.idx+1<us.length?mu.idx+1:-1,isT=mu.mode==='test';
+ const msg=isT?(mathSetCorrect>=8?(mu.paid?`훌륭해요! 단원평가 보너스 💎 +${mu.idx<0?40:30}포인트를 받았어요.`:'훌륭해요! (보너스는 하루에 한 번만 받을 수 있어요.)'):'아쉬워요! 오답노트를 보고 다시 도전해 봐요. 8개 이상 맞히면 보너스를 받아요.'):(mathSetCorrect>=8?'정말 훌륭해요! 단원 보너스 💎 +20포인트를 받았어요.':'잘했어요! 오답노트를 확인하고 다시 도전해 봐요.');
+ setContent(timerBox()+shell(isT?'📝 단원평가 결과':'🎉 단원 학습 완료!',`<div class="big">${mathSetCorrect} / 10 정답${isT?` · ${mathSetCorrect*10}점`:''}</div><p>${mu.name}</p><p>${msg}</p><div class="row"><button class="primary" onclick="unitPicker()">다른 단원 선택하기</button><button class="blue" onclick="beginMathUnit('${mu.key}',${mu.idx},'${mu.mode}')">다시 풀기</button>${nx>=0&&!isT?`<button class="mint" onclick="beginMathUnit('${mu.key}',${nx},'learn')">다음 단원 ➜</button>`:''}${isT&&mu.idx>=0?`<button class="mint" onclick="beginMathUnit('${mu.key}',${mu.idx},'learn')">이 단원 학습하기</button>`:''}</div>`))}
 function answerMath(x,el){
  const box=el.parentNode;if(box.dataset.done)return;box.dataset.done='1';
  box.querySelectorAll('button').forEach(b=>{b.disabled=true;if(Number(b.dataset.v)===current.ans)b.classList.add('correct');else b.classList.add('faded')});
