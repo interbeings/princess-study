@@ -90,6 +90,53 @@ button.rec{background:#ff6f8e!important;color:#fff;animation:pulse 1.1s infinite
 .stcard{flex:1;min-width:0;text-align:center}.stcard svg{width:104px;height:64px;background:#fff;border-radius:14px;border:2px solid #ffd3e6}
 #mouthTxt{font-size:13px;color:#7a4fb0;margin-top:4px;min-height:34px;line-height:1.35}.stcard .stbtns{margin-top:4px}
 .vlink{display:inline-block;background:#fff;border:2px solid #e5d9ed;border-radius:999px;padding:7px 12px;margin:4px 4px 0 0;font-size:14px;color:#6b2fa0;text-decoration:none}.vwrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;margin-top:8px}.vwrap iframe{position:absolute;inset:0;width:100%;height:100%}.vcard{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;border-radius:14px;padding:8px 10px;margin-top:6px;flex-wrap:wrap}.vcard .row button{padding:7px 10px;font-size:14px}
+
+/* ===== v5.0 클레이 그래픽 (입체 버튼·카드·캐릭터 애니메이션) ===== */
+body{background:linear-gradient(135deg,#ffe6f2 0%,#f3e8ff 50%,#e0f7fa 100%);background-attachment:fixed}
+button{background:linear-gradient(180deg,#fff,#f3eaff);border:2px solid #efe2fb;box-shadow:0 4px 0 #dcc6f5,0 7px 14px #9b5de51f,inset 0 3px 6px #ffffffe6;transition:transform .15s cubic-bezier(.34,1.56,.64,1),box-shadow .15s,filter .15s}
+button:active{transform:translateY(3px);box-shadow:0 1px 0 #dcc6f5}
+.primary{background:linear-gradient(180deg,#ff94bd,#ff5c97);border-color:#ffc2d9;box-shadow:0 4px 0 #d6336c,0 7px 14px #ff5c9740,inset 0 3px 6px #ffffff8c}
+.blue{background:linear-gradient(180deg,#c4eefc,#7fd6f4);border-color:#dff6fd;box-shadow:0 4px 0 #46aed4,0 6px 12px #00bbf91f,inset 0 3px 6px #ffffffa6}
+.yellow{background:linear-gradient(180deg,#fff3c2,#ffd76a);border-color:#fff4cf;box-shadow:0 4px 0 #e0ad2a,0 6px 12px #fee4402e,inset 0 3px 6px #ffffffa6}
+.mint{background:linear-gradient(180deg,#d1f6e3,#8fdfb8);border-color:#e2f9ed;box-shadow:0 4px 0 #4fb683,0 6px 12px #00f5d41f,inset 0 3px 6px #ffffffa6}
+.muted{background:linear-gradient(180deg,#fdfbff,#efe8f5);border-color:#f3edf8;box-shadow:0 3px 0 #ddd2e8,inset 0 2px 4px #fff}
+.panel{border:3px solid #fff;border-radius:28px;background:#ffffffeb;box-shadow:0 12px 30px #9b5de51f,inset 0 4px 10px #ffffffe6}
+.subject{box-shadow:0 10px 22px #9b5de524,inset 0 4px 10px #ffffffb3,inset 0 -5px 0 #0000000a}
+.hero{box-shadow:0 12px 30px #9b5de526,inset 0 4px 10px #ffffffb3}
+@keyframes clayBreathe{0%,100%{transform:scaleY(1) scaleX(1) translateY(0)}50%{transform:scaleY(1.03) scaleX(.985) translateY(-3px)}}
+@keyframes earWiggleL{0%,100%{transform:rotate(0)}25%{transform:rotate(-6deg)}75%{transform:rotate(3deg)}}
+@keyframes earWiggleR{0%,100%{transform:rotate(0)}25%{transform:rotate(6deg)}75%{transform:rotate(-3deg)}}
+@keyframes clayJump{0%{transform:translateY(0) scale(1,1)}25%{transform:translateY(6px) scale(1.12,.86)}55%{transform:translateY(-28px) scale(.92,1.1)}80%{transform:translateY(4px) scale(1.06,.94)}100%{transform:translateY(0) scale(1,1)}}
+@keyframes auraFloat{0%,100%{transform:translateY(0) rotate(0);opacity:.9}50%{transform:translateY(-6px) rotate(4deg);opacity:1}}
+@keyframes itemPop{0%{transform:scale(1)}40%{transform:scale(1.28) rotate(-6deg)}70%{transform:scale(.92) rotate(4deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes floatHeart{0%{transform:translateY(0) scale(.5);opacity:1}100%{transform:translateY(-70px) scale(1.3);opacity:0}}
+@keyframes gspin{0%{transform:scale(1)}30%{transform:scale(1.2) rotate(-12deg)}60%{transform:scale(1.15) rotate(12deg)}100%{transform:scale(1)}}
+.char-breathe{transform-origin:150px 270px;animation:clayBreathe 2.8s ease-in-out infinite}
+.char-jump{transform-origin:150px 270px;animation:clayJump .65s cubic-bezier(.34,1.56,.64,1)}
+.ear-l{transform-origin:112px 102px;animation:earWiggleL 3.5s ease-in-out infinite}
+.ear-r{transform-origin:188px 102px;animation:earWiggleR 3.5s ease-in-out infinite}
+.aura-anim{transform-origin:150px 150px;animation:auraFloat 3.2s ease-in-out infinite}
+.world-item-pop{animation:itemPop .45s cubic-bezier(.34,1.56,.64,1)}
+.heart-particle{position:absolute;pointer-events:none;animation:floatHeart 1s ease-out forwards;font-size:24px;z-index:40}
+.art svg{overflow:visible}.princess{position:relative;cursor:pointer}
+/* 드레스룸 */
+.dressstage{position:relative;width:210px;height:210px;margin:6px auto 0;cursor:pointer}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:9px;margin-top:6px}
+.ditem{background:#fff;border:2px solid #f0e5f1;border-radius:18px;padding:9px 6px;text-align:center;cursor:pointer;transition:transform .15s;box-shadow:0 4px 10px #9b5de514}.ditem:hover{transform:translateY(-2px)}
+.ditem.on{border-color:#ff5c97;background:#fff0f6;box-shadow:0 4px 12px #ff5c9733}
+.ditem .dpv{font-size:28px;height:40px;display:flex;align-items:center;justify-content:center}.ditem .dn{font-size:12px;font-weight:800;margin:3px 0 6px;min-height:30px;line-height:1.25}
+.dsw{width:32px;height:32px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px #0002;display:inline-block}
+.dtag{display:inline-block;font-size:11px;font-weight:800;border-radius:999px;padding:2px 9px}.dtag.on{background:#ff5c97;color:#fff}.dtag.own{background:#f3e8ff;color:#6b2fa0}.dtag.buy{background:#fff2c9;color:#8a5a00}.dtag.no{background:#f3eff7;color:#a89bb5}
+.gacha{display:flex;align-items:center;gap:12px;margin-top:14px;padding:12px;border-radius:20px;background:linear-gradient(135deg,#fff7d6,#ffe3f0 55%,#efe4ff);border:3px solid #fff;box-shadow:0 8px 20px #9b5de51f;text-align:left}
+.gbox{width:64px;height:64px;flex:none;border-radius:20px;background:linear-gradient(135deg,#fde68a,#fbcfe8,#ddd6fe);border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 4px 10px #0001}.gbox.spin{animation:gspin .6s}
+/* 월드 꾸미기 */
+.scene .it .ic{display:inline-block}
+.scene .shade{position:absolute;inset:0;pointer-events:none}.scene .shade.night{background:#1e1b4b59}.scene .shade.sunset{background:linear-gradient(#fb718526,#f472b630)}.scene .shade.sakura{background:#f9a8d41f}
+.scene .sky{position:absolute;line-height:1;pointer-events:none;transform:translate(-50%,-50%)}
+.edbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#fff8e6;border:2px solid #ffe2a8;border-radius:16px;padding:7px 9px}.edbar button{padding:6px 10px;font-size:13px}
+.wshop{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;max-height:380px;overflow-y:auto;padding:2px 2px 8px}
+.witem{display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff;border:2px solid #f6e3ef;border-radius:16px;padding:7px 4px;color:var(--ink)}.witem .we{font-size:30px;line-height:1.2}.witem .wn{font-size:12px;font-weight:800;line-height:1.25}.witem .wp{font-size:11px;color:#c2457f;font-weight:800}
+@media(max-width:700px){.wshop{grid-template-columns:repeat(3,1fr)}.dressstage{width:180px;height:180px}.gacha{flex-wrap:wrap}}
 </style></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -108,11 +155,12 @@ button.rec{background:#ff6f8e!important;color:#fff;animation:pulse 1.1s infinite
 <linearGradient id="gScarfY" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe392"/><stop offset="1" stop-color="#ffc247"/></linearGradient>
 <linearGradient id="gLav" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7ddff"/><stop offset="1" stop-color="#a68cea"/></linearGradient>
 <linearGradient id="gScarfL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cbb9ff"/><stop offset="1" stop-color="#5b49c4"/></linearGradient>
+<linearGradient id="dsk_sunset" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fb7185"/><stop offset=".55" stop-color="#fdba74"/><stop offset="1" stop-color="#fde047"/></linearGradient><linearGradient id="dsk_night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset=".6" stop-color="#312e81"/><stop offset="1" stop-color="#4c1d95"/></linearGradient><linearGradient id="dsk_sakura" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbcfe8"/><stop offset="1" stop-color="#fce7f3"/></linearGradient>
 <path id="spark" d="M0-8L2-2 8 0 2 2 0 8-2 2-8 0-2-2Z"/>
 </defs></svg>
 <div class="wrap">
 <header><div class="brand"><div class="crown art" data-art="crown"></div><div><h1>지온이의 생각주머니</h1><p>매일 10분씩, 반짝반짝 성장해요!</p></div></div><div class="stats"><div class="pill">💎 포인트 <b id="points">0</b></div><div class="pill">⭐ 별 <b id="stars">0</b></div><div class="pill">🔥 연속 <b id="streak">0</b>일</div><button id="voiceBtn" class="pill" onclick="toggleVoice()">🔊 효과음</button></div></header>
-<section class="hero"><svg class="sp sp1"><use href="#spark" transform="translate(11 11) scale(1.3)"/></svg><svg class="sp sp2"><use href="#spark" transform="translate(11 11) scale(1.3)"/></svg><svg class="sp sp3"><use href="#spark" transform="translate(11 11) scale(1.3)"/></svg><div><h2>안녕, 꼬마 탐험가! 🌈</h2><p>수학·영어·중국어에서 매일 10분 미션을 완료하고<br>포인트를 모아 공주 왕국을 꾸며 봐요!</p></div><div class="princess art" data-art="bunny"></div></section>
+<section class="hero"><svg class="sp sp1"><use href="#spark" transform="translate(11 11) scale(1.3)"/></svg><svg class="sp sp2"><use href="#spark" transform="translate(11 11) scale(1.3)"/></svg><svg class="sp sp3"><use href="#spark" transform="translate(11 11) scale(1.3)"/></svg><div><h2>안녕, 꼬마 탐험가! 🌈</h2><p>수학·영어·중국어에서 매일 10분 미션을 완료하고<br>포인트를 모아 공주 왕국을 꾸며 봐요!</p></div><div class="princess art" data-art="bunny" onclick="interactCharacter(event)" title="눌러 보세요!"></div></section>
 <section id="home">
 <div class="subjects">
 <button class="subject math" onclick="openSubject('math')"><span class="hello">1+1=2 ✨</span><div class="art" data-art="bunny"></div><h3>수학 왕국</h3><p>계산·시계·도형·문장제</p><small id="mathDaily">오늘 0/10분</small></button>
@@ -120,7 +168,7 @@ button.rec{background:#ff6f8e!important;color:#fff;animation:pulse 1.1s infinite
 <button class="subject chinese" onclick="openSubject('chinese')"><span class="hello">你好! 👋</span><div class="art" data-art="panda"></div><h3>중국어 정원</h3><p>병음·성조·AI 회화·발음</p><small id="chineseDaily">오늘 0/10분</small></button>
 </div>
 <h2 class="xhead">🌈 생각 놀이터</h2><div class="subjects" id="exploreRow" style="margin-top:10px"></div><div id="exploreBonus" class="tile" style="margin-top:10px;font-size:13px;border:2px dashed #ffd3e6;line-height:1.6"></div>
-<div class="panel"><div class="topline"><h2>🎀 나만의 왕국·나라·정원 꾸미기</h2><b>💎 <span id="shopPts">0</span></b></div><div id="homeDeco" class="homegrid"></div><p class="small">공부해서 모은 포인트로 아이템을 사서 꾸며 봐요! 등급은 쓰고 나서도 내려가지 않아요 (등급은 지금까지 모은 총 포인트로 정해져요).</p></div>
+<div class="panel"><div class="topline"><h2>🎀 나만의 왕국·나라·정원 꾸미기</h2><span class="row" style="gap:8px"><button class="primary" style="padding:7px 12px;font-size:14px" onclick="openDress()">👗 드레스룸</button><b>💎 <span id="shopPts">0</span></b></span></div><div id="homeDeco" class="homegrid"></div><p class="small">공부해서 모은 포인트로 아이템을 사서 꾸며 봐요! 등급은 쓰고 나서도 내려가지 않아요 (등급은 지금까지 모은 총 포인트로 정해져요).</p></div>
 <div class="panel"><div class="topline"><h2>🎯 오늘의 10분 미션</h2><b id="dailyTotal">0 / 30분</b></div><div class="progress" style="margin:10px 0"><span id="dailyBar"></span></div><div id="missions"></div><p class="small">각 과목에서 10분 학습을 달성하면 보너스 20포인트, 세 과목을 모두 하면 올클리어 보너스 30포인트를 더 받아요. (화면을 1분 넘게 안 만지면 시간이 잠깐 멈춰요)</p></div>
 <div class="panel"><div class="topline"><h2>🏆 나의 등급</h2><span class="badgeitem">👑 올클리어 연속 <b id="clearStreak">0</b>일</span></div>
 <div class="gradebox"><div id="gradeEmoji" class="gradeemoji">🌱</div><div style="flex:1;min-width:0"><div id="gradeName" class="gradename">새싹 공주 · Lv.1</div><div class="progress" style="margin:8px 0"><span id="gradeBar"></span></div><div id="gradeNext" class="small"></div></div></div>
@@ -173,114 +221,116 @@ princess:`<svg viewBox="0 0 200 240">
 <rect x="72" y="48" width="56" height="10" rx="5" fill="url(#gGold)" stroke="#e8a800" stroke-width="2.5"/>
 <circle cx="100" cy="35" r="4.5" fill="#ff5fa2"/><circle cx="76" cy="29" r="3.2" fill="#6fd3ff"/><circle cx="124" cy="29" r="3.2" fill="#6fd3ff"/><g fill="#fff"><circle cx="86" cy="53" r="2.4"/><circle cx="100" cy="53" r="2.4"/><circle cx="114" cy="53" r="2.4"/></g>
 </svg>`,
-bunny:`<svg viewBox="-14 0 258 266">
-<ellipse cx="122" cy="259" rx="92" ry="8" fill="#e8c6dc" opacity=".55"/>
-<g transform="rotate(14 44 68)"><ellipse cx="44" cy="68" rx="50" ry="20" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/><ellipse cx="46" cy="69" rx="36" ry="11" fill="#ffd2e3" opacity=".9"/></g>
-<g transform="rotate(18 180 36)"><ellipse cx="180" cy="36" rx="17" ry="34" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/><ellipse cx="180" cy="40" rx="9" ry="22" fill="#ffd2e3" opacity=".9"/></g>
-<circle cx="120" cy="98" r="78" fill="url(#gPink)" stroke="#f3a9c7" stroke-width="2"/>
-<g fill="#ffe6f0" opacity=".9"><ellipse cx="98" cy="36" rx="6" ry="11"/><ellipse cx="114" cy="34" rx="6" ry="11"/><ellipse cx="130" cy="34" rx="6" ry="11"/><ellipse cx="146" cy="36" rx="6" ry="11"/>
-<ellipse cx="72" cy="58" rx="6" ry="11"/><ellipse cx="88" cy="55" rx="6" ry="11"/><ellipse cx="104" cy="54" rx="6" ry="11"/><ellipse cx="120" cy="53" rx="6" ry="11"/><ellipse cx="136" cy="54" rx="6" ry="11"/><ellipse cx="152" cy="55" rx="6" ry="11"/><ellipse cx="168" cy="58" rx="6" ry="11"/>
-<ellipse cx="54" cy="84" rx="6" ry="11"/><ellipse cx="70" cy="78" rx="6" ry="11"/><ellipse cx="172" cy="78" rx="6" ry="11"/><ellipse cx="188" cy="84" rx="6" ry="11"/></g>
-<path d="M52 72C60 38 90 22 120 22" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/>
-<g><path d="M96 32L98 8 110 20 120 2 130 20 142 8 144 32Q120 38 96 32Z" fill="url(#gGold)" stroke="#d9a13b" stroke-width="2" stroke-linejoin="round"/><circle cx="120" cy="14" r="3.6" fill="#ff5c93" stroke="#fff" stroke-width="1"/><circle cx="104" cy="19" r="2.4" fill="#6ac7ff"/><circle cx="136" cy="19" r="2.4" fill="#6ac7ff"/><circle cx="98" cy="8" r="2.6" fill="#fff4b8" stroke="#d9a13b" stroke-width=".8"/><circle cx="142" cy="8" r="2.6" fill="#fff4b8" stroke="#d9a13b" stroke-width=".8"/><path d="M102 30Q120 35 138 30" stroke="#fff" stroke-opacity=".7" stroke-width="2" fill="none" stroke-linecap="round"/></g>
-<ellipse cx="96" cy="254" rx="22" ry="10" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/><ellipse cx="150" cy="254" rx="22" ry="10" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/>
-<ellipse cx="122" cy="210" rx="56" ry="46" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/>
-<path d="M124 214L144 214 146 252 126 252Z" fill="#fff3e8" opacity=".95"/>
-<g transform="translate(135 230)"><circle r="8" fill="#eab78c" stroke="#cf9468" stroke-width="1.5"/><g fill="#9c6a48"><circle cx="-2.2" cy="-1.8" r="1"/><circle cx="2.2" cy="-1.8" r="1"/><circle cx="-2.2" cy="1.8" r="1"/><circle cx="2.2" cy="1.8" r="1"/></g></g>
-<g transform="translate(135 247)"><circle r="8" fill="#eab78c" stroke="#cf9468" stroke-width="1.5"/><g fill="#9c6a48"><circle cx="-2.2" cy="-1.8" r="1"/><circle cx="2.2" cy="-1.8" r="1"/><circle cx="-2.2" cy="1.8" r="1"/><circle cx="2.2" cy="1.8" r="1"/></g></g>
-<path d="M90 206C80 224 60 240 46 252Q68 262 88 254Q108 264 124 255Q142 264 160 254Q180 262 200 252C186 240 166 224 156 206Z" fill="url(#gDress)" stroke="#f08db4" stroke-width="2" stroke-linejoin="round"/>
-<path d="M104 214Q98 236 80 252M122 216V254M140 214Q146 236 164 252" stroke="#fff" stroke-opacity=".55" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<g fill="#fff" opacity=".8"><circle cx="82" cy="244" r="2.4"/><circle cx="108" cy="240" r="2.4"/><circle cx="138" cy="242" r="2.4"/><circle cx="166" cy="244" r="2.4"/><circle cx="124" cy="230" r="2.4"/></g>
-<rect x="88" y="203" width="70" height="11" rx="5.5" fill="url(#gGold)" stroke="#d9a13b" stroke-width="1.6"/><circle cx="123" cy="208.5" r="4.2" fill="#ff5c93" stroke="#fff" stroke-width="1"/>
-<ellipse cx="98" cy="258" rx="17" ry="7" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/><ellipse cx="148" cy="258" rx="17" ry="7" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/>
-<path d="M74 204C58 218 46 234 42 248L80 256C86 238 98 222 108 212Z" fill="url(#gScarf)" stroke="#f08db4" stroke-width="2"/>
-<g stroke="#ff7fae" stroke-width="3" stroke-linecap="round"><path d="M44 250L36 262M52 252L45 264M60 254L55 265M68 255L64 265M76 256L74 265"/></g>
-<path d="M52 168C62 150 182 150 192 168 200 186 186 204 164 212 138 220 106 220 80 212 58 204 44 186 52 168Z" fill="url(#gScarf)" stroke="#f08db4" stroke-width="2"/>
-<path d="M62 186C90 202 152 204 180 186" stroke="#ffd9e8" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
-<g fill="#fff" opacity=".55"><circle cx="70" cy="194" r="3"/><circle cx="100" cy="207" r="3"/><circle cx="134" cy="210" r="3"/><circle cx="164" cy="202" r="3"/><circle cx="186" cy="186" r="3"/><circle cx="56" cy="178" r="2.5"/></g>
-<circle cx="92" cy="216" r="22" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/><ellipse cx="88" cy="226" rx="10" ry="6" fill="#f3e4ee" opacity=".7"/>
-<path d="M178 200L208 164" stroke="#e9b94c" stroke-width="4" stroke-linecap="round"/><use href="#spark" transform="translate(211 158) scale(2.6)" fill="#ffd34d" stroke="#d9a13b" stroke-width=".6"/>
-<circle cx="174" cy="206" r="16" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/>
-<ellipse cx="122" cy="124" rx="57" ry="52" fill="url(#gFur)" stroke="#efdbe8" stroke-width="2"/>
-<ellipse cx="122" cy="124" rx="60" ry="55" fill="none" stroke="#ffe0ec" stroke-width="10"/>
-<ellipse cx="122" cy="124" rx="60" ry="55" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="1 3.5" stroke-linecap="round"/>
-<g transform="translate(96 126)"><ellipse rx="15" ry="17" fill="#1b1c2c"/><ellipse cy="5" rx="11" ry="9" fill="#2a6a80" opacity=".75"/><circle cx="-5" cy="-6" r="5.5" fill="#fff"/><circle cx="5" cy="6" r="2.6" fill="#fff" opacity=".9"/></g>
-<g transform="translate(148 126)"><ellipse rx="15" ry="17" fill="#1b1c2c"/><ellipse cy="5" rx="11" ry="9" fill="#2a6a80" opacity=".75"/><circle cx="-5" cy="-6" r="5.5" fill="#fff"/><circle cx="5" cy="6" r="2.6" fill="#fff" opacity=".9"/></g>
-<ellipse cx="76" cy="148" rx="17" ry="11" fill="url(#gBlush)"/><ellipse cx="168" cy="148" rx="17" ry="11" fill="url(#gBlush)"/>
-<path d="M117 138L127 138 122 145Z" fill="#ff7fa8" stroke="#ff7fa8" stroke-width="2" stroke-linejoin="round"/>
-<path d="M122 146V148M122 148Q117 155 110 150M122 148Q127 155 134 150" stroke="#e07aa0" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-<use href="#spark" transform="translate(214 72) scale(1.7)" fill="#fff"/><use href="#spark" transform="translate(10 150) scale(1)" fill="#ffd34d"/><use href="#spark" transform="translate(206 150) scale(.9)" fill="#ff9ec4"/>
-<g fill="#fff" opacity=".85"><circle cx="18" cy="24" r="3"/><circle cx="214" cy="118" r="2.4"/><circle cx="6" cy="206" r="2.6"/><circle cx="224" cy="228" r="3"/></g>
-</svg>`,
-cat:`<svg viewBox="-14 0 258 266">
-<ellipse cx="122" cy="259" rx="92" ry="8" fill="#e8c6dc" opacity=".55"/>
-<path d="M46 72Q46 30 60 10Q92 20 108 50Z" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2" stroke-linejoin="round"/><path d="M58 54Q58 34 65 24Q82 30 92 48Z" fill="#ffc9d6"/>
-<path d="M194 72Q194 30 180 10Q148 20 132 50Z" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2" stroke-linejoin="round"/><path d="M182 54Q182 34 175 24Q158 30 148 48Z" fill="#ffc9d6"/>
-<circle cx="120" cy="98" r="78" fill="url(#gLav)" stroke="#5b4bb5" stroke-width="2"/>
-<g fill="#efe8ff" opacity=".9"><ellipse cx="98" cy="36" rx="6" ry="11"/><ellipse cx="114" cy="34" rx="6" ry="11"/><ellipse cx="130" cy="34" rx="6" ry="11"/><ellipse cx="146" cy="36" rx="6" ry="11"/>
-<ellipse cx="72" cy="58" rx="6" ry="11"/><ellipse cx="88" cy="55" rx="6" ry="11"/><ellipse cx="104" cy="54" rx="6" ry="11"/><ellipse cx="120" cy="53" rx="6" ry="11"/><ellipse cx="136" cy="54" rx="6" ry="11"/><ellipse cx="152" cy="55" rx="6" ry="11"/><ellipse cx="168" cy="58" rx="6" ry="11"/>
-<ellipse cx="54" cy="84" rx="6" ry="11"/><ellipse cx="70" cy="78" rx="6" ry="11"/><ellipse cx="172" cy="78" rx="6" ry="11"/><ellipse cx="188" cy="84" rx="6" ry="11"/></g>
-<path d="M52 72C60 38 90 22 120 22" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/>
-<path d="M170 238C208 240 226 208 214 184C208 172 196 178 202 190C208 204 198 222 170 224Z" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/><path d="M200 194L210 196M204 206L213 206M196 216L205 214" stroke="#f0b27a" stroke-width="3" stroke-linecap="round"/>
-<ellipse cx="96" cy="254" rx="22" ry="10" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/><ellipse cx="150" cy="254" rx="22" ry="10" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/>
-<ellipse cx="122" cy="210" rx="56" ry="46" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/>
-<path d="M124 214L144 214 146 252 126 252Z" fill="#fffaf2" opacity=".95"/>
-<g transform="translate(135 230)"><circle r="8" fill="#eab78c" stroke="#cf9468" stroke-width="1.5"/><g fill="#9c6a48"><circle cx="-2.2" cy="-1.8" r="1"/><circle cx="2.2" cy="-1.8" r="1"/><circle cx="-2.2" cy="1.8" r="1"/><circle cx="2.2" cy="1.8" r="1"/></g></g>
-<g transform="translate(135 247)"><circle r="8" fill="#eab78c" stroke="#cf9468" stroke-width="1.5"/><g fill="#9c6a48"><circle cx="-2.2" cy="-1.8" r="1"/><circle cx="2.2" cy="-1.8" r="1"/><circle cx="-2.2" cy="1.8" r="1"/><circle cx="2.2" cy="1.8" r="1"/></g></g>
-<path d="M74 204C58 218 46 234 42 248L80 256C86 238 98 222 108 212Z" fill="url(#gScarfL)" stroke="#4a3aa8" stroke-width="2"/>
-<g stroke="#2e2a6e" stroke-width="3" stroke-linecap="round"><path d="M44 250L36 262M52 252L45 264M60 254L55 265M68 255L64 265M76 256L74 265"/></g>
-<path d="M52 168C62 150 182 150 192 168 200 186 186 204 164 212 138 220 106 220 80 212 58 204 44 186 52 168Z" fill="url(#gScarfL)" stroke="#4a3aa8" stroke-width="2"/>
-<path d="M62 186C90 202 152 204 180 186" stroke="#e6dcff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
-<g fill="#fff" opacity=".55"><circle cx="70" cy="194" r="3"/><circle cx="100" cy="207" r="3"/><circle cx="134" cy="210" r="3"/><circle cx="164" cy="202" r="3"/><circle cx="186" cy="186" r="3"/><circle cx="56" cy="178" r="2.5"/></g>
-<circle cx="92" cy="216" r="22" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/><ellipse cx="88" cy="226" rx="10" ry="6" fill="#f3e4ee" opacity=".7"/>
-<circle cx="174" cy="206" r="16" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/>
-<ellipse cx="122" cy="124" rx="57" ry="52" fill="url(#gCream)" stroke="#ecd3bd" stroke-width="2"/>
-<ellipse cx="122" cy="124" rx="60" ry="55" fill="none" stroke="#efe9ff" stroke-width="10"/>
-<ellipse cx="122" cy="124" rx="60" ry="55" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="1 3.5" stroke-linecap="round"/>
-<g transform="translate(96 126)"><ellipse rx="15" ry="17" fill="#1b1c2c"/><ellipse cy="5" rx="11" ry="9" fill="#2a6a80" opacity=".75"/><circle cx="-5" cy="-6" r="5.5" fill="#fff"/><circle cx="5" cy="6" r="2.6" fill="#fff" opacity=".9"/></g>
-<g transform="translate(148 126)"><ellipse rx="15" ry="17" fill="#1b1c2c"/><ellipse cy="5" rx="11" ry="9" fill="#2a6a80" opacity=".75"/><circle cx="-5" cy="-6" r="5.5" fill="#fff"/><circle cx="5" cy="6" r="2.6" fill="#fff" opacity=".9"/></g>
-<ellipse cx="76" cy="148" rx="17" ry="11" fill="url(#gBlush)"/><ellipse cx="168" cy="148" rx="17" ry="11" fill="url(#gBlush)"/>
-<g transform="translate(158 52) rotate(-18)"><path d="M3-12A12 12 0 1 0 12 6 9.5 9.5 0 1 1 3-12Z" fill="#ffe27a" stroke="#e0a800" stroke-width="1.6" stroke-linejoin="round"/></g><use href="#spark" transform="translate(180 64) scale(1.35)" fill="#ffe27a" stroke="#e0a800" stroke-width=".8"/>
-<path d="M122 80V92M110 82L112 92M134 82L132 92" stroke="#f0b27a" stroke-width="3" stroke-linecap="round" fill="none"/>
-<g stroke="#d9b9a2" stroke-width="1.6" stroke-linecap="round" fill="none"><path d="M64 140L40 136M64 148L40 151M66 155L45 163M180 140L204 136M180 148L204 151M178 155L199 163"/></g>
-<path d="M117 138L127 138 122 145Z" fill="#ff7fa8" stroke="#ff7fa8" stroke-width="2" stroke-linejoin="round"/>
-<path d="M122 146V148M122 148Q117 155 110 150M122 148Q127 155 134 150" stroke="#e07aa0" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-<use href="#spark" transform="translate(214 72) scale(1.7)" fill="#fff"/><use href="#spark" transform="translate(10 150) scale(1)" fill="#ffd34d"/><use href="#spark" transform="translate(206 150) scale(.9)" fill="#ff9ec4"/>
-<g fill="#fff" opacity=".85"><circle cx="18" cy="24" r="3"/><circle cx="214" cy="118" r="2.4"/><circle cx="6" cy="206" r="2.6"/><circle cx="224" cy="228" r="3"/></g>
-</svg>`,
-panda:`<svg viewBox="0 0 240 250">
-<ellipse cx="120" cy="243" rx="88" ry="8" fill="#d9cde0" opacity=".6"/>
-<circle cx="64" cy="50" r="24" fill="#2b2630"/><circle cx="64" cy="52" r="11" fill="#4d4455"/>
-<circle cx="176" cy="50" r="24" fill="#2b2630"/><circle cx="176" cy="52" r="11" fill="#4d4455"/>
-<ellipse cx="120" cy="165" rx="70" ry="42" fill="#2b2630"/>
-<ellipse cx="120" cy="204" rx="58" ry="40" fill="url(#gFur)" stroke="#e9e3ea" stroke-width="2"/>
-<g transform="rotate(-14 62 214)"><ellipse cx="62" cy="214" rx="36" ry="30" fill="#2b2630"/></g>
-<g transform="rotate(14 178 214)"><ellipse cx="178" cy="214" rx="36" ry="30" fill="#2b2630"/></g>
-<g fill="#ffadc2"><ellipse cx="62" cy="223" rx="14" ry="10.5"/><circle cx="46" cy="207" r="5.5"/><circle cx="60" cy="200" r="5.5"/><circle cx="74" cy="203" r="5.5"/>
-<ellipse cx="178" cy="223" rx="14" ry="10.5"/><circle cx="194" cy="207" r="5.5"/><circle cx="180" cy="200" r="5.5"/><circle cx="166" cy="203" r="5.5"/></g>
-<path d="M98 214L188 148" stroke="#5aa035" stroke-width="19" stroke-linecap="round"/>
-<path d="M98 214L188 148" stroke="#8fd45a" stroke-width="13" stroke-linecap="round"/>
-<path d="M103 207L184 147" stroke="#c9f299" stroke-width="3" stroke-linecap="round" opacity=".85"/>
-<path d="M124 184L135 198M156 161L166 175" stroke="#4f9230" stroke-width="3.5" stroke-linecap="round"/>
-<g transform="translate(18 18)"><g fill="#7ccf4a" stroke="#4f9e2e" stroke-width="1.5" stroke-linejoin="round"><path d="M170 130Q166 100 190 86Q198 112 170 130Z"/><path d="M170 130Q192 110 218 118Q206 142 170 130Z"/><path d="M168 130Q148 106 158 84Q176 98 168 130Z"/><path d="M174 132Q198 130 214 148Q190 158 174 132Z"/></g>
-<g stroke="#b9ee86" stroke-width="1.5" stroke-linecap="round" fill="none"><path d="M172 126Q180 108 188 94M174 126Q196 118 210 120M166 126Q160 108 160 92"/></g></g>
-<path d="M60 160Q64 196 120 192" stroke="#2b2630" stroke-width="32" stroke-linecap="round" fill="none"/>
-<path d="M184 158Q188 178 160 168" stroke="#2b2630" stroke-width="30" stroke-linecap="round" fill="none"/>
-<circle cx="122" cy="192" r="17" fill="#3a3340"/><circle cx="160" cy="168" r="16" fill="#3a3340"/>
-<g stroke="#5a5063" stroke-width="2" stroke-linecap="round"><path d="M114 184L116 194M122 182L123 193M130 184L129 194M152 160L154 170M160 158L160 169M168 160L166 170"/></g>
-<ellipse cx="120" cy="100" rx="68" ry="58" fill="url(#gFur)" stroke="#e9e3ea" stroke-width="2"/>
-<ellipse cx="92" cy="104" rx="16" ry="21" transform="rotate(24 92 104)" fill="#2b2630"/>
-<ellipse cx="148" cy="104" rx="16" ry="21" transform="rotate(-24 148 104)" fill="#2b2630"/>
-<g transform="translate(94 102)"><circle r="11" fill="#7a4a24"/><ellipse cy="4" rx="8" ry="6" fill="#e0a34e" opacity=".85"/><circle r="6" fill="#1b1218"/><circle cx="-3.5" cy="-4" r="3.6" fill="#fff"/><circle cx="3.5" cy="4" r="1.8" fill="#fff"/></g>
-<g transform="translate(146 102)"><circle r="11" fill="#7a4a24"/><ellipse cy="4" rx="8" ry="6" fill="#e0a34e" opacity=".85"/><circle r="6" fill="#1b1218"/><circle cx="-3.5" cy="-4" r="3.6" fill="#fff"/><circle cx="3.5" cy="4" r="1.8" fill="#fff"/></g>
-<path d="M80 80Q88 75 98 78M142 78Q152 75 160 80" stroke="#cfc6cd" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<ellipse cx="70" cy="128" rx="14" ry="9" fill="url(#gBlush)"/><ellipse cx="170" cy="128" rx="14" ry="9" fill="url(#gBlush)"/>
-<path d="M110 118Q120 112 130 118Q128 127 120 128Q112 127 110 118Z" fill="#2b2630"/><ellipse cx="117" cy="117" rx="3" ry="1.6" fill="#fff" opacity=".6"/>
-<path d="M120 128V131" stroke="#2b2630" stroke-width="2" stroke-linecap="round"/>
-<path d="M104 131Q120 152 136 131Q120 138 104 131Z" fill="#ff7f9f" stroke="#2b2630" stroke-width="2" stroke-linejoin="round"/>
-<path d="M114 141Q120 146 126 141" stroke="#ffb3c6" stroke-width="3" fill="none" stroke-linecap="round"/>
-<use href="#spark" transform="translate(210 40) scale(1.2)" fill="#ffd34d"/><use href="#spark" transform="translate(24 122) scale(.9)" fill="#ff9ec4"/>
-</svg>`};
+};
+/* ===== v5.0 클레이 캐릭터 (토끼·고양이·판다) + 드레스업 아이템 ===== */
+const DRESS_CATALOG={
+ skin:[
+  {id:'skin_cream',name:'생크림 바닐라',price:0,c1:'#fff9fb',c2:'#f3d8e6',inner:'#ffb5d0'},
+  {id:'skin_strawberry',name:'딸기우유 핑크',price:0,c1:'#ffe6f0',c2:'#f8bbd0',inner:'#ff80ab'},
+  {id:'skin_mint',name:'소다 민트클레이',price:0,c1:'#e6fffb',c2:'#b2ebf2',inner:'#ff9eb5'},
+  {id:'skin_lavender',name:'라벤더 꿈결',price:80,c1:'#f3e8ff',c2:'#d8b4fe',inner:'#f472b6'},
+  {id:'skin_honey',name:'허니버터 크림',price:80,c1:'#fef9c3',c2:'#fde047',inner:'#fb7185'},
+  {id:'skin_peach',name:'복숭아 샤베트',price:120,c1:'#ffedd5',c2:'#fdba74',inner:'#f43f5e'}],
+ outfit:[
+  {id:'outfit_pink_dress',name:'리본 프릴 드레스',price:0,emoji:'👗',main:'#ff7eb3',sub:'#ffc2d9',ribbon:'#ff3377'},
+  {id:'outfit_sky_sailor',name:'하늘빛 세일러복',price:0,emoji:'👚',main:'#60a5fa',sub:'#dbeafe',ribbon:'#f43f5e'},
+  {id:'outfit_sakura_kimono',name:'벚꽃 공주 한복드레스',price:120,emoji:'👘',main:'#f472b6',sub:'#fbcfe8',ribbon:'#fde047'},
+  {id:'outfit_star_wizard',name:'별빛 마법사 망토',price:150,emoji:'🧙‍♀️',main:'#7e22ce',sub:'#c084fc',ribbon:'#facc15'},
+  {id:'outfit_strawberry_chef',name:'딸기 파티시에 복장',price:140,emoji:'🍰',main:'#fb7185',sub:'#ffffff',ribbon:'#e11d48'},
+  {id:'outfit_rainbow_fairy',name:'무지개 요정 드레스',price:200,emoji:'🧚',main:'#34d399',sub:'#fef08a',ribbon:'#ec4899'}],
+ hat:[
+  {id:'hat_none',name:'자연스러운 머리',price:0,emoji:'✨'},
+  {id:'hat_tiara',name:'반짝 다이아 티아라',price:0,emoji:'👑'},
+  {id:'hat_ribbon',name:'왕방울 핑크 리본',price:0,emoji:'🎀'},
+  {id:'hat_beret',name:'딸기 생크림 베레모',price:90,emoji:'🍓'},
+  {id:'hat_wizard',name:'별똥별 마법사 모자',price:130,emoji:'🎩'},
+  {id:'hat_headphone',name:'고양이귀 헤드폰',price:150,emoji:'🎧'},
+  {id:'hat_flower_crown',name:'봄꽃 화관',price:110,emoji:'🌸'}],
+ hand:[
+  {id:'hand_none',name:'빈손 (귀여운 젤리발)',price:0,emoji:'🐾'},
+  {id:'hand_wand',name:'하트 요술봉',price:0,emoji:'🪄'},
+  {id:'hand_balloon',name:'파스텔 풍선 다발',price:80,emoji:'🎈'},
+  {id:'hand_icecream',name:'더블 아이스크림',price:90,emoji:'🍦'},
+  {id:'hand_book',name:'황금 생각 마법책',price:120,emoji:'📖'},
+  {id:'hand_starlight',name:'초승달 랜턴',price:160,emoji:'🌙'}],
+ aura:[
+  {id:'aura_none',name:'기본 배경',price:0,emoji:'☁️'},
+  {id:'aura_hearts',name:'두근두근 하트 오라',price:0,emoji:'💕'},
+  {id:'aura_sakura',name:'흩날리는 벚꽃잎',price:100,emoji:'🌸'},
+  {id:'aura_stars',name:'은하수 별빛 링',price:130,emoji:'🌟'},
+  {id:'aura_rainbow',name:'무지개 후광',price:180,emoji:'🌈'}]};
+/* 세 친구의 기본 차림 (수학=토끼, 영어=고양이, 중국어=판다) */
+const DRESS_DEFAULT={
+ bunny:{skin:'skin_cream',outfit:'outfit_pink_dress',hat:'hat_tiara',hand:'hand_wand',aura:'aura_hearts'},
+ cat:{skin:'skin_strawberry',outfit:'outfit_sky_sailor',hat:'hat_ribbon',hand:'hand_none',aura:'aura_none'},
+ panda:{skin:'skin_cream',outfit:'outfit_pink_dress',hat:'hat_none',hand:'hand_none',aura:'aura_none'}};
+const dressItem=(cat,id)=>(DRESS_CATALOG[cat]||[]).find(x=>x.id===id);
+function dressOf(k){return Object.assign({},DRESS_DEFAULT[k]||DRESS_DEFAULT.bunny,(data.dress&&data.dress[k])||{})}
+let clayN=0;
+/* 3D 클레이 질감 SVG (그림마다 그라데이션 이름이 겹치지 않게 번호를 붙여요) */
+function clayART(species,eq){const u='k'+(++clayN);
+ const skin=dressItem('skin',eq.skin)||DRESS_CATALOG.skin[0],outfit=dressItem('outfit',eq.outfit)||DRESS_CATALOG.outfit[0];
+ const isPanda=species==='panda',earO=isPanda?'#332d38':skin.c2,earI=isPanda?'#524959':skin.inner,B=`url(#cb${u})`;
+ return `<svg viewBox="0 0 300 300"><defs>
+<radialGradient id="cb${u}" cx="38%" cy="30%" r="68%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/><stop offset="32%" stop-color="${skin.c1}"/><stop offset="82%" stop-color="${skin.c2}"/><stop offset="100%" stop-color="#d8b4c8"/></radialGradient>
+<radialGradient id="ck${u}" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff5c97" stop-opacity="0.65"/><stop offset="70%" stop-color="#ff85b3" stop-opacity="0.25"/><stop offset="100%" stop-color="#ff85b3" stop-opacity="0"/></radialGradient>
+<linearGradient id="co${u}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${outfit.sub}"/><stop offset="45%" stop-color="${outfit.main}"/><stop offset="100%" stop-color="${outfit.ribbon}"/></linearGradient>
+<radialGradient id="cf${u}" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9b5de5" stop-opacity="0.28"/><stop offset="100%" stop-color="#9b5de5" stop-opacity="0"/></radialGradient>
+<filter id="cs${u}" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#7c3aed" flood-opacity="0.18"/></filter></defs>
+<ellipse cx="150" cy="276" rx="74" ry="14" fill="url(#cf${u})"/>
+<g class="aura-anim">${clayAura(eq.aura)}</g>
+<g class="char-body-group char-breathe" filter="url(#cs${u})">
+${clayEars(species,B,earO,earI)}
+<g><ellipse cx="122" cy="256" rx="22" ry="16" fill="${B}"/><ellipse cx="122" cy="260" rx="11" ry="7" fill="${skin.inner}" opacity="0.85"/><circle cx="114" cy="252" r="3.2" fill="${skin.inner}"/><circle cx="122" cy="250" r="3.5" fill="${skin.inner}"/><circle cx="130" cy="252" r="3.2" fill="${skin.inner}"/>
+<ellipse cx="178" cy="256" rx="22" ry="16" fill="${B}"/><ellipse cx="178" cy="260" rx="11" ry="7" fill="${skin.inner}" opacity="0.85"/><circle cx="170" cy="252" r="3.2" fill="${skin.inner}"/><circle cx="178" cy="250" r="3.5" fill="${skin.inner}"/><circle cx="186" cy="252" r="3.2" fill="${skin.inner}"/></g>
+<path d="M 104 185 C 94 215, 96 248, 150 248 C 204 248, 206 215, 196 185 Z" fill="${B}"/>
+${clayOutfit(outfit,u)}
+<path d="M 82 142 C 82 96, 112 80, 150 80 C 188 80, 218 96, 218 142 C 218 178, 192 194, 150 194 C 108 194, 82 178, 82 142 Z" fill="${B}"/>
+<ellipse cx="125" cy="98" rx="22" ry="9" transform="rotate(-14 125 98)" fill="#ffffff" opacity="0.65"/>
+${isPanda?'<ellipse cx="118" cy="140" rx="19" ry="15" transform="rotate(-18 118 140)" fill="#332d38"/><ellipse cx="182" cy="140" rx="19" ry="15" transform="rotate(18 182 140)" fill="#332d38"/>':''}
+${species==='cat'?'<g stroke="#d4a5be" stroke-width="2.5" stroke-linecap="round" opacity="0.8"><line x1="74" y1="146" x2="92" y2="149"/><line x1="72" y1="156" x2="91" y2="156"/><line x1="226" y1="146" x2="208" y2="149"/><line x1="228" y1="156" x2="209" y2="156"/></g>':''}
+<g><circle cx="120" cy="140" r="11.5" fill="#2b2133"/><circle cx="116" cy="135" r="4.5" fill="#ffffff"/><circle cx="124" cy="144" r="2.2" fill="#ffffff" opacity="0.9"/>
+<circle cx="180" cy="140" r="11.5" fill="#2b2133"/><circle cx="176" cy="135" r="4.5" fill="#ffffff"/><circle cx="184" cy="144" r="2.2" fill="#ffffff" opacity="0.9"/></g>
+<ellipse cx="102" cy="156" rx="16" ry="11" fill="url(#ck${u})"/><ellipse cx="198" cy="156" rx="16" ry="11" fill="url(#ck${u})"/>
+<ellipse cx="150" cy="151" rx="5.5" ry="4" fill="${isPanda?'#2b2133':'#ff7aa8'}"/>
+<path d="M 141 159 Q 145.5 165 150 159 Q 154.5 165 159 159" fill="none" stroke="#5c3a4d" stroke-width="2.8" stroke-linecap="round"/>
+<ellipse cx="95" cy="206" rx="14" ry="19" transform="rotate(22 95 206)" fill="${B}"/><ellipse cx="205" cy="206" rx="14" ry="19" transform="rotate(-22 205 206)" fill="${B}"/>
+${clayHand(eq.hand)}
+${clayHat(eq.hat,species)}
+</g></svg>`}
+function clayEars(species,B,outerC,innerC){
+ if(species==='bunny')return `<g class="ear-l"><path d="M 112 96 C 95 34, 128 24, 134 88 Z" fill="${B}"/><path d="M 115 88 C 104 44, 123 38, 128 84 Z" fill="${innerC}" opacity="0.75"/></g><g class="ear-r"><path d="M 188 96 C 205 34, 172 24, 166 88 Z" fill="${B}"/><path d="M 185 88 C 196 44, 177 38, 172 84 Z" fill="${innerC}" opacity="0.75"/></g>`;
+ if(species==='cat')return `<g class="ear-l"><path d="M 92 108 L 86 58 L 132 86 Z" fill="${B}" stroke-linejoin="round"/><path d="M 96 100 L 92 69 L 122 87 Z" fill="${innerC}" opacity="0.8"/></g><g class="ear-r"><path d="M 208 108 L 214 58 L 168 86 Z" fill="${B}" stroke-linejoin="round"/><path d="M 204 100 L 208 69 L 178 87 Z" fill="${innerC}" opacity="0.8"/></g>`;
+ return `<g class="ear-l"><circle cx="100" cy="84" r="23" fill="${outerC}"/><circle cx="100" cy="84" r="11" fill="${innerC}" opacity="0.6"/></g><g class="ear-r"><circle cx="200" cy="84" r="23" fill="${outerC}"/><circle cx="200" cy="84" r="11" fill="${innerC}" opacity="0.6"/></g>`}
+function clayOutfit(o,u){return `<g><path d="M 106 188 C 90 215, 86 244, 150 246 C 214 244, 210 215, 194 188 Z" fill="url(#co${u})"/>
+<path d="M 94 238 Q 108 248 122 239 Q 136 248 150 239 Q 164 248 178 239 Q 192 248 206 238" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+<path d="M 122 186 Q 136 202 150 192 Q 164 202 178 186" fill="#ffffff"/>
+<path d="M 150 196 L 136 189 L 139 203 Z" fill="${o.ribbon}"/><path d="M 150 196 L 164 189 L 161 203 Z" fill="${o.ribbon}"/><circle cx="150" cy="196" r="4.5" fill="#fde047"/></g>`}
+function clayHat(id,species){const y=species==='bunny'?4:0;
+ switch(id){
+ case 'hat_tiara':return `<g transform="translate(0, ${y})"><path d="M 124 82 L 130 62 L 141 74 L 150 54 L 159 74 L 170 62 L 176 82 Z" fill="#fde047" stroke="#f59e0b" stroke-width="2" stroke-linejoin="round"/><circle cx="150" cy="69" r="4" fill="#ff4d94"/><circle cx="134" cy="74" r="2.5" fill="#38bdf8"/><circle cx="166" cy="74" r="2.5" fill="#38bdf8"/></g>`;
+ case 'hat_ribbon':return `<g transform="translate(174, 78) rotate(18)"><path d="M 0 0 L -20 -12 L -16 12 Z" fill="#ff4d94"/><path d="M 0 0 L 20 -12 L 16 12 Z" fill="#ff4d94"/><circle cx="0" cy="0" r="6" fill="#ffe066"/></g>`;
+ case 'hat_beret':return `<g transform="translate(146, 74) rotate(-8)"><ellipse cx="0" cy="0" rx="34" ry="16" fill="#fb7185"/><path d="M -28 8 Q 0 15 28 8" fill="none" stroke="#ffe4e6" stroke-width="3"/><circle cx="0" cy="-15" r="4" fill="#be123c"/></g>`;
+ case 'hat_wizard':return `<g transform="translate(150, 76)"><ellipse cx="0" cy="4" rx="44" ry="11" fill="#6b21a8"/><path d="M -26 4 L 2 -48 L 26 4 Z" fill="#7e22ce"/><path d="M -21 -6 Q 0 2 21 -6" fill="none" stroke="#facc15" stroke-width="4"/><text x="-6" y="-20" font-size="14">⭐</text></g>`;
+ case 'hat_headphone':return `<g><path d="M 80 132 C 80 68, 220 68, 220 132" fill="none" stroke="#f472b6" stroke-width="9" stroke-linecap="round"/><rect x="68" y="116" width="18" height="34" rx="9" fill="#ec4899"/><rect x="214" y="116" width="18" height="34" rx="9" fill="#ec4899"/></g>`;
+ case 'hat_flower_crown':return `<g transform="translate(150, 82)"><text x="-38" y="4" font-size="18">🌸</text><text x="-18" y="0" font-size="20">🌼</text><text x="4" y="0" font-size="20">🌸</text><text x="24" y="4" font-size="18">🌷</text></g>`;
+ default:return ''}}
+function clayHand(id){
+ switch(id){
+ case 'hand_wand':return `<g transform="translate(216, 198) rotate(18)"><rect x="-2.5" y="-34" width="5" height="52" rx="2.5" fill="#fde047"/><text x="-14" y="-32" font-size="24">💖</text></g>`;
+ case 'hand_balloon':return `<g transform="translate(222, 195)"><line x1="0" y1="0" x2="10" y2="-56" stroke="#9ca3af" stroke-width="2"/><circle cx="10" cy="-68" r="18" fill="#ff7eb3"/><circle cx="4" cy="-74" r="4" fill="#ffffff" opacity="0.7"/></g>`;
+ case 'hand_icecream':return '<text x="200" y="205" font-size="30">🍦</text>';
+ case 'hand_book':return '<text x="198" y="208" font-size="28">📖</text>';
+ case 'hand_starlight':return '<text x="202" y="204" font-size="30">🌙</text>';
+ default:return ''}}
+function clayAura(id){
+ switch(id){
+ case 'aura_hearts':return '<text x="34" y="88" font-size="22">💕</text><text x="238" y="95" font-size="20">💖</text><text x="42" y="220" font-size="18">💗</text><text x="234" y="215" font-size="22">💓</text>';
+ case 'aura_sakura':return '<text x="32" y="78" font-size="22">🌸</text><text x="240" y="85" font-size="24">🌸</text><text x="46" y="190" font-size="18">💮</text><text x="230" y="220" font-size="20">🌸</text>';
+ case 'aura_stars':return '<circle cx="150" cy="150" r="122" fill="none" stroke="#fde047" stroke-width="2.5" stroke-dasharray="8 8" opacity="0.8"/><text x="32" y="92" font-size="22">✨</text><text x="242" y="96" font-size="22">🌟</text><text x="42" y="225" font-size="20">⭐</text>';
+ case 'aura_rainbow':return '<path d="M 32 180 A 118 118 0 0 1 268 180" fill="none" stroke="#ff7eb3" stroke-width="8" opacity="0.45"/><path d="M 40 180 A 110 110 0 0 1 260 180" fill="none" stroke="#fde047" stroke-width="8" opacity="0.45"/><path d="M 48 180 A 102 102 0 0 1 252 180" fill="none" stroke="#38bdf8" stroke-width="8" opacity="0.45"/>';
+ default:return ''}}
+
 function paintArt(){document.querySelectorAll('[data-art]').forEach(e=>{e.innerHTML=skinART(e.dataset.art)})}
 
 /* ===== 데이터 ===== */
@@ -310,6 +360,13 @@ function fixData(){if(!Array.isArray(data.vnotes))data.vnotes=[];if(!data.sitdon
  if(!data.look||typeof data.look!=='object')data.look={};
  ['bunny','cat','panda'].forEach(k=>{if(!data.look[k]||typeof data.look[k]!=='object')data.look[k]={c:'plain',a:'none'}});
  if(!data.skinsOwned||typeof data.skinsOwned!=='object')data.skinsOwned={};
+ if(!data.dress||typeof data.dress!=='object')data.dress={};
+ if(!Array.isArray(data.dressOwned))data.dressOwned=[];
+ if(!data.wtheme||typeof data.wtheme!=='object')data.wtheme={};
+ if(!data.dressMig){data.dressMig=1; /* v4.7에서 산 스킨을 새 클레이 아이템으로 옮겨요 */
+  const CM={peach:'skin_peach',lemon:'skin_honey',mint:'skin_mint',sky:'skin_lavender',grape:'skin_lavender',rainbow:'aura_rainbow'},AM={ribbon:'hat_ribbon',flower:'hat_flower_crown',star:'aura_stars',heart:'aura_hearts',balloon:'hand_balloon',wand:'hand_wand',phones:'hat_headphone',crown:'hat_tiara',sparkle:'aura_stars'};
+  Object.keys(data.skinsOwned||{}).forEach(k=>{const p=k.split(':'),m=(p[1]==='c'?CM:AM)[p[2]];if(m&&!data.dressOwned.includes(m))data.dressOwned.push(m)});
+  ['bunny','cat','panda'].forEach(k=>{const L=(data.look||{})[k];if(!L)return;const d={};[CM[L.c],AM[L.a]].forEach(id=>{if(id)d[id.split('_')[0]]=id});if(Object.keys(d).length)data.dress[k]=Object.assign({},data.dress[k]||{},d)})}
  if(!data.gg||typeof data.gg!=='object')data.gg={};
  if(!data.gg.mastery||typeof data.gg.mastery!=='object')data.gg.mastery={};
  if(typeof data.gg.best!=='number')data.gg.best=0}
@@ -406,7 +463,7 @@ let celQ=[];
 function celebrate(it){celQ.push(it);const o=$('gradeUp');if(o&&o.classList.contains('hidden'))nextCelebrate()}
 function nextCelebrate(){const o=$('gradeUp');if(!o)return;const it=celQ.shift();if(!it){o.classList.add('hidden');return}
  const conf=Array.from({length:16},(_,i)=>`<span class="conf" style="left:${i*6+2}%;animation-delay:${(i%8)*.25}s">${['🎉','✨','💖','⭐'][i%4]}</span>`).join('');
- $('gradeUpBody').innerHTML=`${conf}<div class="art" style="width:120px;height:124px;margin:0 auto">${skinART('bunny')}</div><div class="gu-emoji">${it.emoji}</div><h2 style="margin:6px 0">${it.title}</h2><p style="line-height:1.6">${it.msg}</p><button class="primary" onclick="nextCelebrate()">${celQ.length?'다음 ➜':'계속하기'}</button>`;
+ $('gradeUpBody').innerHTML=`${conf}<div class="art" style="width:120px;height:124px;margin:0 auto">${skinART(it.art||'bunny')}</div><div class="gu-emoji">${it.emoji}</div><h2 style="margin:6px 0">${it.title}</h2><p style="line-height:1.6">${it.msg}</p><button class="primary" onclick="nextCelebrate()">${celQ.length?'다음 ➜':'계속하기'}</button>`;
  o.classList.remove('hidden');if(it.voice)speakCheer(it.voice,'ko-KR')}
 function renderGrade(){const gi=gradeIndex(data.earned),g=GRADES[gi],nx=GRADES[gi+1];
  $('gradeEmoji').textContent=g.emoji;$('gradeName').textContent=`${g.name} · Lv.${gi+1}`;
@@ -449,7 +506,7 @@ function timerBox(){return `<div class="tile"><div class="topline"><b>⏱️ 오
 function setContent(html){$('content').innerHTML=html;updateTimerUI()}
 
 /* ===== 화면 이동 ===== */
-const DECO_TAB=['deco','🎀 꾸미기'],SKIN_TAB=['skin','👗 스킨'];
+const DECO_TAB=['deco','🎀 꾸미기'],SKIN_TAB=['skin','👗 드레스룸'];
 const tabMap={math:[['topics','학습 주제'],['quiz','문제 풀기'],['times','구구단'],['review','오답노트'],SKIN_TAB,DECO_TAB],english:[['words','단어 배우기'],['talk','AI 영어 선생님'],['sit','🧳 실생활 상황'],['video','🎬 영상으로 배우기'],['speak','발음 연습'],['exam','📝 단어 시험'],SKIN_TAB,DECO_TAB],chinese:[['words','단어 배우기'],['talk','AI 중국어 선생님'],['sit','🧳 실생활 상황'],['video','🎬 영상으로 배우기'],['speak','발음·성조'],['exam','📝 단어 시험'],SKIN_TAB,DECO_TAB]};
 function hiTab(m){$('tabs').querySelectorAll('button').forEach((b,i)=>b.classList.toggle('active',tabMap[subject][i][0]===m))}
 function cancelSpeech(){try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}try{stageStop()}catch(e){}}
@@ -1421,7 +1478,7 @@ function updateSubjectTitle(){const n={math:'수학 왕국',english:'영어 나�
 
 
 /* ===== 캐릭터 선생님: 제스처 + 입모양 ===== */
-const MPOS={english:[53,59],chinese:[51,57]};
+const MPOS={math:[50,54],english:[50,54],chinese:[50,54]};
 const VIS={
  M:['입술을 꼭 붙였다가 떼요 (ㅁ·ㅂ·ㅍ)','<path d="M18 30Q50 41 82 30Q50 19 18 30Z" fill="#e8607a"/><path d="M20 30Q50 33 80 30" stroke="#a02050" stroke-width="2" fill="none"/>'],
  A:['입을 크게 벌려요 (아)','<ellipse cx="50" cy="30" rx="27" ry="21" fill="#8a2a48"/><rect x="30" y="11" width="40" height="8" rx="3" fill="#fff"/><ellipse cx="50" cy="45" rx="15" ry="7" fill="#ff8aa8"/>'],
@@ -1923,29 +1980,51 @@ function ggFlip(i){const c=gg.cards[i];if(gg.view!=='m'||gg.busy||c.up||c.done)r
 function ggMemEnd(){const pts=Math.max(5,16-Math.max(0,gg.moves-4));ggStop();gg.view='m-end';addPoints(pts);checkBadges();save();sfxWin();
  setContent(timerBox()+shell('🃏 모두 찾았어요!',`<div class="big">${gg.moves}번 만에 성공!</div><p>💎 +${pts}포인트 (적게 뒤집을수록 더 많이 받아요)</p><div class="row"><button class="primary" onclick="ggMemory()">🔁 다시</button><button class="muted" onclick="ggHome()">처음으로</button></div>`))}
 
-/* ===== 캐릭터 스킨 (색깔 + 악세서리) ===== */
-const SKIN_COLORS=[['plain','기본 색',0,''],['peach','🍑 복숭아',50,'30'],['lemon','🍋 레몬',50,'55'],['mint','🍃 민트',80,'150'],['sky','🫐 하늘',80,'200'],['grape','🍇 포도',80,'280'],['rainbow','🌈 무지개 (색이 계속 바뀌어요)',250,'rainbow']];
-const SKIN_ACCS=[['none','없음',0,'',''],['ribbon','🎀 리본',40,'🎀','ear'],['flower','🌸 꽃',40,'🌸','ear'],['star','⭐ 별',40,'⭐','ear'],['heart','💖 하트',50,'💖','ear'],['balloon','🎈 풍선',50,'🎈','side'],['wand','🪄 요술봉',60,'🪄','side'],['phones','🎧 헤드폰',70,'🎧','top'],['crown','👑 왕관',80,'👑','top'],['sparkle','✨ 반짝이',90,'✨','sparkle']];
-const BASE_HUE={bunny:340,cat:265,panda:340};
-const skinFilter=(ch,c)=>(c[3]&&c[3]!=='rainbow')?`hue-rotate(${((Number(c[3])-BASE_HUE[ch])%360+360)%360}deg)`:'';
-const MASCOTS=['bunny','cat','panda'],CHAR_NAME={bunny:'토끼 공주',cat:'고양이',panda:'판다'};
-function skinART(key){if(!ART[key])return '';if(!MASCOTS.includes(key)||!data.look)return ART[key];
- const L=data.look[key]||{c:'plain',a:'none'},c=SKIN_COLORS.find(x=>x[0]===L.c)||SKIN_COLORS[0],a=SKIN_ACCS.find(x=>x[0]===L.a)||SKIN_ACCS[0];
- if(c[0]==='plain'&&a[0]==='none')return ART[key];
- const ff=skinFilter(key,c),fil=ff?` style="filter:${ff}"`:'';
- let acc='';if(a[4]==='sparkle')acc='<span class="acc sk1">✨</span><span class="acc sk2">✨</span><span class="acc sk3">⭐</span>';else if(a[3])acc=`<span class="acc ${a[4]}">${a[3]}</span>`;
- return `<div class="skinbox"><div class="skin${c[3]==='rainbow'?' rainbow':''}"${fil}>${ART[key]}</div>${acc}</div>`}
+/* ===== 클레이 드레스룸 (v5.0 꾸미기 아이템: 털색·의상·모자·손 소품·오라 + 선물상자) ===== */
+const MASCOTS=['bunny','cat','panda'],CHAR_NAME={bunny:'토끼 공주',cat:'아기 고양이',panda:'판다 요정'},CHAR_EMO={bunny:'🐰',cat:'🐱',panda:'🐼'};
+function skinART(key){if(MASCOTS.includes(key))return clayART(key,dressOf(key));return ART[key]||''}
 function refreshArt(){paintArt();const m=$('subjectEmoji');if(m&&subject)m.innerHTML=skinART(MASCOT[subject])}
-function skinView(){const ch=MASCOT[subject],L=data.look[ch];
- const row=(kind,list,pv)=>list.map(x=>{const id=x[0],key=`${ch}:${kind}:${id}`,own=x[2]===0||data.skinsOwned[key],on=L[kind]===id,can=data.points>=x[2];
-  const btn=on?'<button class="muted" disabled>입는 중 ✔</button>':own?`<button class="mint" onclick="skinWear('${kind}','${id}')">입기</button>`:`<button class="${can?'primary':'muted'}" ${can?'':'disabled'} onclick="skinBuy('${kind}','${id}')">💎 ${x[2]} 사기</button>`;
-  return `<div class="shopitem"><div class="se" style="width:54px;height:54px;flex:none;display:flex;align-items:center;justify-content:center">${pv(x)}</div><div style="flex:1;min-width:0;text-align:left"><b>${x[1]}</b></div>${btn}</div>`}).join('');
- const pvC=x=>`<div style="width:54px;height:54px;${skinFilter(ch,x)?'filter:'+skinFilter(ch,x):''}" class="${x[3]==='rainbow'?'rainbow':''}">${ART[ch]}</div>`,pvA=x=>x[3]?`<span style="font-size:30px">${x[3]}</span>`:'—';
- setContent(`<div class="lesson"><h3>👗 ${CHAR_NAME[ch]} 스킨 가게</h3><div class="small">💎 내 포인트 <b>${data.points}</b> · 사면 바로 입혀 줘요 (스킨 가게에서는 공부 타이머가 흐르지 않아요)</div><div class="art" style="width:150px;height:150px;margin:8px auto">${skinART(ch)}</div><h4 style="margin:10px 0 6px">🎨 색깔 스킨</h4><div class="shop">${row('c',SKIN_COLORS,pvC)}</div><h4 style="margin:14px 0 6px">🎀 악세서리</h4><div class="shop">${row('a',SKIN_ACCS,pvA)}</div></div>`)}
-function skinBuy(kind,id){const ch=MASCOT[subject],x=(kind==='c'?SKIN_COLORS:SKIN_ACCS).find(y=>y[0]===id);if(!x||data.points<x[2])return;
- data.points-=x[2];data.skinsOwned[`${ch}:${kind}:${id}`]=true;data.look[ch][kind]=id;data.badges=[...new Set([...data.badges,'👗 첫 스킨'])];save();refreshArt();skinView();
- sfxWin();cheer('새 스킨이 정말 잘 어울려요! 💖')}
-function skinWear(kind,id){const ch=MASCOT[subject];data.look[ch][kind]=id;save();refreshArt();skinView()}
+const DCATS=[['skin','🎨 털색'],['outfit','👗 의상'],['hat','👑 모자·티아라'],['hand','🪄 손 소품'],['aura','✨ 배경 오라']];
+let dressCat='skin',dressCh='',dressSubj='',gachaBusy=false;
+function skinView(){if(dressSubj!==subject||!MASCOTS.includes(dressCh)){dressSubj=subject;dressCh=MASCOT[subject]}
+ const ch=dressCh,eq=dressOf(ch);
+ const grid=DRESS_CATALOG[dressCat].map(it=>{const own=it.price===0||data.dressOwned.includes(it.id),on=eq[dressCat]===it.id;
+  const pv=dressCat==='skin'?`<span class="dsw" style="background:radial-gradient(circle at 35% 35%,${it.c1},${it.c2})"></span>`:`<span>${it.emoji}</span>`;
+  const tag=on?'<span class="dtag on">입는 중 ✔</span>':own?'<span class="dtag own">입히기</span>':`<span class="dtag ${data.points>=it.price?'buy':'no'}">💎 ${it.price}</span>`;
+  return `<div class="ditem${on?' on':''}" onclick="dressClick('${it.id}')"><div class="dpv">${pv}</div><div class="dn">${it.name}</div>${tag}</div>`}).join('');
+ setContent(`<div class="lesson"><h3>👗 ${CHAR_EMO[ch]} ${CHAR_NAME[ch]} 클레이 드레스룸</h3><div class="small">💎 내 포인트 <b>${data.points}</b> · 사면 바로 입혀 줘요 · 한 번 산 아이템은 세 친구 모두 입을 수 있어요 (드레스룸에서는 공부 타이머가 흐르지 않아요)</div>
+ <div class="row" style="margin-top:8px">${MASCOTS.map(k=>`<button class="chip ${k===ch?'on':''}" onclick="dressCh='${k}';skinView()">${CHAR_EMO[k]} ${CHAR_NAME[k]}</button>`).join('')}</div>
+ <div class="dressstage art" onclick="interactCharacter(event)">${skinART(ch)}</div>
+ <div id="dressMsg" class="feedback" style="margin:4px 0">👆 캐릭터를 톡 누르면 폴짝 뛰어요! 💕</div>
+ <div class="tabs" style="justify-content:center">${DCATS.map(([k,n])=>`<button class="${k===dressCat?'active':''}" onclick="dressCat='${k}';skinView()">${n}</button>`).join('')}</div>
+ <div class="dgrid">${grid}</div>
+ <div class="gacha"><div class="gbox" id="gachaBox">🎁</div><div style="flex:1;min-width:160px"><b>행운의 클레이 선물상자</b><div class="small">💎 100포인트로 아직 없는 스페셜 아이템을 하나 뽑아요. 이미 가진 게 나오면 60포인트를 돌려받아요.</div></div><button class="primary" ${data.points>=100?'':'disabled'} onclick="spinGacha()">💎 100 열기</button></div>
+ <div class="row" style="margin-top:10px"><button class="muted" onclick="dressReset()">🎀 기본 차림으로</button></div></div>`)}
+function dressMsg(t){const e=$('dressMsg');if(e)e.innerHTML=t}
+function dressClick(id){const ch=dressCh||MASCOT[subject],it=dressItem(dressCat,id);if(!it)return;
+ const own=it.price===0||data.dressOwned.includes(id);
+ if(!own){if(data.points<it.price){dressMsg(`💎 ${it.price-data.points}포인트가 더 필요해요! 공부해서 모아 볼까요? 💪`);return}
+  data.points-=it.price;data.dressOwned.push(id);data.badges=[...new Set([...data.badges,'👗 첫 스킨'])];sfxWin()}
+ data.dress[ch]=Object.assign(dressOf(ch),{[dressCat]:id});save();refreshArt();skinView();
+ dressMsg(own?`✨ ${it.name} 입었어요!`:`🎉 ${it.name} 사서 바로 입었어요!`);if(!own)cheer('새 옷이 정말 잘 어울려요! 💖')}
+function dressReset(){const ch=dressCh||MASCOT[subject];data.dress[ch]=Object.assign({},DRESS_DEFAULT[ch]);save();refreshArt();skinView();dressMsg('🎀 기본 차림으로 돌아왔어요!')}
+function spinGacha(){if(gachaBusy)return;if(data.points<100){dressMsg('💎 선물상자는 100포인트가 필요해요! 공부해서 모아 볼까요?');return}
+ gachaBusy=true;data.points-=100;save();const b=$('gachaBox');if(b){b.classList.remove('spin');void b.offsetWidth;b.classList.add('spin')}dressMsg('두근두근… 상자가 열리고 있어요 ✨');
+ setTimeout(()=>{gachaBusy=false;const pool=[];Object.keys(DRESS_CATALOG).forEach(c=>DRESS_CATALOG[c].forEach(it=>{if(it.price>0)pool.push([c,it])}));
+  const un=pool.filter(p=>!data.dressOwned.includes(p[1].id)),got=pick(un.length?un:pool),c=got[0],it=got[1],ch=dressCh||'bunny';let msg;
+  if(!data.dressOwned.includes(it.id)){data.dressOwned.push(it.id);data.dress[ch]=Object.assign(dressOf(ch),{[c]:it.id});data.badges=[...new Set([...data.badges,'🎁 선물상자 행운'])];
+   msg=`새 아이템 <b>${it.emoji||'🎨'} ${it.name}</b>을(를) 뽑았어요!<br>바로 입혀 줬어요 💖`}
+  else{data.points+=60;data.ptsSeen+=60;msg=`이미 가진 <b>${it.name}</b>이(가) 나왔어요.<br>💎 60포인트를 돌려받았어요!`}
+  save();refreshArt();if(mode==='skin'){dressCat=c;skinView()}sfxWin();celebrate({emoji:'🎁',title:'선물상자 열기!',msg,art:ch})},600)}
+function openDress(){openSubject('math');setMode('skin')}
+/* 캐릭터를 톡 누르면 폴짝 뛰고 하트를 보내요 */
+const TAP_LINES=['지온아, 오늘도 반짝반짝 빛나! ✨','폴짝! 기분이 날아갈 것 같아~ 🌸','우리 같이 공부하고 왕국을 꾸미자! 🏰','사랑해 지온아! 최고야! 💖'];
+function interactCharacter(e){const st=e.currentTarget;if(!st)return;const g=st.querySelector('.char-body-group');
+ if(g){g.classList.remove('char-jump');void st.offsetWidth;g.classList.add('char-jump');clearTimeout(g._t);g._t=setTimeout(()=>g.classList.remove('char-jump'),700)}
+ const r=st.getBoundingClientRect(),x=(e.clientX||r.left+r.width/2)-r.left,y=(e.clientY||r.top+r.height/2)-r.top,em=['💖','💕','✨','🌸','🍓'];
+ for(let i=0;i<4;i++){const p=document.createElement('span');p.className='heart-particle';p.textContent=pick(em);p.style.left=(x+rand(-25,25))+'px';p.style.top=(y+rand(-10,10))+'px';st.appendChild(p);setTimeout(()=>p.remove(),1000)}
+ const m=$('dressMsg');if(m)m.textContent=pick(TAP_LINES)}
+
 
 /* ===== 오늘의 단어 시험 (90점 이상이면 보너스) ===== */
 const exm={qs:[],i:0,ok:0,wrong:[],locked:false};
@@ -2002,40 +2081,68 @@ const SCENE_BG={
 math:'<svg class="bg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="160" height="100" fill="url(#dskM)"/><circle cx="134" cy="19" r="9" fill="#fff4b8"/><ellipse cx="30" cy="22" rx="14" ry="5" fill="#fff" opacity=".85"/><ellipse cx="42" cy="18" rx="9" ry="5" fill="#fff" opacity=".85"/><ellipse cx="96" cy="30" rx="12" ry="4" fill="#fff" opacity=".7"/><path d="M0 68Q40 50 82 64T160 58V100H0Z" fill="#bff0cf"/><path d="M0 82Q50 70 100 80T160 76V100H0Z" fill="#9fe3b7"/><path d="M66 100Q76 86 84 74L96 74Q92 88 104 100Z" fill="#f6e3bd"/></svg>',
 english:'<svg class="bg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="160" height="100" fill="url(#dskE)"/><circle cx="24" cy="18" r="8" fill="#fff1a8"/><ellipse cx="100" cy="20" rx="16" ry="5" fill="#fff"/><ellipse cx="116" cy="16" rx="10" ry="5" fill="#fff"/><path d="M0 62Q36 44 78 58T160 54V100H0Z" fill="#a8e6a1"/><path d="M0 76Q60 62 110 74T160 72V100H0Z" fill="#86d98c"/><path d="M60 100Q90 80 150 76L160 82V100Z" fill="#e9ddc4"/></svg>',
 chinese:'<svg class="bg" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="160" height="100" fill="url(#dskC)"/><circle cx="120" cy="22" r="10" fill="#fff3c2" opacity=".9"/><path d="M0 58L26 34 48 54 74 28 104 56 130 38 160 60V100H0Z" fill="#a9d4bf"/><path d="M0 66L30 48 58 64 88 46 120 66 148 52 160 62V100H0Z" fill="#8fc7a6"/><path d="M0 76Q80 66 160 76V100H0Z" fill="#b9e6a8"/><ellipse cx="82" cy="86" rx="46" ry="11" fill="#a8e0f0"/><ellipse cx="82" cy="86" rx="38" ry="8" fill="#c6eefa"/></svg>'};
-let decoSel=null,dDrag=null;
+/* v5.0 월드 아이템 48종: 어느 나라·왕국·정원에나 놓을 수 있어요 [id, 그림, 이름, 가격, 분류] */
+const WORLD_ITEMS=[
+['b_castle_pink','🏰','핑크 드림성',60,'building'],['b_palace','🏯','황금 궁전',70,'building'],['b_ferris','🎡','무지개 관람차',80,'building'],['b_carousel','🎠','회전목마',75,'building'],['b_london_bus','🚌','빨간 이층버스',50,'building'],['b_tower','🗼','시계탑 랜드마크',65,'building'],['b_pagoda','⛩️','전통 정자',60,'building'],['b_house_candy','🏡','과자 오두막',45,'building'],['b_fountain','⛲','수정 분수대',55,'building'],['b_bridge','🌉','무지개 다리',60,'building'],['b_tent','🎪','서커스 텐트',55,'building'],['b_carriage','🛻','호박 마차',65,'building'],
+['n_sakura_tree','🌸','만개한 벚꽃나무',30,'nature'],['n_bamboo','🎋','푸른 대나무숲',30,'nature'],['n_pine_tree','🌲','동화 속 전나무',25,'nature'],['n_tulip','🌷','무지개 튤립밭',20,'nature'],['n_sunflower','🌻','해바라기 정원',20,'nature'],['n_rose','🌹','장미 꽃덤불',25,'nature'],['n_mushroom','🍄','요정 버섯집',30,'nature'],['n_lotus','🪷','연꽃 연못',35,'nature'],['n_hibiscus','🌺','분홍 무궁화',25,'nature'],['n_clover','🍀','네잎클로버 언덕',30,'nature'],
+['f_cake','🎂','딸기 생크림 케이크',35,'furniture'],['f_teacup','🫖','애프터눈 티세트',30,'furniture'],['f_icecream','🍨','파르페 스탠드',25,'furniture'],['f_donut','🍩','도넛 테이블',25,'furniture'],['f_crown_chair','🛋️','프린세스 소파',45,'furniture'],['f_gift','🎁','리본 선물상자',20,'furniture'],['f_balloon_arch','🎈','파티 풍선 장식',25,'furniture'],['f_lantern','🏮','붉은 초롱불',30,'furniture'],['f_piano','🎹','그랜드 피아노',55,'furniture'],['f_trophy','🏆','황금 우승컵',40,'furniture'],
+['a_unicorn','🦄','무지개 유니콘',55,'animal'],['a_bunny','🐇','아기 흰토끼',35,'animal'],['a_cat','🐈','치즈 고양이',35,'animal'],['a_panda','🐼','대나무 판다',45,'animal'],['a_swan','🦢','우아한 백조',40,'animal'],['a_butterfly','🦋','파랑 나비 요정',25,'animal'],['a_flamingo','🦩','핑크 플라밍고',40,'animal'],['a_puppy','🐕','포메라니안 강아지',35,'animal'],['a_hedgehog','🦔','도토리 고슴도치',30,'animal'],['a_fairy','🧚‍♀️','꽃의 요정 친구',60,'animal'],
+['s_rainbow','🌈','쌍무지개 다리',45,'sky'],['s_cloud','☁️','솜사탕 구름',20,'sky'],['s_shooting_star','🌠','별똥별 슈팅',40,'sky'],['s_hot_balloon','🎈','하트 열기구',50,'sky'],['s_sparkle','✨','요정 반짝이 가루',30,'sky'],['s_moon','🌙','초승달 그네',45,'sky']];
+const WCATS=[['all','🌈 전체'],['building','🏰 건물'],['nature','🌸 자연·정원'],['furniture','🍰 디저트·가구'],['animal','🦄 동물·요정'],['sky','✨ 하늘·반짝이']];
+const WSIZE={building:13,nature:9,furniture:8,animal:9,sky:10};
+const WLIST=WORLD_ITEMS.map(w=>{const x=[w[0],w[1],w[2],w[3],WSIZE[w[4]]];x.cat=w[4];x.realm='';ITEM_BY_ID[w[0]]=x;return x});
+const WTHEMES=[['day','☀️ 낮'],['sunset','🌅 노을'],['night','🌙 밤'],['sakura','🌸 벚꽃']];
+const SKY_DECO={night:[['🌙',88,12,8],['⭐',12,12,4],['✨',36,22,3.5],['🌟',62,9,4.5],['⭐',76,28,3]],sunset:[['🕊️',22,16,4.5],['☁️',64,12,6]],sakura:[['🌸',10,10,5],['🌸',80,14,6],['💮',50,22,4],['🌸',32,30,3.5]]};
+let decoSel=null,dDrag=null,wcat='all';
 const decoCount=r=>(data.deco[r]||[]).length;
 const placedOf=id=>{let n=0;KEYS.forEach(r=>data.deco[r].forEach(o=>{if(o.id===id)n++}));return n};
 const unplaced=id=>(data.owned[id]||0)-placedOf(id);
-function itemEl(o){const it=ITEM_BY_ID[o.id];if(!it)return '';return `<div class="it${decoSel===o.uid?' sel':''}" data-uid="${o.uid}" style="left:${o.x}%;top:${o.y}%;font-size:${it[4]}cqw;z-index:${Math.round(o.y)+1}">${it[1]}</div>`}
-function sceneHTML(r,cls){return `<div class="scene ${cls||''}" ${cls?'':'id="scene"'}>${SCENE_BG[r]}${data.deco[r].map(itemEl).join('')}</div>`}
-function trayHTML(r){const l=SHOP[r].filter(x=>unplaced(x[0])>0);
+const zOf=o=>Math.round(o.y)+1+(o.z||0)*100;
+const itTf=o=>`translate(-50%,-50%) scale(${(o.s||1)*(o.f?-1:1)},${o.s||1})`;
+function itemEl(o){const it=ITEM_BY_ID[o.id];if(!it)return '';return `<div class="it${decoSel===o.uid?' sel':''}" data-uid="${o.uid}" style="left:${o.x}%;top:${o.y}%;font-size:${it[4]}cqw;z-index:${zOf(o)};transform:${itTf(o)}"><span class="ic">${it[1]}</span></div>`}
+const themeOf=r=>((data.wtheme||{})[r])||'day';
+function sceneHTML(r,cls){const th=themeOf(r);let bg=SCENE_BG[r];if(th!=='day')bg=bg.replace(/url\(#dsk[MEC]\)/,'url(#dsk_'+th+')');
+ const sky=(SKY_DECO[th]||[]).map(([e,x,y,s])=>`<span class="sky" style="left:${x}%;top:${y}%;font-size:${s}cqw">${e}</span>`).join('');
+ return `<div class="scene ${cls||''}" ${cls?'':'id="scene"'}>${bg}${th!=='day'?`<div class="shade ${th}"></div>`:''}${sky}${data.deco[r].map(itemEl).join('')}</div>`}
+function trayHTML(r){const l=SHOP[r].concat(WLIST).filter(x=>unplaced(x[0])>0);
  return l.length?l.map(x=>`<button class="trayit" onclick="placeItem('${x[0]}')"><span>${x[1]}</span> ×${unplaced(x[0])}</button>`).join(''):'<span class="small">상자가 비었어요. 아래 상점에서 아이템을 사 보세요!</span>'}
 function deco(){decoSel=null;decoView()}
-function decoView(){const r=subject;
- setContent(`<div class="lesson"><h3>${REALM[r].icon} 나의 ${REALM[r].name} 꾸미기</h3><div class="small">💎 내 포인트 <b>${data.points}</b> · 아이템을 끌어서 옮겨요 (꾸미는 시간은 공부 타이머에 들어가지 않아요)</div>${sceneHTML(r)}<div id="decoSel" class="small" style="margin:8px 0;min-height:34px"></div><h4 style="margin:6px 0">🎒 내 상자 <span class="small">(눌러서 놓기)</span></h4><div class="tray">${trayHTML(r)}</div><h4 style="margin:14px 0 6px">🛍️ 상점</h4><div class="shop">${SHOP[r].map(x=>{const can=data.points>=x[3];return `<div class="shopitem"><div class="se">${x[1]}</div><div style="flex:1;min-width:0;text-align:left"><b>${x[2]}</b><div class="small">💎 ${x[3]} · 보유 ${data.owned[x[0]]||0}</div></div><button class="${can?'primary':'muted'}" ${can?'':'disabled'} onclick="buyItem('${x[0]}')">사기</button></div>`}).join('')}</div></div>`);
+function setWTheme(t){data.wtheme[subject]=t;save();decoView()}
+function decoView(){const r=subject,th=themeOf(r),wl=wcat==='all'?WLIST:WLIST.filter(x=>x.cat===wcat);
+ setContent(`<div class="lesson"><h3>${REALM[r].icon} 나의 ${REALM[r].name} 꾸미기</h3><div class="small">💎 내 포인트 <b>${data.points}</b> · 아이템을 끌어서 옮기고, 눌러서 크기·반전·순서를 바꿔요 (꾸미는 시간은 공부 타이머에 들어가지 않아요)</div>
+ <div class="row" style="margin-top:8px"><b class="small">배경</b> ${WTHEMES.map(([k,n])=>`<button class="chip ${k===th?'on':''}" onclick="setWTheme('${k}')">${n}</button>`).join('')}</div>
+ ${sceneHTML(r)}<div id="decoSel" class="small" style="margin:8px 0;min-height:34px"></div><h4 style="margin:6px 0">🎒 내 상자 <span class="small">(눌러서 놓기)</span></h4><div class="tray">${trayHTML(r)}</div>
+ <h4 style="margin:14px 0 6px">🛍️ ${REALM[r].name} 상점</h4><div class="shop">${SHOP[r].map(x=>{const can=data.points>=x[3];return `<div class="shopitem"><div class="se">${x[1]}</div><div style="flex:1;min-width:0;text-align:left"><b>${x[2]}</b><div class="small">💎 ${x[3]} · 보유 ${data.owned[x[0]]||0}</div></div><button class="${can?'primary':'muted'}" ${can?'':'disabled'} onclick="buyItem('${x[0]}')">사기</button></div>`}).join('')}</div>
+ <h4 style="margin:16px 0 6px">🌈 반짝 월드 상점 <span class="small">(48종 · 어느 나라에나 놓을 수 있어요)</span></h4>
+ <div class="row" style="justify-content:flex-start;margin-bottom:8px">${WCATS.map(([k,n])=>`<button class="chip ${k===wcat?'on':''}" onclick="wcat='${k}';decoView()">${n}</button>`).join('')}</div>
+ <div class="wshop">${wl.map(x=>{const can=data.points>=x[3];return `<button class="witem" ${can?'':'disabled'} onclick="buyItem('${x[0]}')"><span class="we">${x[1]}</span><span class="wn">${x[2]}</span><span class="wp">💎 ${x[3]}${data.owned[x[0]]?' · '+data.owned[x[0]]+'개':''}</span></button>`}).join('')}</div></div>`);
  decoBind();decoUpdateSel()}
 function decoUpdateSel(){document.querySelectorAll('#scene .it').forEach(el=>el.classList.toggle('sel',el.dataset.uid===decoSel));
  const e=$('decoSel');if(!e)return;const o=decoSel&&data.deco[subject].find(x=>x.uid===decoSel),it=o&&ITEM_BY_ID[o.id];
- e.innerHTML=it?`선택: <b>${it[1]} ${it[2]}</b> <button class="muted" style="padding:6px 10px;font-size:13px" onclick="decoRemove()">🎒 상자에 넣기</button>`:'👆 아이템을 눌러 고르고, 손가락으로 끌어서 옮겨 보세요!'}
+ e.innerHTML=it?`<div class="edbar"><b>${it[1]} ${it[2]}</b><button onclick="decoMod('down')">➖ 작게</button><button onclick="decoMod('up')">➕ 크게</button><button onclick="decoMod('flip')">↔️ 반전</button><button onclick="decoMod('front')">🔼 앞으로</button><button onclick="decoMod('back')">🔽 뒤로</button><button class="muted" onclick="decoRemove()">🎒 상자에 넣기</button></div>`:'👆 아이템을 눌러 고르고, 손가락으로 끌어서 옮겨 보세요!'}
+function decoMod(a){const o=decoSel&&data.deco[subject].find(x=>x.uid===decoSel);if(!o)return;const s=o.s||1,z=o.z||0;
+ if(a==='up')o.s=Math.min(2.2,+(s+.15).toFixed(2));else if(a==='down')o.s=Math.max(.55,+(s-.15).toFixed(2));else if(a==='flip')o.f=!o.f;else if(a==='front')o.z=Math.min(5,z+1);else if(a==='back')o.z=Math.max(-5,z-1);
+ save();const el=document.querySelector(`#scene .it[data-uid="${o.uid}"]`);if(el){el.style.transform=itTf(o);el.style.zIndex=zOf(o)}}
 function decoBind(){const sc=$('scene');if(!sc)return;
  sc.addEventListener('pointerdown',e=>{const el=e.target.closest('.it');if(!el){decoSel=null;decoUpdateSel();return}
   decoSel=el.dataset.uid;const o=data.deco[subject].find(x=>x.uid===decoSel);if(!o)return;dDrag={el,o,moved:false};
   try{el.setPointerCapture(e.pointerId)}catch(_){}decoUpdateSel();e.preventDefault()});
  sc.addEventListener('pointermove',e=>{if(!dDrag)return;const r=sc.getBoundingClientRect();if(!r.width)return;
   const x=Math.min(96,Math.max(4,(e.clientX-r.left)/r.width*100)),y=Math.min(95,Math.max(8,(e.clientY-r.top)/r.height*100));
-  dDrag.o.x=+x.toFixed(1);dDrag.o.y=+y.toFixed(1);dDrag.el.style.left=x+'%';dDrag.el.style.top=y+'%';dDrag.el.style.zIndex=Math.round(y)+1;dDrag.moved=true;e.preventDefault()});
- const end=()=>{if(dDrag){const m=dDrag.moved;dDrag=null;if(m)save()}};
+  dDrag.o.x=+x.toFixed(1);dDrag.o.y=+y.toFixed(1);dDrag.el.style.left=x+'%';dDrag.el.style.top=y+'%';dDrag.el.style.zIndex=zOf(dDrag.o);dDrag.moved=true;e.preventDefault()});
+ const end=()=>{if(!dDrag)return;const m=dDrag.moved,el=dDrag.el;dDrag=null;if(m)save();else{const ic=el.querySelector('.ic');if(ic){ic.classList.remove('world-item-pop');void ic.offsetWidth;ic.classList.add('world-item-pop')}}};
  sc.addEventListener('pointerup',end);sc.addEventListener('pointercancel',end)}
-function placeItem(id){const it=ITEM_BY_ID[id];if(!it||unplaced(id)<=0)return;const arr=data.deco[it.realm];if(arr.length>=40)return;
+function placeItem(id){const it=ITEM_BY_ID[id];if(!it||unplaced(id)<=0)return;const r=it.realm||subject,arr=data.deco[r];if(arr.length>=40)return;
  const o={uid:Date.now().toString(36)+rand(100,999),id,x:rand(20,80),y:rand(45,82)};arr.push(o);decoSel=o.uid;
- if(arr.length>=10)data.badges=[...new Set([...data.badges,'🎀 '+REALM[it.realm].name+' 꾸미기 박사'])];save();if(mode==='deco')decoView()}
+ if(arr.length>=10)data.badges=[...new Set([...data.badges,'🎀 '+REALM[r].name+' 꾸미기 박사'])];save();if(mode==='deco')decoView()}
 function decoRemove(){const arr=data.deco[subject],i=arr.findIndex(x=>x.uid===decoSel);if(i<0)return;arr.splice(i,1);decoSel=null;save();decoView()}
 function buyItem(id){const it=ITEM_BY_ID[id];if(!it||data.points<it[3])return;
  data.points-=it[3];data.owned[id]=(data.owned[id]||0)+1;data.badges=[...new Set([...data.badges,'🛍️ 첫 쇼핑'])];
- const arr=data.deco[it.realm];save();
+ const arr=data.deco[it.realm||subject];save();
  if(arr.length<40){placeItem(id)}else decoView();
  sfxWin();cheer(`${it[1]} ${it[2]} 샀어요! 💖`)}
 function openDeco(s){openSubject(s);setMode('deco')}
+
 function renderHomeDeco(){const h=$('homeDeco');if(!h)return;
  h.innerHTML=KEYS.map(r=>`<button class="homedeco" onclick="openDeco('${r}')">${sceneHTML(r,'mini')}<b>${REALM[r].icon} ${REALM[r].name}</b><span class="small">🎀 꾸민 아이템 ${decoCount(r)}개 · 눌러서 꾸미기</span></button>`).join('')}
 
